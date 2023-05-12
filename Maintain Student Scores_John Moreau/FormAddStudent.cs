@@ -36,7 +36,7 @@ namespace Maintain_Student_Scores_John_Moreau
             labelScoresTxt.Text = scores;
 
             // Focus the score entry text box
-            //textBoxScore.Focus();
+            textBoxScore.Focus();
             textBoxScore.SelectAll();
 
         }
@@ -59,6 +59,8 @@ namespace Maintain_Student_Scores_John_Moreau
             {
                 // Error if no name or white space is entered.
                 MessageBox.Show("Please enter a valid Student Name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //Make sure to set the response to NONE so that the form doesn't close
+                this.DialogResult = DialogResult.None;
                 return;
             }
 

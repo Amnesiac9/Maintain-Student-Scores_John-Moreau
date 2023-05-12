@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace Maintain_Student_Scores_John_Moreau
 {
-    public partial class FormUpdateScore : Form
+    public partial class FormEditName : Form
     {
-        public FormUpdateScore()
+        public FormEditName()
         {
             InitializeComponent();
         }
 
-        private void buttonUpdate_Click(object sender, EventArgs e)
+        private void buttonAdd_Click(object sender, EventArgs e)
         {
             int score;
             // Parse score and add it to an array
@@ -33,6 +33,7 @@ namespace Maintain_Student_Scores_John_Moreau
 
             // Set the result to OK to trigger this form closing and sending data back to main form.
             this.DialogResult = DialogResult.OK;
+
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

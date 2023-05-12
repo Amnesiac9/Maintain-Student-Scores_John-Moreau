@@ -58,6 +58,7 @@
             this.buttonUpdate.TabIndex = 2;
             this.buttonUpdate.Text = "&Update";
             this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
             // buttonCancel
             // 
@@ -68,6 +69,7 @@
             this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // FormUpdateScore
             // 
@@ -80,6 +82,8 @@
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.labeScore);
             this.Controls.Add(this.textBoxScore);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormUpdateScore";
             this.ShowIcon = false;
             this.Text = "Update Score";

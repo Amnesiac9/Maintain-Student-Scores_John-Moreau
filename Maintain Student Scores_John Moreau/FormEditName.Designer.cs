@@ -1,0 +1,98 @@
+﻿namespace Maintain_Student_Scores_John_Moreau
+{
+    partial class FormEditName
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonUpdate = new System.Windows.Forms.Button();
+            this.labeScore = new System.Windows.Forms.Label();
+            this.textBoxScore = new System.Windows.Forms.TextBox();
+            this.SuspendLayout();
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonCancel.Location = new System.Drawing.Point(137, 66);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 28);
+            this.buttonCancel.TabIndex = 7;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            // 
+            // buttonUpdate
+            // 
+            this.buttonUpdate.Location = new System.Drawing.Point(47, 66);
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Size = new System.Drawing.Size(75, 28);
+            this.buttonUpdate.TabIndex = 6;
+            this.buttonUpdate.Text = "&Update";
+            this.buttonUpdate.UseVisualStyleBackColor = true;
+            // 
+            // labeScore
+            // 
+            this.labeScore.AutoSize = true;
+            this.labeScore.Location = new System.Drawing.Point(25, 24);
+            this.labeScore.Name = "labeScore";
+            this.labeScore.Size = new System.Drawing.Size(47, 16);
+            this.labeScore.TabIndex = 5;
+            this.labeScore.Text = "Name:";
+            // 
+            // textBoxScore
+            // 
+            this.textBoxScore.Location = new System.Drawing.Point(75, 21);
+            this.textBoxScore.Name = "textBoxScore";
+            this.textBoxScore.Size = new System.Drawing.Size(161, 22);
+            this.textBoxScore.TabIndex = 4;
+            // 
+            // FormEditName
+            // 
+            this.ClientSize = new System.Drawing.Size(261, 106);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonUpdate);
+            this.Controls.Add(this.labeScore);
+            this.Controls.Add(this.textBoxScore);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(279, 153);
+            this.MinimizeBox = false;
+            this.Name = "FormEditName";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.Text = "Edit Name";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button buttonUpdate;
+        private System.Windows.Forms.Label labeScore;
+        private System.Windows.Forms.TextBox textBoxScore;
+    }
+}

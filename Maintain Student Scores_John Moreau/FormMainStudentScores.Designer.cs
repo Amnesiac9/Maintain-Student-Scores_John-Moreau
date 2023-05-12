@@ -41,10 +41,16 @@
             this.labelScoreTotalTxt = new System.Windows.Forms.Label();
             this.labelScoreCountTxt = new System.Windows.Forms.Label();
             this.labelAverageTxt = new System.Windows.Forms.Label();
+            this.labelTopStudent = new System.Windows.Forms.Label();
+            this.labelTopStudentNameTxt = new System.Windows.Forms.Label();
+            this.labelTopStudentAverage = new System.Windows.Forms.Label();
+            this.labelTopStudentAverageTxt = new System.Windows.Forms.Label();
+            this.buttonFindTopStudent = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonAddStudent
             // 
+            this.buttonAddStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAddStudent.Location = new System.Drawing.Point(403, 56);
             this.buttonAddStudent.Name = "buttonAddStudent";
             this.buttonAddStudent.Size = new System.Drawing.Size(88, 29);
@@ -55,6 +61,9 @@
             // 
             // listBoxStudents
             // 
+            this.listBoxStudents.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxStudents.FormattingEnabled = true;
             this.listBoxStudents.ItemHeight = 16;
             this.listBoxStudents.Items.AddRange(new object[] {
@@ -65,6 +74,7 @@
             this.listBoxStudents.Name = "listBoxStudents";
             this.listBoxStudents.Size = new System.Drawing.Size(356, 132);
             this.listBoxStudents.TabIndex = 4;
+            this.listBoxStudents.SelectedIndexChanged += new System.EventHandler(this.listBoxStudents_SelectedIndexChanged);
             // 
             // labelStudents
             // 
@@ -78,6 +88,7 @@
             // 
             // buttonUpdate
             // 
+            this.buttonUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUpdate.Location = new System.Drawing.Point(403, 91);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(88, 29);
@@ -88,6 +99,7 @@
             // 
             // buttonDelete
             // 
+            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDelete.Location = new System.Drawing.Point(403, 126);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(88, 29);
@@ -98,6 +110,7 @@
             // 
             // buttonExit
             // 
+            this.buttonExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonExit.Location = new System.Drawing.Point(405, 293);
             this.buttonExit.Name = "buttonExit";
@@ -109,6 +122,7 @@
             // 
             // labelScoreTotal
             // 
+            this.labelScoreTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelScoreTotal.AutoSize = true;
             this.labelScoreTotal.Location = new System.Drawing.Point(234, 215);
             this.labelScoreTotal.Name = "labelScoreTotal";
@@ -118,6 +132,7 @@
             // 
             // labelScoreCount
             // 
+            this.labelScoreCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelScoreCount.AutoSize = true;
             this.labelScoreCount.Location = new System.Drawing.Point(227, 243);
             this.labelScoreCount.Name = "labelScoreCount";
@@ -127,6 +142,7 @@
             // 
             // labelAverage
             // 
+            this.labelAverage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelAverage.AutoSize = true;
             this.labelAverage.Location = new System.Drawing.Point(246, 271);
             this.labelAverage.Name = "labelAverage";
@@ -136,6 +152,7 @@
             // 
             // labelScoreTotalTxt
             // 
+            this.labelScoreTotalTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelScoreTotalTxt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.labelScoreTotalTxt.Location = new System.Drawing.Point(314, 211);
             this.labelScoreTotalTxt.Name = "labelScoreTotalTxt";
@@ -145,6 +162,7 @@
             // 
             // labelScoreCountTxt
             // 
+            this.labelScoreCountTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelScoreCountTxt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.labelScoreCountTxt.Location = new System.Drawing.Point(314, 239);
             this.labelScoreCountTxt.Name = "labelScoreCountTxt";
@@ -154,12 +172,67 @@
             // 
             // labelAverageTxt
             // 
+            this.labelAverageTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelAverageTxt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.labelAverageTxt.Location = new System.Drawing.Point(314, 267);
             this.labelAverageTxt.Name = "labelAverageTxt";
             this.labelAverageTxt.Size = new System.Drawing.Size(73, 25);
             this.labelAverageTxt.TabIndex = 17;
             this.labelAverageTxt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelTopStudent
+            // 
+            this.labelTopStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelTopStudent.AutoSize = true;
+            this.labelTopStudent.Location = new System.Drawing.Point(31, 211);
+            this.labelTopStudent.Name = "labelTopStudent";
+            this.labelTopStudent.Size = new System.Drawing.Size(80, 16);
+            this.labelTopStudent.TabIndex = 18;
+            this.labelTopStudent.Text = "Top Student";
+            // 
+            // labelTopStudentNameTxt
+            // 
+            this.labelTopStudentNameTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelTopStudentNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelTopStudentNameTxt.Location = new System.Drawing.Point(34, 235);
+            this.labelTopStudentNameTxt.Name = "labelTopStudentNameTxt";
+            this.labelTopStudentNameTxt.Size = new System.Drawing.Size(169, 25);
+            this.labelTopStudentNameTxt.TabIndex = 19;
+            this.labelTopStudentNameTxt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelTopStudentAverage
+            // 
+            this.labelTopStudentAverage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelTopStudentAverage.AutoSize = true;
+            this.labelTopStudentAverage.Location = new System.Drawing.Point(28, 272);
+            this.labelTopStudentAverage.Name = "labelTopStudentAverage";
+            this.labelTopStudentAverage.Size = new System.Drawing.Size(101, 16);
+            this.labelTopStudentAverage.TabIndex = 20;
+            this.labelTopStudentAverage.Text = "Average Score:";
+            // 
+            // labelTopStudentAverageTxt
+            // 
+            this.labelTopStudentAverageTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelTopStudentAverageTxt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelTopStudentAverageTxt.Location = new System.Drawing.Point(130, 268);
+            this.labelTopStudentAverageTxt.Name = "labelTopStudentAverageTxt";
+            this.labelTopStudentAverageTxt.Size = new System.Drawing.Size(73, 25);
+            this.labelTopStudentAverageTxt.TabIndex = 21;
+            this.labelTopStudentAverageTxt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // buttonFindTopStudent
+            // 
+            this.buttonFindTopStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonFindTopStudent.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonFindTopStudent.BackgroundImage")));
+            this.buttonFindTopStudent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonFindTopStudent.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonFindTopStudent.Location = new System.Drawing.Point(175, 202);
+            this.buttonFindTopStudent.Name = "buttonFindTopStudent";
+            this.buttonFindTopStudent.Size = new System.Drawing.Size(28, 29);
+            this.buttonFindTopStudent.TabIndex = 22;
+            this.buttonFindTopStudent.UseVisualStyleBackColor = true;
+            this.buttonFindTopStudent.Click += new System.EventHandler(this.buttonFindTopStudent_Click);
             // 
             // FormMainStudentScores
             // 
@@ -168,6 +241,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonExit;
             this.ClientSize = new System.Drawing.Size(505, 334);
+            this.Controls.Add(this.buttonFindTopStudent);
+            this.Controls.Add(this.labelTopStudentAverageTxt);
+            this.Controls.Add(this.labelTopStudentAverage);
+            this.Controls.Add(this.labelTopStudentNameTxt);
+            this.Controls.Add(this.labelTopStudent);
             this.Controls.Add(this.labelAverageTxt);
             this.Controls.Add(this.labelScoreCountTxt);
             this.Controls.Add(this.labelScoreTotalTxt);
@@ -181,6 +259,8 @@
             this.Controls.Add(this.listBoxStudents);
             this.Controls.Add(this.buttonAddStudent);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(523, 900);
+            this.MinimumSize = new System.Drawing.Size(523, 381);
             this.Name = "FormMainStudentScores";
             this.Text = "Student Scores";
             this.Load += new System.EventHandler(this.FormMain_Load);
@@ -203,6 +283,11 @@
         private System.Windows.Forms.Label labelScoreTotalTxt;
         private System.Windows.Forms.Label labelScoreCountTxt;
         private System.Windows.Forms.Label labelAverageTxt;
+        private System.Windows.Forms.Label labelTopStudent;
+        private System.Windows.Forms.Label labelTopStudentNameTxt;
+        private System.Windows.Forms.Label labelTopStudentAverage;
+        private System.Windows.Forms.Label labelTopStudentAverageTxt;
+        private System.Windows.Forms.Button buttonFindTopStudent;
     }
 }
 
