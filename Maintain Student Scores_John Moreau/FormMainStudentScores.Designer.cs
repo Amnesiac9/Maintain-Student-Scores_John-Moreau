@@ -224,7 +224,7 @@
             // buttonFindTopStudent
             // 
             this.buttonFindTopStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFindTopStudent.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonFindTopStudent.BackgroundImage")));
+            this.buttonFindTopStudent.BackgroundImage = global::Maintain_Student_Scores_John_Moreau.Properties.Resources.search;
             this.buttonFindTopStudent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonFindTopStudent.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonFindTopStudent.Location = new System.Drawing.Point(175, 202);
