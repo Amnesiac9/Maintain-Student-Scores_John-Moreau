@@ -16,7 +16,8 @@ namespace Maintain_Student_Scores_John_Moreau
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain());
+            Application.Run(new FormMainStudentScores());
         }
+
     }
 }

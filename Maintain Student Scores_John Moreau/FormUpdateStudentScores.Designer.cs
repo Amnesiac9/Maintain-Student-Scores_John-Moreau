@@ -1,0 +1,173 @@
+﻿namespace Maintain_Student_Scores_John_Moreau
+{
+    partial class FormUpdateStudentScores
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.listBoxScores = new System.Windows.Forms.ListBox();
+            this.buttonUpdate = new System.Windows.Forms.Button();
+            this.buttonRemove = new System.Windows.Forms.Button();
+            this.buttonClear = new System.Windows.Forms.Button();
+            this.buttonOK = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.labelNameTxt = new System.Windows.Forms.Label();
+            this.labelName = new System.Windows.Forms.Label();
+            this.labelScores = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Location = new System.Drawing.Point(211, 72);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(107, 27);
+            this.buttonAdd.TabIndex = 1;
+            this.buttonAdd.Text = "&Add";
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            // 
+            // listBoxScores
+            // 
+            this.listBoxScores.FormattingEnabled = true;
+            this.listBoxScores.ItemHeight = 16;
+            this.listBoxScores.Location = new System.Drawing.Point(78, 72);
+            this.listBoxScores.Name = "listBoxScores";
+            this.listBoxScores.Size = new System.Drawing.Size(120, 148);
+            this.listBoxScores.TabIndex = 2;
+            // 
+            // buttonUpdate
+            // 
+            this.buttonUpdate.Location = new System.Drawing.Point(211, 112);
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Size = new System.Drawing.Size(107, 27);
+            this.buttonUpdate.TabIndex = 3;
+            this.buttonUpdate.Text = "&Update";
+            this.buttonUpdate.UseVisualStyleBackColor = true;
+            // 
+            // buttonRemove
+            // 
+            this.buttonRemove.Location = new System.Drawing.Point(211, 152);
+            this.buttonRemove.Name = "buttonRemove";
+            this.buttonRemove.Size = new System.Drawing.Size(107, 27);
+            this.buttonRemove.TabIndex = 4;
+            this.buttonRemove.Text = "&Remove";
+            this.buttonRemove.UseVisualStyleBackColor = true;
+            // 
+            // buttonClear
+            // 
+            this.buttonClear.Location = new System.Drawing.Point(211, 192);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(107, 27);
+            this.buttonClear.TabIndex = 5;
+            this.buttonClear.Text = "&Clear Scores";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            // 
+            // buttonOK
+            // 
+            this.buttonOK.Location = new System.Drawing.Point(91, 255);
+            this.buttonOK.Name = "buttonOK";
+            this.buttonOK.Size = new System.Drawing.Size(107, 27);
+            this.buttonOK.TabIndex = 6;
+            this.buttonOK.Text = "&OK";
+            this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonCancel.Location = new System.Drawing.Point(211, 255);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(107, 27);
+            this.buttonCancel.TabIndex = 7;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            // 
+            // labelNameTxt
+            // 
+            this.labelNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.labelNameTxt.Location = new System.Drawing.Point(78, 31);
+            this.labelNameTxt.Name = "labelNameTxt";
+            this.labelNameTxt.Size = new System.Drawing.Size(240, 23);
+            this.labelNameTxt.TabIndex = 8;
+            // 
+            // labelName
+            // 
+            this.labelName.AutoSize = true;
+            this.labelName.Location = new System.Drawing.Point(25, 32);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(47, 16);
+            this.labelName.TabIndex = 9;
+            this.labelName.Text = "Name:";
+            // 
+            // labelScores
+            // 
+            this.labelScores.AutoSize = true;
+            this.labelScores.Location = new System.Drawing.Point(19, 72);
+            this.labelScores.Name = "labelScores";
+            this.labelScores.Size = new System.Drawing.Size(53, 16);
+            this.labelScores.TabIndex = 10;
+            this.labelScores.Text = "Scores:";
+            // 
+            // FormUpdateStudentScores
+            // 
+            this.AcceptButton = this.buttonOK;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.buttonCancel;
+            this.ClientSize = new System.Drawing.Size(356, 294);
+            this.Controls.Add(this.labelScores);
+            this.Controls.Add(this.labelName);
+            this.Controls.Add(this.labelNameTxt);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonOK);
+            this.Controls.Add(this.buttonClear);
+            this.Controls.Add(this.buttonRemove);
+            this.Controls.Add(this.buttonUpdate);
+            this.Controls.Add(this.listBoxScores);
+            this.Controls.Add(this.buttonAdd);
+            this.Name = "FormUpdateStudentScores";
+            this.ShowIcon = false;
+            this.Text = "Update Scores";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.Button buttonAdd;
+        private System.Windows.Forms.ListBox listBoxScores;
+        private System.Windows.Forms.Button buttonUpdate;
+        private System.Windows.Forms.Button buttonRemove;
+        private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.Button buttonOK;
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Label labelNameTxt;
+        private System.Windows.Forms.Label labelName;
+        private System.Windows.Forms.Label labelScores;
+    }
+}

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Maintain_Student_Scores_John_Moreau
 {
-    public partial class FormMain : Form
+    public partial class FormUpdateScore : Form
     {
-        public FormMain()
+        public FormUpdateScore()
         {
             InitializeComponent();
         }
