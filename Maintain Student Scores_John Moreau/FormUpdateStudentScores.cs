@@ -10,6 +10,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/* 
+ * John Moreau
+ * CSS133
+ * 5/12/2023
+ * 
+ * 
+ */
+
 namespace Maintain_Student_Scores_John_Moreau
 {
     public partial class FormUpdateStudentScores : Form
@@ -19,7 +27,7 @@ namespace Maintain_Student_Scores_John_Moreau
             InitializeComponent();
         }
 
-        // Bool to check if changes were made
+        // Bool to check if changes were made, could put this in a method
         bool changesMade = false;
 
 
@@ -42,9 +50,6 @@ namespace Maintain_Student_Scores_John_Moreau
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-
-
-
             // Loop through scores list box and concat
 
             string newStudentScores = "";
@@ -52,7 +57,6 @@ namespace Maintain_Student_Scores_John_Moreau
             {
                 newStudentScores += "|" + listBoxScores.Items[i];
             }
-            
 
             // Concat new student with the name + scores
             newStudentScores = labelNameTxt.Text + newStudentScores;
@@ -66,9 +70,11 @@ namespace Maintain_Student_Scores_John_Moreau
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
+            // Open a form for adding a new score
             var formAddScore = new FormAddScore();
             DialogResult dialogResult = formAddScore.ShowDialog();
-
+            
+            // Make sure we get an OK response and a valid score in the tag
             if (dialogResult == DialogResult.OK && formAddScore.Tag != null)
             {
                 // Add the new score to our working score list box.
@@ -98,20 +104,16 @@ namespace Maintain_Student_Scores_John_Moreau
 
             if (dialogResult == DialogResult.OK && formUpdateScore.Tag != null)
             {
-               
-
                 // Need to find index of selected and replace.
                 listBoxScores.Items.RemoveAt(index);
                 listBoxScores.Items.Insert(index, formUpdateScore.Tag.ToString());
                 
                 // Update our changes made bool;
                 changesMade = true;
-
             }
 
             // Set the selected item back to index
             listBoxScores.SelectedIndex = index;
-
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
@@ -122,6 +124,7 @@ namespace Maintain_Student_Scores_John_Moreau
                 return;
             }
 
+            // Get the index of our selected item
             int index = listBoxScores.SelectedIndex;
 
             // Remove the selected score
@@ -138,6 +141,7 @@ namespace Maintain_Student_Scores_John_Moreau
             }
             else
             {
+                // Keep the current index selected
                 listBoxScores.SelectedIndex = index;
             }
 
@@ -146,10 +150,10 @@ namespace Maintain_Student_Scores_John_Moreau
         private void buttonClear_Click(object sender, EventArgs e)
         {
             // Create a dialog box to confirm
-            DialogResult eraseAllScores = MessageBox.Show("Are you sure you want to erase all scores?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question); ;
+            DialogResult eraseAllScores = MessageBox.Show("Are you sure you want to erase all scores?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); ;
             
-            // Return if the answer is no
-            if (eraseAllScores == DialogResult.No)
+            // Return if the answer is not OK
+            if (eraseAllScores != DialogResult.OK)
             {
                 return;
             }
@@ -173,41 +177,41 @@ namespace Maintain_Student_Scores_John_Moreau
                 if (eraseAllScores != DialogResult.OK)
                 {
                     // Set the dialog result of the overall form to NONE
-                    // This prevents the cancel button we clicked from closing the form anyway =)
+                    // This prevents the cancel button we clicked from closing the form anyway.
+                    // This is needed because the default cancel button always sends a dialogresult of Cancel so we need to delete it before it causes the form to close.
                     this.DialogResult = DialogResult.None;
                     return;
                 }
             }
 
 
-            // If they clicked OK
-            this.Close();
+            // If they clicked OK then this.Close() isn't needed because they clicked cancel
+            // Which, if it is set as the Cancel Button in the form properties, will always
+            // send a DialogResult.Cancel which sends the response to the underlying form.
+            // this.Close();
 
         }
 
         private void buttonEditName_Click(object sender, EventArgs e)
         {
-            //TODO
+            // New edit name form
             var formEditName = new FormEditName();
+
+            // Pass the current student name to the new form
+            formEditName.GetStudentName(labelNameTxt.Text);
+
+            // Open the new dialog
             DialogResult dialogResult = formEditName.ShowDialog();
 
+            // Make sure the user pressed OK and that the form returned a valid tag
             if (dialogResult == DialogResult.OK && formEditName.Tag != null)
             {
                 // Add the new score to our working score list box.
-                listBoxScores.Items.Add(formEditName.Tag.ToString());
+                labelNameTxt.Text = formEditName.Tag.ToString();
 
                 // Update our changes made bool;
                 changesMade = true;
             }
-
-
-            // Check if user entered a valid name. Empty scores is ok.
-            //if (string.IsNullOrWhiteSpace(textBoxName.Text))
-            //{
-            //    // Error if no name or white space is entered.
-            //    MessageBox.Show("Please enter a valid Student Name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
         }
     }
 }

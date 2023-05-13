@@ -74,6 +74,8 @@
             // FormUpdateScore
             // 
             this.AcceptButton = this.buttonUpdate;
+            this.AccessibleDescription = "A form for updating the currently selected score on a student record.";
+            this.AccessibleName = "Update Score Form";
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
@@ -83,9 +85,12 @@
             this.Controls.Add(this.labeScore);
             this.Controls.Add(this.textBoxScore);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(232, 184);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(232, 184);
             this.Name = "FormUpdateScore";
             this.ShowIcon = false;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Update Score";
             this.ResumeLayout(false);
             this.PerformLayout();

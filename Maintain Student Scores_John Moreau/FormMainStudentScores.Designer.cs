@@ -237,6 +237,8 @@
             // FormMainStudentScores
             // 
             this.AcceptButton = this.buttonAddStudent;
+            this.AccessibleDescription = "Main window for adding, updating, or deleting student records.";
+            this.AccessibleName = "Student Scores Record Main Window";
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonExit;
@@ -259,9 +261,10 @@
             this.Controls.Add(this.listBoxStudents);
             this.Controls.Add(this.buttonAddStudent);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(523, 900);
+            this.MaximumSize = new System.Drawing.Size(1200, 900);
             this.MinimumSize = new System.Drawing.Size(523, 381);
             this.Name = "FormMainStudentScores";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Student Scores";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.ResumeLayout(false);

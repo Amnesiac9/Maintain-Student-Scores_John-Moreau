@@ -73,6 +73,8 @@
             // FormAddScore
             // 
             this.AcceptButton = this.buttonAdd;
+            this.AccessibleDescription = "Form for adding a score for the currently selected student.";
+            this.AccessibleName = "Add Score Form";
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
@@ -82,10 +84,13 @@
             this.Controls.Add(this.labeScore);
             this.Controls.Add(this.textBoxScore);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(232, 184);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(232, 184);
             this.Name = "FormAddScore";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Add Score";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -16,7 +16,7 @@ using System.Reflection;
 /* 
  * John Moreau
  * CSS133
- * 5/9/2023
+ * 5/12/2023
  * 
  * Windows form app for maintaining a record of student scores.
  * 
@@ -36,6 +36,11 @@ namespace Maintain_Student_Scores_John_Moreau
     public partial class FormMainStudentScores : Form
     {
 
+        public FormMainStudentScores()
+        {
+            InitializeComponent();
+        }
+
         // Global file to save scores
         public static string fileSavePath = "StudentScores.bin";
         // Global index of the top student
@@ -43,15 +48,10 @@ namespace Maintain_Student_Scores_John_Moreau
 
         private void CreatorIntro()
         {
-            MessageBox.Show("Creator: John Moreau\n" +
-                "About: This program was created for Robin Greene's C# Class at WWCC.\n" +
-                "Description: Save and manage a record of student names and scores.\n" +
+            MessageBox.Show("Creator: John Moreau\n\n" +
+                "About: This program was created for Robin Greene's C# Class at WWCC.\n\n" +
+                "Description: Save and manage a record of student names and scores.\n\n" +
                 "Version: 1.0\n", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        public FormMainStudentScores()
-        {
-            InitializeComponent();
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -233,8 +233,11 @@ namespace Maintain_Student_Scores_John_Moreau
             string[] currentStudent = listBoxStudents.SelectedItem.ToString().Split('|'); // No idea why you have to use '' here
 
             // Check if we have any scores to calculate
-            if (currentStudent.Length < 1)
+            if (currentStudent.Length <= 1)
             {
+                labelScoreTotalTxt.Text = "0";
+                labelScoreCountTxt.Text = "0";
+                labelAverageTxt.Text = "0";
                 return;
             }
 
@@ -246,7 +249,11 @@ namespace Maintain_Student_Scores_John_Moreau
             int scoreTotal = 0;
             for (int i = 1; i < currentStudent.Length; ++i)
             {
-                scoreTotal += int.Parse(currentStudent[i]);
+                // Make sure it's a number
+                if (int.TryParse(currentStudent[i], out int score))
+                {
+                    scoreTotal += score;
+                }
             }
 
             // Calculate average
@@ -281,9 +288,11 @@ namespace Maintain_Student_Scores_John_Moreau
                 string[] currentStudent = student.Split('|');
 
                 // Check if we have any scores to calculate
-                if (currentStudent.Length < 1)
+                if (currentStudent.Length <= 1)
                 {
-                    return;
+                    // Increment our index to keep track
+                    index++;
+                    continue;
                 }
 
                 // Get our numbers
@@ -294,10 +303,13 @@ namespace Maintain_Student_Scores_John_Moreau
                 int scoreTotal = 0;
                 for (int i = 1; i < currentStudent.Length; ++i)
                 {
-                    scoreTotal += int.Parse(currentStudent[i]);
+                    if (int.TryParse(currentStudent[i], out int score))
+                    {
+                        scoreTotal += score;
+                    }
                 }
 
-                // Calculate average
+
                 int scoreAverage = scoreTotal / scoreCount;
 
                 // Check if this is our best

@@ -122,6 +122,8 @@
             // 
             // labelNameTxt
             // 
+            this.labelNameTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.labelNameTxt.Location = new System.Drawing.Point(78, 31);
             this.labelNameTxt.Name = "labelNameTxt";
@@ -162,6 +164,8 @@
             // FormUpdateStudentScores
             // 
             this.AcceptButton = this.buttonOK;
+            this.AccessibleDescription = "Form for updating a student record.";
+            this.AccessibleName = "Update Student Record Form";
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
@@ -177,11 +181,12 @@
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.listBoxScores);
             this.Controls.Add(this.buttonAdd);
-            this.MaximumSize = new System.Drawing.Size(374, 700);
+            this.MaximumSize = new System.Drawing.Size(1000, 700);
             this.MinimumSize = new System.Drawing.Size(374, 341);
             this.Name = "FormUpdateStudentScores";
             this.ShowIcon = false;
-            this.Text = "Update Scores";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.Text = "Update Student";
             this.ResumeLayout(false);
             this.PerformLayout();
 

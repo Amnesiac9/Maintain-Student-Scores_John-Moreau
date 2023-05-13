@@ -8,8 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/* 
+ * John Moreau
+ * CSS133
+ * 5/12/2023
+ * 
+ * 
+ */
+
 namespace Maintain_Student_Scores_John_Moreau
 {
+
     public partial class FormAddStudent : Form
     {
         public FormAddStudent()
@@ -45,6 +54,7 @@ namespace Maintain_Student_Scores_John_Moreau
         {
             // Clear the label text;
             labelScoresTxt.Text = "";
+            textBoxScore.Focus();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -55,12 +65,16 @@ namespace Maintain_Student_Scores_John_Moreau
         private void buttonOK_Click(object sender, EventArgs e)
         {
             // Check if user entered a valid name. Empty scores is ok.
-            if (string.IsNullOrWhiteSpace(textBoxName.Text))
+            if (string.IsNullOrWhiteSpace(textBoxName.Text) || textBoxName.Text.Contains("|"))
             {
                 // Error if no name or white space is entered.
-                MessageBox.Show("Please enter a valid Student Name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please enter a valid Student Name, '|' not allowed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //Make sure to set the response to NONE so that the form doesn't close
                 this.DialogResult = DialogResult.None;
+
+                // Re-Focus the text box
+                textBoxName.Focus();
+
                 return;
             }
 
@@ -73,5 +87,7 @@ namespace Maintain_Student_Scores_John_Moreau
             // Set the result to OK to trigger this form closing and sending data back to main form.
             this.DialogResult = DialogResult.OK;
         }
+
+
     }
 }

@@ -42,6 +42,7 @@
             // 
             // textBoxName
             // 
+            this.textBoxName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.textBoxName.Location = new System.Drawing.Point(59, 28);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(212, 22);
@@ -49,6 +50,7 @@
             // 
             // textBoxScore
             // 
+            this.textBoxScore.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.textBoxScore.Location = new System.Drawing.Point(59, 66);
             this.textBoxScore.Name = "textBoxScore";
             this.textBoxScore.Size = new System.Drawing.Size(90, 22);
@@ -56,6 +58,7 @@
             // 
             // buttonAddScore
             // 
+            this.buttonAddScore.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.buttonAddScore.Location = new System.Drawing.Point(170, 65);
             this.buttonAddScore.Name = "buttonAddScore";
             this.buttonAddScore.Size = new System.Drawing.Size(101, 27);
@@ -66,6 +69,7 @@
             // 
             // buttonClear
             // 
+            this.buttonClear.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonClear.Location = new System.Drawing.Point(170, 145);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(101, 27);
@@ -76,6 +80,7 @@
             // 
             // buttonOK
             // 
+            this.buttonOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.Location = new System.Drawing.Point(48, 184);
             this.buttonOK.Name = "buttonOK";
@@ -87,6 +92,7 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(170, 184);
             this.buttonCancel.Name = "buttonCancel";
@@ -98,6 +104,7 @@
             // 
             // labelScore
             // 
+            this.labelScore.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelScore.AutoSize = true;
             this.labelScore.Location = new System.Drawing.Point(9, 68);
             this.labelScore.Name = "labelScore";
@@ -107,6 +114,7 @@
             // 
             // labelName
             // 
+            this.labelName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelName.AutoSize = true;
             this.labelName.Location = new System.Drawing.Point(9, 31);
             this.labelName.Name = "labelName";
@@ -116,6 +124,7 @@
             // 
             // labelScores
             // 
+            this.labelScores.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelScores.AutoSize = true;
             this.labelScores.Location = new System.Drawing.Point(4, 107);
             this.labelScores.Name = "labelScores";
@@ -125,6 +134,7 @@
             // 
             // labelScoresTxt
             // 
+            this.labelScoresTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.labelScoresTxt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.labelScoresTxt.Location = new System.Drawing.Point(59, 106);
             this.labelScoresTxt.Name = "labelScoresTxt";
@@ -135,6 +145,8 @@
             // FormAddStudent
             // 
             this.AcceptButton = this.buttonAddScore;
+            this.AccessibleDescription = "Form for adding a new student.";
+            this.AccessibleName = "New Student Form";
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
@@ -150,7 +162,9 @@
             this.Controls.Add(this.textBoxScore);
             this.Controls.Add(this.textBoxName);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(900, 270);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(300, 270);
             this.Name = "FormAddStudent";
             this.ShowIcon = false;
             this.Text = "Add New Student";
