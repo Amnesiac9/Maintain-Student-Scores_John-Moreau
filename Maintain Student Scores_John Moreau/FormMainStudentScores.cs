@@ -292,6 +292,7 @@ namespace Maintain_Student_Scores_John_Moreau
                 {
                     // Increment our index to keep track
                     index++;
+                    // Skip to next loop iteration if the current student didn't have any scores
                     continue;
                 }
 
