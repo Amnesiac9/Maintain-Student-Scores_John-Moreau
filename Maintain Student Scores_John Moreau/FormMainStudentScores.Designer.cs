@@ -265,6 +265,7 @@
             this.MinimumSize = new System.Drawing.Size(523, 381);
             this.Name = "FormMainStudentScores";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Student Scores";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.ResumeLayout(false);

@@ -186,6 +186,7 @@
             this.Name = "FormUpdateStudentScores";
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Update Student";
             this.ResumeLayout(false);
             this.PerformLayout();

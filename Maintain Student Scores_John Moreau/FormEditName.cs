@@ -51,6 +51,10 @@ namespace Maintain_Student_Scores_John_Moreau
                 // Error Message.
                 MessageBox.Show("Please enter a valid student name, '|' not allowed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
+                // Refocus text box
+                textBoxName.SelectAll();
+                textBoxName.Focus();
+
                 // Make sure we don't close out of the editing student name form
                 this.DialogResult = DialogResult.None;
                 return;

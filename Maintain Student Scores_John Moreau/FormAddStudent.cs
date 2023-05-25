@@ -34,6 +34,10 @@ namespace Maintain_Student_Scores_John_Moreau
             {
                 //error
                 MessageBox.Show("Please enter a valid score from 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+                // Refocus text box
+                textBoxScore.SelectAll();
+                textBoxScore.Focus();
                 return;
             }
 

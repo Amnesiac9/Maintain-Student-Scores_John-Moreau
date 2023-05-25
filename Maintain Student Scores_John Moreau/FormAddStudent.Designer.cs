@@ -167,6 +167,7 @@
             this.MinimumSize = new System.Drawing.Size(300, 270);
             this.Name = "FormAddStudent";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add New Student";
             this.ResumeLayout(false);
             this.PerformLayout();

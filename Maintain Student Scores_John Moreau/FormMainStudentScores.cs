@@ -101,7 +101,8 @@ namespace Maintain_Student_Scores_John_Moreau
             // Get the index of selected student
             int studentIndex = listBoxStudents.SelectedIndex;
 
-            var formUpdateStudent = new FormUpdateStudentScores(); // Create new update Student Form
+            // Create new update Student Form
+            var formUpdateStudent = new FormUpdateStudentScores(); 
 
             // Pass the selected data to the new form
             formUpdateStudent.GetStudentData(listBoxStudents.SelectedItem.ToString());
@@ -128,6 +129,13 @@ namespace Maintain_Student_Scores_John_Moreau
         // DELETE BUTTON //
         private void buttonDelete_Click(object sender, EventArgs e)
         {
+
+            if (listBoxStudents.SelectedItem == null)
+            {
+                return;
+            }
+
+
             // Show a warning message before deleting students
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this student?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 

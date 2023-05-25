@@ -91,6 +91,7 @@
             this.Name = "FormUpdateScore";
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Update Score";
             this.ResumeLayout(false);
             this.PerformLayout();

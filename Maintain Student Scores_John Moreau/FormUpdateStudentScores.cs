@@ -40,7 +40,7 @@ namespace Maintain_Student_Scores_John_Moreau
             // Add the name
             labelNameTxt.Text = currentStudent[0]; // Name
 
-            // Add the scores // need to use length -1 to avoid added white space from split function
+            // Add the scores starting at index 1 to skip name
             for (int i = 1; i < currentStudent.Length; i++) 
             {
                 listBoxScores.Items.Add(currentStudent[i]);
@@ -62,10 +62,10 @@ namespace Maintain_Student_Scores_John_Moreau
             newStudentScores = labelNameTxt.Text + newStudentScores;
 
             // Set the tag to this new student string to export it back to the main form.
-            this.Tag = newStudentScores;
+            Tag = newStudentScores;
 
             // Set the result to OK to trigger this form closing and sending data back to main form.
-            this.DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.OK;
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -179,7 +179,7 @@ namespace Maintain_Student_Scores_John_Moreau
                     // Set the dialog result of the overall form to NONE
                     // This prevents the cancel button we clicked from closing the form anyway.
                     // This is needed because the default cancel button always sends a dialogresult of Cancel so we need to delete it before it causes the form to close.
-                    this.DialogResult = DialogResult.None;
+                    DialogResult = DialogResult.None;
                     return;
                 }
             }
