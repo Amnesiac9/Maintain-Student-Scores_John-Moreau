@@ -46,6 +46,9 @@ namespace Maintain_Student_Scores_John_Moreau
         // Global index of the top student
         int topStudentIndex;
 
+        // Global list of students
+        List<Student> StudentList = new List<Student>();
+
         private void CreatorIntro()
         {
             // Show about box
@@ -167,6 +170,9 @@ namespace Maintain_Student_Scores_John_Moreau
 
 
         // Helper Functions //
+
+        // pre: none
+        // post: student scores are loaded from a binary file into the list box
         public void LoadStudentScores() // Load from Binary
         {
            
@@ -179,9 +185,8 @@ namespace Maintain_Student_Scores_John_Moreau
             }
 
             // Load the contents of the file into an array of strings
-            string[] studentScores; // Using a simple array of strings this time.
+            //string[] studentScores; // Using a simple array of strings this time.
 
-            int[] studentScoresIntArray;
 
             // Open file stream
             using (FileStream stream = new FileStream(fileSavePath, FileMode.Open))
@@ -191,21 +196,26 @@ namespace Maintain_Student_Scores_John_Moreau
                 BinaryFormatter formatter = new BinaryFormatter();
                 // deserialize and cast to the student scores string[]
                 // Need to put (string[]) here because formatter will return an object but we want a string[]
-                studentScores = (string[])formatter.Deserialize(stream);
+                StudentList = (List<Student>)formatter.Deserialize(stream);
             }
 
             // Clear list box and add each student to the list box
             this.listBoxStudents.Items.Clear();
 
-            foreach (string student in studentScores)
+            foreach (Student student in StudentList)
             {
-                listBoxStudents.Items.Add(student);
+                listBoxStudents.Items.Add(student.ConcatNameAndScoresToString());
             }
+
+            // Create our objects with the student and scores classes
 
         }
 
+
+        // pre: none
+        // post: The student scores are saved to a bin file.
         public void SaveStudentScores()
-        {   
+        {
             // Create a new string array with the same size as our list box
             string[] studentScores = new string[listBoxStudents.Items.Count];
 
@@ -215,16 +225,21 @@ namespace Maintain_Student_Scores_John_Moreau
                 studentScores[i] = listBoxStudents.Items[i].ToString();
             }
 
+            StudentList = SplitNameAndScoresToList(studentScores);
+
             // Serialize to a binary file.
             // https://www.codeproject.com/questions/500398/saveplusfileplusinplusbinaryplususingplusc-23
             using (FileStream stream = new FileStream(fileSavePath, FileMode.Create))
             {
                 BinaryFormatter formatter = new BinaryFormatter(); // IDK why it wouldn't let me do a "using" here, doesn't need to be disposed of?
-                formatter.Serialize(stream, studentScores);    
+                formatter.Serialize(stream, StudentList);    
             }
 
         }
 
+
+        // pre: the selected index of the list box is changed
+        // post: labels for the selected student's stats are updated
         private void listBoxStudents_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Check for nothing selected
@@ -239,6 +254,11 @@ namespace Maintain_Student_Scores_John_Moreau
 
             // Pull Student String and split into an array
             string[] currentStudent = listBoxStudents.SelectedItem.ToString().Split('|'); // No idea why you have to use '' here
+
+            // Get index of the selected student
+            int studentIndex = listBoxStudents.SelectedIndex;
+
+
 
             // Check if we have any scores to calculate
             if (currentStudent.Length <= 1)
@@ -273,7 +293,8 @@ namespace Maintain_Student_Scores_John_Moreau
             labelAverageTxt.Text = scoreAverage.ToString();
         }
 
-        // This could get improved to only call if the current best is deleted or beaten by a new or updated student
+        // pre: list of students edited
+        // post: the top student is found and the labels are updated
         private void GetTopStudent() 
         {
 
@@ -343,6 +364,47 @@ namespace Maintain_Student_Scores_John_Moreau
 
         }
 
+        // pre: string of student scores formatted with | as a seperator
+        // post: a list of students with names and scores as objects
+        public List<Student> SplitNameAndScoresToList(string[] students)
+        {
+
+            List<Student> StudentList = new List<Student>();
+
+            foreach (string student in students)
+            {
+
+                string[] currentStudent = student.Split('|');
+
+                Student newStudent = new Student(currentStudent[0]);
+
+                if (currentStudent.Length <= 1)
+                {
+                    // We have no scores, so skip to the next student
+                    continue;
+                }
+
+                // Create an int array to hold the parsed scores, -1 because we already took out the name
+                int[] newScores = new int[currentStudent.Length - 1];
+
+                for (int i = 1; i < currentStudent.Length; ++i)
+                {
+                    if (int.TryParse(currentStudent[i], out int score))
+                    {
+                        newScores[i - 1] = score;
+                    }
+                }
+
+
+                // add scores to student.
+                newStudent.StudentScores = new Scores(newScores);
+
+                // Add student to student list
+                StudentList.Add(newStudent);
+            }
+
+            return StudentList;
+        }
 
     }
 }

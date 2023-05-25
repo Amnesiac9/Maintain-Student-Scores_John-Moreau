@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace Maintain_Student_Scores_John_Moreau
 {
+    [Serializable]
     public class Student
     {
 
@@ -21,14 +22,21 @@ namespace Maintain_Student_Scores_John_Moreau
         public Scores StudentScores { get; set; }
         public static DateTime RecordStartDate { get; private set; } // private so we can't change it later
         
-        public Student(string name, Scores scores)
+        public Student(string name)
         {
             Name = name;
-            StudentScores = scores;
+            StudentScores = new Scores(new int[0]);
             RecordStartDate = DateTime.Now;
         }
 
-        public string DisplayNameAndScores()
+        public Student(string name, int[] scores)
+            : this(name)
+        {
+            StudentScores = new Scores(scores);
+        }
+        
+
+        public string ConcatNameAndScoresToString()
         {
             string NameAndScoresString = Name;
             foreach (int score in StudentScores.ScoresArray) {
@@ -37,7 +45,8 @@ namespace Maintain_Student_Scores_John_Moreau
             }
             return NameAndScoresString;
         }
-
-
     }
+
+
+
 }
