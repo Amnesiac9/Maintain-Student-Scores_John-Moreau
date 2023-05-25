@@ -45,7 +45,6 @@ namespace Maintain_Student_Scores_John_Moreau
         public static string fileSavePath = "StudentScores.bin";
         // Global index of the top student
         int topStudentIndex;
-
         // Global list of students
         List<Student> StudentList = new List<Student>();
 
@@ -158,18 +157,15 @@ namespace Maintain_Student_Scores_John_Moreau
         private void buttonFindTopStudent_Click(object sender, EventArgs e)
         {
             // Make sure the top student has been found and an index has been saved
-            if (labelTopStudentNameTxt.Text == "" || topStudentIndex < 0)
+            if (labelTopStudentNameTxt.Text == "")
             {
                 return;
             }
             // Set the selected index to the top student index
-            listBoxStudents.SelectedIndex = topStudentIndex;
+            listBoxStudents.SelectedIndex = TopStudentRecord.TopStudentIndex;
         }
 
-
-
-
-        // Helper Functions //
+        // Functions //
 
         // pre: none
         // post: student scores are loaded from a binary file into the list box
@@ -183,10 +179,6 @@ namespace Maintain_Student_Scores_John_Moreau
                 SaveStudentScores();
                 return;
             }
-
-            // Load the contents of the file into an array of strings
-            //string[] studentScores; // Using a simple array of strings this time.
-
 
             // Open file stream
             using (FileStream stream = new FileStream(fileSavePath, FileMode.Open))
@@ -273,63 +265,14 @@ namespace Maintain_Student_Scores_John_Moreau
                 return;
             }
 
-            // Variables
-            string bestStudent = "";
-            int bestStudentAverage = 0;
-            int bestStudentTotal = 0;
-            int index = 0;
+            // Create new top student record
+            TopStudentRecord topStudentRecord = new TopStudentRecord();
+            // Set the top student from our current list
+            topStudentRecord.SetTopStudent(StudentList);
 
-            // Loop through list box items
-            foreach(string student in listBoxStudents.Items)
-            {
-                // Pull Student String and split into an array
-                string[] currentStudent = student.Split('|');
-
-                // Check if we have any scores to calculate
-                if (currentStudent.Length <= 1)
-                {
-                    // Increment our index to keep track
-                    index++;
-                    // Skip to next loop iteration if the current student didn't have any scores
-                    continue;
-                }
-
-                // Get our numbers
-                // Score count is just the student length minus one since we exclude the name part of the array
-                int scoreCount = currentStudent.Length - 1;
-
-                // Add up the total from the name onwards
-                int scoreTotal = 0;
-                for (int i = 1; i < currentStudent.Length; ++i)
-                {
-                    if (int.TryParse(currentStudent[i], out int score))
-                    {
-                        scoreTotal += score;
-                    }
-                }
-
-
-                int scoreAverage = scoreTotal / scoreCount;
-
-                // Check if this is our best
-                if (scoreAverage > bestStudentAverage || 
-                    // Also check if they are equal, then the best score wins
-                   (scoreAverage == bestStudentAverage && scoreTotal > bestStudentTotal))
-                {
-                    bestStudentTotal = scoreTotal;
-                    bestStudentAverage = scoreAverage;
-                    bestStudent = currentStudent[0];
-                    topStudentIndex = index;
-                }
-
-
-                // Increment our index to keep track
-                index++;
-            }
-
-            // Set labels
-            labelTopStudentNameTxt.Text = bestStudent;
-            labelTopStudentAverageTxt.Text = bestStudentAverage.ToString();
+            // Labels
+            labelTopStudentNameTxt.Text = topStudentRecord.TopStudent.Name;
+            labelTopStudentAverageTxt.Text = topStudentRecord.AverageScore.ToString();
 
         }
 
