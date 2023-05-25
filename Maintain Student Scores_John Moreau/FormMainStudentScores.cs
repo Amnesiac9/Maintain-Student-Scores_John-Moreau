@@ -48,15 +48,9 @@ namespace Maintain_Student_Scores_John_Moreau
 
         private void CreatorIntro()
         {
-            // Show about template
+            // Show about box
             var aboutBox = new AboutBox();
             aboutBox.ShowDialog();
-
-
-            //MessageBox.Show("Creator: John Moreau\n\n" +
-            //    "About: This program was created for Robin Greene's C# Class at WWCC.\n\n" +
-            //    "Description: Save and manage a record of student names and scores.\n\n" +
-            //    "Version: 1.0\n", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -181,12 +175,13 @@ namespace Maintain_Student_Scores_John_Moreau
             {
                 // If not, create it.
                 SaveStudentScores();
-                //MessageBox.Show("Error loading student scores", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             // Load the contents of the file into an array of strings
             string[] studentScores; // Using a simple array of strings this time.
+
+            int[] studentScoresIntArray;
 
             // Open file stream
             using (FileStream stream = new FileStream(fileSavePath, FileMode.Open))
