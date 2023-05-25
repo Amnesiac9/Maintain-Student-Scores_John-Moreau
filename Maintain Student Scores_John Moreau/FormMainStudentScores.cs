@@ -16,7 +16,7 @@ using System.Reflection;
 /* 
  * John Moreau
  * CSS133
- * 5/12/2023
+ * 5/24/2023
  * 
  * Windows form app for maintaining a record of student scores.
  * 
@@ -48,10 +48,15 @@ namespace Maintain_Student_Scores_John_Moreau
 
         private void CreatorIntro()
         {
-            MessageBox.Show("Creator: John Moreau\n\n" +
-                "About: This program was created for Robin Greene's C# Class at WWCC.\n\n" +
-                "Description: Save and manage a record of student names and scores.\n\n" +
-                "Version: 1.0\n", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Show about template
+            var aboutBox = new AboutBox();
+            aboutBox.ShowDialog();
+
+
+            //MessageBox.Show("Creator: John Moreau\n\n" +
+            //    "About: This program was created for Robin Greene's C# Class at WWCC.\n\n" +
+            //    "Description: Save and manage a record of student names and scores.\n\n" +
+            //    "Version: 1.0\n", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void FormMain_Load(object sender, EventArgs e)

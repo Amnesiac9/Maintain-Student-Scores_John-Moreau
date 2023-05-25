@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Maintain Student Scores_John Moreau")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Maintain Student Scores Form")]
+[assembly: AssemblyDescription("Save and manage a record of student names and scores, save scores to a bin file, and load scores upon return. This program was created for Robin Greene's C# Class at WWCC. ")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Maintain Student Scores_John Moreau")]
+[assembly: AssemblyCompany("By: John Moreau - MarsBytes Software")]
+[assembly: AssemblyProduct("Maintain Student Scores Form")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("2.0.10")]
+[assembly: AssemblyFileVersion("2.0.10")]
