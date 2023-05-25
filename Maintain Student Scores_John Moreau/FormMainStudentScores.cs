@@ -194,8 +194,7 @@ namespace Maintain_Student_Scores_John_Moreau
                 // Create new binary formatter to convert to bin
                 // https://stackoverflow.com/questions/32108996/deserialize-object-from-binary-file
                 BinaryFormatter formatter = new BinaryFormatter();
-                // deserialize and cast to the student scores string[]
-                // Need to put (string[]) here because formatter will return an object but we want a string[]
+                // deserialize and cast to a student list which includes their scores.
                 StudentList = (List<Student>)formatter.Deserialize(stream);
             }
 
@@ -207,13 +206,11 @@ namespace Maintain_Student_Scores_John_Moreau
                 listBoxStudents.Items.Add(student.ConcatNameAndScoresToString());
             }
 
-            // Create our objects with the student and scores classes
-
         }
 
 
         // pre: none
-        // post: The student scores are saved to a bin file.
+        // post: The student scores are pulled from the list box and saved to a bin file.
         public void SaveStudentScores()
         {
             // Create a new string array with the same size as our list box
@@ -245,52 +242,24 @@ namespace Maintain_Student_Scores_John_Moreau
             // Check for nothing selected
             if (listBoxStudents.SelectedItem == null)
             {
-                // Reset labels
+                // Clear labels
                 labelScoreTotalTxt.Text = "";
                 labelScoreCountTxt.Text = "";
                 labelAverageTxt.Text = "";
                 return;
             }
 
-            // Pull Student String and split into an array
-            string[] currentStudent = listBoxStudents.SelectedItem.ToString().Split('|'); // No idea why you have to use '' here
-
             // Get index of the selected student
             int studentIndex = listBoxStudents.SelectedIndex;
 
+            // Get the currently selected student
+            Student selectedStudent = StudentList[studentIndex];
 
+            // Set the labels
+            labelScoreCountTxt.Text = selectedStudent.StudentScores.ScoreCount.ToString();
+            labelScoreTotalTxt.Text = selectedStudent.StudentScores.ScoreTotal.ToString();
+            labelAverageTxt.Text = selectedStudent.StudentScores.ScoreAverage.ToString();
 
-            // Check if we have any scores to calculate
-            if (currentStudent.Length <= 1)
-            {
-                labelScoreTotalTxt.Text = "0";
-                labelScoreCountTxt.Text = "0";
-                labelAverageTxt.Text = "0";
-                return;
-            }
-
-            // Get our numbers
-            // Score count is just the student length minus one since we exclude the name part of the array
-            int scoreCount = currentStudent.Length - 1;
-
-            // Add up the total from the name onwards
-            int scoreTotal = 0;
-            for (int i = 1; i < currentStudent.Length; ++i)
-            {
-                // Make sure it's a number
-                if (int.TryParse(currentStudent[i], out int score))
-                {
-                    scoreTotal += score;
-                }
-            }
-
-            // Calculate average
-            int scoreAverage = scoreTotal / scoreCount;
-
-            // Update Labels
-            labelScoreTotalTxt.Text = scoreTotal.ToString();
-            labelScoreCountTxt.Text = scoreCount.ToString();
-            labelAverageTxt.Text = scoreAverage.ToString();
         }
 
         // pre: list of students edited
