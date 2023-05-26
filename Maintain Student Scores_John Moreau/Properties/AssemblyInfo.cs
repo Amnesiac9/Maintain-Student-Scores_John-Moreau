@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Maintain Student Scores Form")]
 [assembly: AssemblyDescription("Save and manage a record of student names and scores, save scores to a bin file, and load scores upon return. This program was created for Robin Greene's C# Class at WWCC. ")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("By: John Moreau - MarsBytes Software")]
+[assembly: AssemblyCompany("By: John Moreau")]
 [assembly: AssemblyProduct("Maintain Student Scores Form")]
-[assembly: AssemblyCopyright("Copyright ©  2023")]
+[assembly: AssemblyCopyright("Copyright ©  2023 - MarsBytes Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.10")]
-[assembly: AssemblyFileVersion("2.0.10")]
+[assembly: AssemblyVersion("2.2.4")]
+[assembly: AssemblyFileVersion("2.2.4")]

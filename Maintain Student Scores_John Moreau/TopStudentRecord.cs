@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 /* 
  * John Moreau
  * CSS133
- * 5/24/2023
+ * 5/25/2023
  * 
  * 
  */
@@ -17,14 +17,8 @@ namespace Maintain_Student_Scores_John_Moreau
     public static class TopStudentRecord
     {
         public static Student TopStudent { get; set; }
-        public static double AverageScore { get; set; }
-
+        public static int AverageScore { get; set; }
         public static int TopStudentIndex { get; set; }
-
-        private static void GetTopStudentAverage()
-        {
-            AverageScore = TopStudent.StudentScores.ScoreAverage;
-        }
 
         // pre: List of students
         // post: Top student is found and average is updated
@@ -32,20 +26,27 @@ namespace Maintain_Student_Scores_John_Moreau
         {
             int index = 0;
 
-            TopStudent = StudentList[0];
+            if (StudentList.Count < 1)
+            {
+                return;
+            }
+
+
+            TopStudent = StudentList[index];
 
             foreach (Student student in StudentList)
             {
                 Scores currentStudent = student.StudentScores;
                 Scores bestStudent = TopStudent.StudentScores;
 
-                if ( currentStudent.ScoreAverage > bestStudent.ScoreAverage
-                    || currentStudent.ScoreAverage == bestStudent.ScoreAverage
-                    && currentStudent.ScoreTotal > bestStudent.ScoreTotal)
+                if ( currentStudent.Average > bestStudent.Average
+                    || currentStudent.Average == bestStudent.Average
+                    && currentStudent.Total > bestStudent.Total)
                 {
                     TopStudent = student;
+                    AverageScore = student.StudentScores.Average;
                     TopStudentIndex = index;
-                    GetTopStudentAverage();
+                    
                 }
                 ++index;
             }

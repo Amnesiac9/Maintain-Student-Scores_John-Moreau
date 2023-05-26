@@ -25,6 +25,11 @@ namespace Maintain_Student_Scores_John_Moreau
             InitializeComponent();
         }
 
+        public void GetScoreData(string score)
+        {
+            textBoxScore.Text = score;
+        }
+
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
             int score;

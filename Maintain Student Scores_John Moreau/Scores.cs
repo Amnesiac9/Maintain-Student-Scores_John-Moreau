@@ -18,31 +18,30 @@ namespace Maintain_Student_Scores_John_Moreau
     public class Scores
     {
         public int[] ScoresArray { get; set; }
-        public int ScoreCount { get; }
-        public int ScoreTotal { get; }
-        public double ScoreAverage { get; }
-        public int ScoreMinimum { get; }
-        public int ScoreMaximum { get; }
+        public int Count { get; }
+        public int Total { get; }
+        public int Average { get; }
+        public int Min { get; }
+        public int Max { get; }
 
         public Scores(int[] scores) {
             ScoresArray = scores;
             if (scores.Length == 0) {
-                ScoreCount = 0;
-                ScoreTotal = 0;
-                ScoreAverage = 0;
-                ScoreMinimum = 0;
-                ScoreMaximum = 0;
+                Count = 0;
+                Total = 0;
+                Average = 0;
+                Min = 0;
+                Max = 0;
             } else
             {
-                ScoreCount = scores.Length;
-                ScoreTotal = scores.Sum();
-                ScoreAverage = scores.Average();
-                ScoreMinimum = scores.Min();
-                ScoreMaximum = scores.Max();
+                Count = scores.Length;
+                Total = scores.Sum();
+                Average = (int)scores.Average();
+                Min = scores.Min();
+                Max = scores.Max();
             }
             
         }
-
 
     }
 }

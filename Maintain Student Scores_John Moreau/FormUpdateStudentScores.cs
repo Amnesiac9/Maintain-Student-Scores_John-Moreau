@@ -32,7 +32,7 @@ namespace Maintain_Student_Scores_John_Moreau
 
         // To hold our student being worked on
 
-        static Student CurrentStudent;
+        public static Student CurrentStudent;
 
 
         // Bring in data from main form
@@ -45,9 +45,9 @@ namespace Maintain_Student_Scores_John_Moreau
             labelNameTxt.Text = student.Name; // Name
 
             // Add the scores starting at index 1 to skip name
-            for (int i = 0; i < student.StudentScores.ScoreCount; i++) 
+            for (int i = 0; i < student.StudentScores.Count; i++) 
             {
-                listBoxScores.Items.Add(student.StudentScores.ScoresArray[i]);
+                listBoxScores.Items.Add(student.StudentScores.ScoresArray[i].ToString());
             }
 
             CurrentStudent = student;
@@ -57,17 +57,19 @@ namespace Maintain_Student_Scores_John_Moreau
         {
 
             // Loop through scores and add to array
-            int[] scores = new int[listBoxScores.Items.Count];
+            int[] newScores = new int[listBoxScores.Items.Count];
             for (int i = 0; i < listBoxScores.Items.Count; ++i)
             {
                 if(int.TryParse(listBoxScores.Items[i].ToString(), out int score))
                 {
-                    scores[i] = score;
+                    newScores[i] = score;
                 }
             }
 
             // Set the current working student's scores to the new array
-            CurrentStudent.StudentScores.ScoresArray = scores;
+            CurrentStudent.StudentScores = new Scores(newScores);
+            // Set the name
+            CurrentStudent.Name = labelNameTxt.Text;
 
             // Set the tag to this new student string to export it back to the main form.
             Tag = CurrentStudent;
@@ -107,6 +109,7 @@ namespace Maintain_Student_Scores_John_Moreau
 
             // Create new update score dialogue 
             var formUpdateScore = new FormUpdateScore();
+            formUpdateScore.GetScoreData(listBoxScores.SelectedItem.ToString());
             DialogResult dialogResult = formUpdateScore.ShowDialog();
 
 

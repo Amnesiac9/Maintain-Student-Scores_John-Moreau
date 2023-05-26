@@ -16,7 +16,7 @@ using System.Reflection;
 /* 
  * John Moreau
  * CSS133
- * 5/24/2023
+ * 5/25/2023
  * 
  * Windows form app for maintaining a record of student scores.
  * 
@@ -27,10 +27,14 @@ using System.Reflection;
  * https://stackoverflow.com/questions/19432468/how-do-i-read-write-binary-files-in-c
  * https://stackoverflow.com/questions/32108996/deserialize-object-from-binary-file
  * 
+ * Updates:
+ * Switched to using serializable classes for students and their scores.
+ * Added a Scores class to hold the scores and calculate the average, min, max, etc.
+ * Added a Student class to hold a student's name, scores, and date of record creation.
+ * Added new label showing when a student record was first created.
+ * 
+ * 
  */
-
-
-// TODO: Switch away from editing the strings directly in the text box and instead use the objects/classes
 
 
 namespace Maintain_Student_Scores_John_Moreau
@@ -87,8 +91,6 @@ namespace Maintain_Student_Scores_John_Moreau
                 SaveStudentScores();
                 GetTopStudent();
             }
-
-            
         }
 
         // UPDATE STUDENT BUTTON //
@@ -137,12 +139,11 @@ namespace Maintain_Student_Scores_John_Moreau
         // DELETE BUTTON //
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-
+            // Make sure we selected a student
             if (listBoxStudents.SelectedItem == null)
             {
                 return;
             }
-
 
             // Show a warning message before deleting students
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this student?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
@@ -154,11 +155,14 @@ namespace Maintain_Student_Scores_John_Moreau
             }
 
             int selectedIndex = listBoxStudents.SelectedIndex;
-
             // Remove the selected item
             listBoxStudents.Items.RemoveAt(selectedIndex);
             // Remove item from our list
             StudentList.RemoveAt(selectedIndex);
+
+            // Set our selected index to the next item in the list
+            listBoxStudents.SelectedIndex = selectedIndex - 1;
+
             // Save scores to bin
             SaveStudentScores();
             GetTopStudent();
@@ -195,15 +199,16 @@ namespace Maintain_Student_Scores_John_Moreau
             Student selectedStudent = StudentList[listBoxStudents.SelectedIndex];
 
             // Set the labels
-            labelScoreCountTxt.Text = selectedStudent.StudentScores.ScoreCount.ToString();
-            labelScoreTotalTxt.Text = selectedStudent.StudentScores.ScoreTotal.ToString();
-            labelAverageTxt.Text = selectedStudent.StudentScores.ScoreAverage.ToString();
+            labelScoreCountTxt.Text = selectedStudent.StudentScores.Count.ToString();
+            labelScoreTotalTxt.Text = selectedStudent.StudentScores.Total.ToString();
+            labelAverageTxt.Text = selectedStudent.StudentScores.Average.ToString();
             labelRecordCreationDateTxt.Text = selectedStudent.RecordStartDate.ToString();
 
         }
 
         // Functions //
 
+        // Function to load the student scores from a bin file (or create the file if it doesn't exist).
         // pre: none
         // post: student scores are loaded from a binary file into the list box
         public void LoadStudentScores() // Load from Binary
@@ -213,7 +218,7 @@ namespace Maintain_Student_Scores_John_Moreau
             if (!File.Exists(fileSavePath))
             {
                 // Load the intial strings from the list box to our List of students
-                StudentList = SplitNameAndScoresToList(listBoxStudents.Items);
+                SplitNamesAndScoresToList(listBoxStudents.Items);
                 SaveStudentScores();
                 return;
             }
@@ -238,18 +243,12 @@ namespace Maintain_Student_Scores_John_Moreau
 
         }
 
-
-        // pre: none
-        // post: The student scores are pulled from the list box and saved to a bin file.
+        // Function to Save the student list to a binary file.
+        // pre: A List<Student> to save.
+        // post: The student scores are serlialized from the list and saved to a bin file.
         public void SaveStudentScores()
         {
-
-            // TODO:
-            // Can remove this once we aren't actually editing just the strings of the listbox and instead
-            // we are editing our list of students directly.
-            StudentList = SplitNameAndScoresToList(listBoxStudents.Items);
-
-            // Serialize to a binary file.
+            // Serialize the StudentList to a binary file.
             // https://www.codeproject.com/questions/500398/saveplusfileplusinplusbinaryplususingplusc-23
             using (FileStream stream = new FileStream(fileSavePath, FileMode.Create))
             {
@@ -260,41 +259,37 @@ namespace Maintain_Student_Scores_John_Moreau
         }
 
 
-
-
+        // Function to find the top student and update the top student labels.
         // pre: list of students edited
         // post: the top student is found and the labels are updated
-        private void GetTopStudent() 
+        private void GetTopStudent()
         {
+            // Set the top student
+            TopStudentRecord.SetTopStudent(StudentList);
 
-            // Make sure we have students.
-            if (StudentList.Count < 1)
+            // Make sure we have students and that the top student has scores
+            if (StudentList.Count < 1 || TopStudentRecord.TopStudent.StudentScores.ScoresArray.Length < 1)
             {
+                labelTopStudentNameTxt.Text = "";
+                labelTopStudentAverageTxt.Text = "";
+                TopStudentRecord.TopStudentIndex = -1;
                 return;
             }
 
-            TopStudentRecord.SetTopStudent(StudentList);
-
-            // Labels
             labelTopStudentNameTxt.Text = TopStudentRecord.TopStudent.Name;
             labelTopStudentAverageTxt.Text = TopStudentRecord.AverageScore.ToString();
 
         }
 
-        // pre: string of student scores formatted with | as a seperator
+        // Function to generate our list from the initial default ListBox
+        // pre: a listbox with student names and scores
         // post: a list of students with names and scores as objects
-        public List<Student> SplitNameAndScoresToList(ListBox.ObjectCollection students)
+        public void SplitNamesAndScoresToList(ListBox.ObjectCollection students)
         {
-
-            List<Student> NewStudentList = new List<Student>();
 
             foreach (string student in students)
             {
-
                 string[] currentStudent = student.Split('|');
-
-                
-
                 if (currentStudent.Length <= 1)
                 {
                     Student newStudentNoScores = new Student(currentStudent[0]);
@@ -314,24 +309,12 @@ namespace Maintain_Student_Scores_John_Moreau
                     }
                 }
 
-
-                // add scores to student.
-                Scores newScores = new Scores(newScoresArray);
-                Student newStudent = new Student(currentStudent[0], newScores);
-
-                // Add student to student list
-                // Might need to clear the list first?
-
-                if (StudentList.Contains(newStudent)) {
-                    continue;
-                }
-
-
-                NewStudentList.Add(newStudent);
+                // Create new student with scores and add to the list
+                Student newStudent = new Student(currentStudent[0], new Scores(newScoresArray));
+                StudentList.Add(newStudent);
             }
-
-            return NewStudentList;
         }
+
 
     }
 }
