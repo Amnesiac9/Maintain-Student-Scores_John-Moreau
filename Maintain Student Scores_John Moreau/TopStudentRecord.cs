@@ -33,6 +33,9 @@ namespace Maintain_Student_Scores_John_Moreau
 
 
             TopStudent = StudentList[index];
+            AverageScore = TopStudent.StudentScores.Average;
+            TopStudentIndex = index;
+
 
             foreach (Student student in StudentList)
             {
