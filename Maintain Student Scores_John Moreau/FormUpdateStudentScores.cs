@@ -30,39 +30,47 @@ namespace Maintain_Student_Scores_John_Moreau
         // Bool to check if changes were made, could put this in a method
         bool changesMade = false;
 
+        // To hold our student being worked on
+
+        static Student CurrentStudent;
+
 
         // Bring in data from main form
-        public void GetStudentData(string student)
+        public void GetStudentData(Student student)
         {
             //student.Split("|");
-            string[] currentStudent = student.Split('|'); // need to use '' here???
+            //string[] currentStudent = student.Split('|'); // need to use '' here???
 
             // Add the name
-            labelNameTxt.Text = currentStudent[0]; // Name
+            labelNameTxt.Text = student.Name; // Name
 
             // Add the scores starting at index 1 to skip name
-            for (int i = 1; i < currentStudent.Length; i++) 
+            for (int i = 0; i < student.StudentScores.ScoreCount; i++) 
             {
-                listBoxScores.Items.Add(currentStudent[i]);
+                listBoxScores.Items.Add(student.StudentScores.ScoresArray[i]);
             }
-            
+
+            CurrentStudent = student;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            // Loop through scores list box and concat
 
-            string newStudentScores = "";
-            for (int i = 0; i < listBoxScores.Items.Count; i++)
+            // Loop through scores and add to array
+            int[] scores = new int[listBoxScores.Items.Count];
+            for (int i = 0; i < listBoxScores.Items.Count; ++i)
             {
-                newStudentScores += "|" + listBoxScores.Items[i];
+                if(int.TryParse(listBoxScores.Items[i].ToString(), out int score))
+                {
+                    scores[i] = score;
+                }
             }
 
-            // Concat new student with the name + scores
-            newStudentScores = labelNameTxt.Text + newStudentScores;
+            // Set the current working student's scores to the new array
+            CurrentStudent.StudentScores.ScoresArray = scores;
 
             // Set the tag to this new student string to export it back to the main form.
-            Tag = newStudentScores;
+            Tag = CurrentStudent;
 
             // Set the result to OK to trigger this form closing and sending data back to main form.
             DialogResult = DialogResult.OK;

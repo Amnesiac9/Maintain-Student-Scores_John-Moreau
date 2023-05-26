@@ -32,7 +32,7 @@ namespace Maintain_Student_Scores_John_Moreau
         {
             int index = 0;
 
-            TopStudent = StudentList.FirstOrDefault();
+            TopStudent = StudentList[0];
 
             foreach (Student student in StudentList)
             {

@@ -83,6 +83,7 @@ namespace Maintain_Student_Scores_John_Moreau
                 // Add the student string passed back in the tag from the add student form.
                 // Source: Chapter 10 of the Murach's C# book.
                 listBoxStudents.Items.Add(formAddStudent.Tag.ToString());
+                StudentList.Add(new Student(formAddStudent.Tag.ToString()));
                 SaveStudentScores();
                 GetTopStudent();
             }
@@ -102,11 +103,14 @@ namespace Maintain_Student_Scores_John_Moreau
             // Get the index of selected student
             int studentIndex = listBoxStudents.SelectedIndex;
 
+            // Get selected Student
+            Student selectedStudent = StudentList[studentIndex];
+
             // Create new update Student Form
             var formUpdateStudent = new FormUpdateStudentScores(); 
 
-            // Pass the selected data to the new form
-            formUpdateStudent.GetStudentData(listBoxStudents.SelectedItem.ToString());
+            // Pass the selected student to the new form
+            formUpdateStudent.GetStudentData(selectedStudent);
 
             // Await dialog Result
             DialogResult dialogResult = formUpdateStudent.ShowDialog();
@@ -115,7 +119,10 @@ namespace Maintain_Student_Scores_John_Moreau
             {
                 // Add the student string passed in the tag from the add student form.
                 // Source: Chapter 10 of the Murach's C# book.
-                string updatedStudent = formUpdateStudent.Tag.ToString();
+
+                selectedStudent = (Student)formUpdateStudent.Tag;
+
+                string updatedStudent = selectedStudent.ConcatNameAndScoresToString();
                 
                 listBoxStudents.Items.RemoveAt(studentIndex); // Remove at the originally selected index
                 listBoxStudents.Items.Insert(studentIndex, updatedStudent); // Update at index
