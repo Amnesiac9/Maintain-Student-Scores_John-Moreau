@@ -30,6 +30,8 @@ using System.Reflection;
  */
 
 
+// TODO: Switch away from editing the strings directly in the text box and instead use the objects/classes
+
 
 namespace Maintain_Student_Scores_John_Moreau
 {
@@ -43,10 +45,8 @@ namespace Maintain_Student_Scores_John_Moreau
 
         // Global file to save scores
         public static string fileSavePath = "StudentScores.bin";
-        // Global index of the top student
-        int topStudentIndex;
         // Global list of students
-        List<Student> StudentList = new List<Student>();
+        public static List<Student> StudentList = new List<Student>();
 
         private void CreatorIntro()
         {
@@ -146,8 +146,12 @@ namespace Maintain_Student_Scores_John_Moreau
                 return;
             }
 
+            int selectedIndex = listBoxStudents.SelectedIndex;
+
             // Remove the selected item
-            listBoxStudents.Items.RemoveAt(listBoxStudents.SelectedIndex);
+            listBoxStudents.Items.RemoveAt(selectedIndex);
+            // Remove item from our list
+            StudentList.RemoveAt(selectedIndex);
             // Save scores to bin
             SaveStudentScores();
             GetTopStudent();
@@ -165,6 +169,35 @@ namespace Maintain_Student_Scores_John_Moreau
             listBoxStudents.SelectedIndex = TopStudentRecord.TopStudentIndex;
         }
 
+
+        // pre: the selected index of the list box is changed
+        // post: labels for the selected student's stats are updated
+        private void listBoxStudents_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Check for nothing selected
+            if (listBoxStudents.SelectedItem == null)
+            {
+                // Clear labels
+                labelScoreTotalTxt.Text = "";
+                labelScoreCountTxt.Text = "";
+                labelAverageTxt.Text = "";
+                return;
+            }
+
+            // Get index of the selected student
+            int studentIndex = listBoxStudents.SelectedIndex;
+
+            // Get the currently selected student
+            Student selectedStudent = StudentList[studentIndex];
+
+            // Set the labels
+            labelScoreCountTxt.Text = selectedStudent.StudentScores.ScoreCount.ToString();
+            labelScoreTotalTxt.Text = selectedStudent.StudentScores.ScoreTotal.ToString();
+            labelAverageTxt.Text = selectedStudent.StudentScores.ScoreAverage.ToString();
+            labelRecordCreationDateTxt.Text = selectedStudent.RecordStartDate.ToString();
+
+        }
+
         // Functions //
 
         // pre: none
@@ -175,7 +208,8 @@ namespace Maintain_Student_Scores_John_Moreau
             // Make sure it exists
             if (!File.Exists(fileSavePath))
             {
-                // If not, create it.
+                // Load the intial strings from the list box to our List of students
+                StudentList = SplitNameAndScoresToList(listBoxStudents.Items);
                 SaveStudentScores();
                 return;
             }
@@ -205,16 +239,11 @@ namespace Maintain_Student_Scores_John_Moreau
         // post: The student scores are pulled from the list box and saved to a bin file.
         public void SaveStudentScores()
         {
-            // Create a new string array with the same size as our list box
-            string[] studentScores = new string[listBoxStudents.Items.Count];
 
-            // Loop through each item in our list box and add to array.
-            for (int i = 0; i < listBoxStudents.Items.Count; i++)
-            {
-                studentScores[i] = listBoxStudents.Items[i].ToString();
-            }
-
-            StudentList = SplitNameAndScoresToList(studentScores);
+            // TODO:
+            // Can remove this once we aren't actually editing just the strings of the listbox and instead
+            // we are editing our list of students directly.
+            StudentList = SplitNameAndScoresToList(listBoxStudents.Items);
 
             // Serialize to a binary file.
             // https://www.codeproject.com/questions/500398/saveplusfileplusinplusbinaryplususingplusc-23
@@ -227,95 +256,77 @@ namespace Maintain_Student_Scores_John_Moreau
         }
 
 
-        // pre: the selected index of the list box is changed
-        // post: labels for the selected student's stats are updated
-        private void listBoxStudents_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Check for nothing selected
-            if (listBoxStudents.SelectedItem == null)
-            {
-                // Clear labels
-                labelScoreTotalTxt.Text = "";
-                labelScoreCountTxt.Text = "";
-                labelAverageTxt.Text = "";
-                return;
-            }
 
-            // Get index of the selected student
-            int studentIndex = listBoxStudents.SelectedIndex;
-
-            // Get the currently selected student
-            Student selectedStudent = StudentList[studentIndex];
-
-            // Set the labels
-            labelScoreCountTxt.Text = selectedStudent.StudentScores.ScoreCount.ToString();
-            labelScoreTotalTxt.Text = selectedStudent.StudentScores.ScoreTotal.ToString();
-            labelAverageTxt.Text = selectedStudent.StudentScores.ScoreAverage.ToString();
-
-        }
 
         // pre: list of students edited
         // post: the top student is found and the labels are updated
         private void GetTopStudent() 
         {
 
-            // Make sure we have students listed.
-            if (listBoxStudents.Items == null)
+            // Make sure we have students.
+            if (StudentList.Count < 1)
             {
                 return;
             }
 
-            // Create new top student record
-            TopStudentRecord topStudentRecord = new TopStudentRecord();
-            // Set the top student from our current list
-            topStudentRecord.SetTopStudent(StudentList);
+            TopStudentRecord.SetTopStudent(StudentList);
 
             // Labels
-            labelTopStudentNameTxt.Text = topStudentRecord.TopStudent.Name;
-            labelTopStudentAverageTxt.Text = topStudentRecord.AverageScore.ToString();
+            labelTopStudentNameTxt.Text = TopStudentRecord.TopStudent.Name;
+            labelTopStudentAverageTxt.Text = TopStudentRecord.AverageScore.ToString();
 
         }
 
         // pre: string of student scores formatted with | as a seperator
         // post: a list of students with names and scores as objects
-        public List<Student> SplitNameAndScoresToList(string[] students)
+        public List<Student> SplitNameAndScoresToList(ListBox.ObjectCollection students)
         {
 
-            List<Student> StudentList = new List<Student>();
+            List<Student> NewStudentList = new List<Student>();
 
             foreach (string student in students)
             {
 
                 string[] currentStudent = student.Split('|');
 
-                Student newStudent = new Student(currentStudent[0]);
+                
 
                 if (currentStudent.Length <= 1)
                 {
+                    Student newStudentNoScores = new Student(currentStudent[0]);
+                    StudentList.Add(newStudentNoScores);
                     // We have no scores, so skip to the next student
                     continue;
                 }
 
                 // Create an int array to hold the parsed scores, -1 because we already took out the name
-                int[] newScores = new int[currentStudent.Length - 1];
+                int[] newScoresArray = new int[currentStudent.Length - 1];
 
                 for (int i = 1; i < currentStudent.Length; ++i)
                 {
                     if (int.TryParse(currentStudent[i], out int score))
                     {
-                        newScores[i - 1] = score;
+                        newScoresArray[i - 1] = score;
                     }
                 }
 
 
                 // add scores to student.
-                newStudent.StudentScores = new Scores(newScores);
+                Scores newScores = new Scores(newScoresArray);
+                Student newStudent = new Student(currentStudent[0], newScores);
 
                 // Add student to student list
-                StudentList.Add(newStudent);
+                // Might need to clear the list first?
+
+                if (StudentList.Contains(newStudent)) {
+                    continue;
+                }
+
+
+                NewStudentList.Add(newStudent);
             }
 
-            return StudentList;
+            return NewStudentList;
         }
 
     }

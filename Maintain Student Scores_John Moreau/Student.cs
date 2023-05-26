@@ -20,7 +20,8 @@ namespace Maintain_Student_Scores_John_Moreau
 
         public string Name { get; set; }
         public Scores StudentScores { get; set; }
-        public static DateTime RecordStartDate { get; private set; } // private so we can't change it later
+        public DateTime RecordStartDate { get; private set; } // private so we can't change it later
+        public string NameAndScores { get; set; }
         
         public Student(string name)
         {
@@ -29,10 +30,10 @@ namespace Maintain_Student_Scores_John_Moreau
             RecordStartDate = DateTime.Now;
         }
 
-        public Student(string name, int[] scores)
+        public Student(string name, Scores scores)
             : this(name)
         {
-            StudentScores = new Scores(scores);
+            StudentScores = scores;
         }
         
 
@@ -43,6 +44,7 @@ namespace Maintain_Student_Scores_John_Moreau
                 string currentScore = score.ToString();
                 NameAndScoresString += "|" + currentScore;
             }
+            NameAndScores = NameAndScoresString;
             return NameAndScoresString;
         }
     }

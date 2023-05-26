@@ -252,9 +252,8 @@
             this.labelRecordCreationDateTxt.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.labelRecordCreationDateTxt.Location = new System.Drawing.Point(177, 187);
             this.labelRecordCreationDateTxt.Name = "labelRecordCreationDateTxt";
-            this.labelRecordCreationDateTxt.Size = new System.Drawing.Size(30, 16);
+            this.labelRecordCreationDateTxt.Size = new System.Drawing.Size(0, 16);
             this.labelRecordCreationDateTxt.TabIndex = 24;
-            this.labelRecordCreationDateTxt.Text = "Null";
             // 
             // FormMainStudentScores
             // 

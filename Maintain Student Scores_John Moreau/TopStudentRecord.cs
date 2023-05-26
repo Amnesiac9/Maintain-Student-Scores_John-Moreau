@@ -8,19 +8,19 @@ namespace Maintain_Student_Scores_John_Moreau
 {
     public class TopStudentRecord
     {
-        public Student TopStudent { get; set; }
-        public double AverageScore { get; set; }
+        public static Student TopStudent { get; set; }
+        public static double AverageScore { get; set; }
 
         public static int TopStudentIndex { get; set; }
 
-        public void GetTopStudentAverage()
+        private static void GetTopStudentAverage()
         {
             AverageScore = TopStudent.StudentScores.ScoreAverage;
         }
 
         // pre: List of students
         // post: Top student is found and average is updated
-        public void SetTopStudent(List<Student> StudentList)
+        public static void SetTopStudent(List<Student> StudentList)
         {
             int index = 0;
 
