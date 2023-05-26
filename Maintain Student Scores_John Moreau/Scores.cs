@@ -4,6 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/* 
+ * John Moreau
+ * CSS133
+ * 5/24/2023
+ * 
+ * 
+ */
+
 namespace Maintain_Student_Scores_John_Moreau
 {
     [Serializable]

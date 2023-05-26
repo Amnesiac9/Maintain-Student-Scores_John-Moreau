@@ -26,6 +26,8 @@ namespace Maintain_Student_Scores_John_Moreau
             InitializeComponent();
         }
 
+        static int[] scores = new int[0];
+
         private void buttonAddScore_Click(object sender, EventArgs e)
         {
             int score;

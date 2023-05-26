@@ -184,11 +184,8 @@ namespace Maintain_Student_Scores_John_Moreau
                 return;
             }
 
-            // Get index of the selected student
-            int studentIndex = listBoxStudents.SelectedIndex;
-
             // Get the currently selected student
-            Student selectedStudent = StudentList[studentIndex];
+            Student selectedStudent = StudentList[listBoxStudents.SelectedIndex];
 
             // Set the labels
             labelScoreCountTxt.Text = selectedStudent.StudentScores.ScoreCount.ToString();

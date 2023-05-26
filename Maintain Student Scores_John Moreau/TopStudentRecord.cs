@@ -4,9 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/* 
+ * John Moreau
+ * CSS133
+ * 5/24/2023
+ * 
+ * 
+ */
+
 namespace Maintain_Student_Scores_John_Moreau
 {
-    public class TopStudentRecord
+    public static class TopStudentRecord
     {
         public static Student TopStudent { get; set; }
         public static double AverageScore { get; set; }

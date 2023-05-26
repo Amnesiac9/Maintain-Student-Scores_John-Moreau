@@ -35,6 +35,36 @@ namespace Maintain_Student_Scores_John_Moreau
         {
             StudentScores = scores;
         }
+
+
+
+        public Student SeperateNameAndScoresToStudent(string nameAndScoresString)
+        {
+
+            string[] studentArray = nameAndScoresString.Split('|');
+
+            if (studentArray.Length <= 1)
+            {
+                Student newStudentNoScores = new Student(studentArray[0]);
+                return newStudentNoScores;
+            }
+
+            // Create an int array to hold the parsed scores, -1 because we already took out the name
+            int[] newScoresArray = new int[studentArray.Length - 1];
+
+            for (int i = 1; i < studentArray.Length; ++i)
+            {
+                if (int.TryParse(studentArray[i], out int score))
+                {
+                    newScoresArray[i - 1] = score;
+                }
+            }
+
+            Scores newScores = new Scores(newScoresArray);
+            Student newStudent = new Student(studentArray[0], newScores);
+
+            return newStudent;
+        }
         
 
         public string ConcatNameAndScoresToString()
