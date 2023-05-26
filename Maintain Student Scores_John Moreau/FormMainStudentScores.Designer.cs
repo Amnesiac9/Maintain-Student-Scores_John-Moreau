@@ -214,8 +214,7 @@
             // 
             // labelTopStudentAverageTxt
             // 
-            this.labelTopStudentAverageTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelTopStudentAverageTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelTopStudentAverageTxt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.labelTopStudentAverageTxt.Location = new System.Drawing.Point(130, 293);
             this.labelTopStudentAverageTxt.Name = "labelTopStudentAverageTxt";
@@ -238,6 +237,7 @@
             // 
             // labelSelectedStudentDate
             // 
+            this.labelSelectedStudentDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelSelectedStudentDate.AutoSize = true;
             this.labelSelectedStudentDate.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.labelSelectedStudentDate.Location = new System.Drawing.Point(31, 187);
@@ -248,6 +248,7 @@
             // 
             // labelRecordCreationDateTxt
             // 
+            this.labelRecordCreationDateTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelRecordCreationDateTxt.AutoSize = true;
             this.labelRecordCreationDateTxt.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.labelRecordCreationDateTxt.Location = new System.Drawing.Point(177, 187);

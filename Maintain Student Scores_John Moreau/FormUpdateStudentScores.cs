@@ -27,19 +27,16 @@ namespace Maintain_Student_Scores_John_Moreau
             InitializeComponent();
         }
 
-        // Bool to check if changes were made, could put this in a method
+        // Bool to check if changes were made
         bool changesMade = false;
 
         // To hold our student being worked on
-
-        public static Student CurrentStudent;
+        private static Student CurrentStudent;
 
 
         // Bring in data from main form
         public void GetStudentData(Student student)
         {
-            //student.Split("|");
-            //string[] currentStudent = student.Split('|'); // need to use '' here???
 
             // Add the name
             labelNameTxt.Text = student.Name; // Name
@@ -68,10 +65,11 @@ namespace Maintain_Student_Scores_John_Moreau
 
             // Set the current working student's scores to the new array
             CurrentStudent.StudentScores = new Scores(newScores);
-            // Set the name
+
+            // Set the name in case it changed
             CurrentStudent.Name = labelNameTxt.Text;
 
-            // Set the tag to this new student string to export it back to the main form.
+            // Set the tag to the student to export it back to the main form. Does sending it back send a copy or a pointer?
             Tag = CurrentStudent;
 
             // Set the result to OK to trigger this form closing and sending data back to main form.
@@ -160,6 +158,13 @@ namespace Maintain_Student_Scores_John_Moreau
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
+            // Check if scores has anything in it
+            if (listBoxScores.Items.Count == 0)
+            {
+                return;
+            }
+
+
             // Create a dialog box to confirm
             DialogResult eraseAllScores = MessageBox.Show("Are you sure you want to erase all scores?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); ;
             
@@ -194,12 +199,6 @@ namespace Maintain_Student_Scores_John_Moreau
                     return;
                 }
             }
-
-
-            // If they clicked OK then this.Close() isn't needed because they clicked cancel
-            // Which, if it is set as the Cancel Button in the form properties, will always
-            // send a DialogResult.Cancel which sends the response to the underlying form.
-            // this.Close();
 
         }
 
