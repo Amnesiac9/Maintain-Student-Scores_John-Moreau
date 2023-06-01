@@ -26,12 +26,16 @@ using System.Reflection;
  * Writing to a binary file: https://www.codeproject.com/questions/500398/saveplusfileplusinplusbinaryplususingplusc-23
  * https://stackoverflow.com/questions/19432468/how-do-i-read-write-binary-files-in-c
  * https://stackoverflow.com/questions/32108996/deserialize-object-from-binary-file
+ * Adding leading zeros to student id: https://stackoverflow.com/questions/3459610/pad-with-leading-zeros
  * 
  * Updates:
  * Switched to using serializable classes for students and their scores.
  * Added a Scores class to hold the scores and calculate the average, min, max, etc.
  * Added a Student class to hold a student's name, scores, and date of record creation.
+ * Added a TOP student class to hold the top student.
+ * Added a Top Student button to find the index of the current top student.
  * Added new label showing when a student record was first created.
+ * Added student ID to the student class with a ranom 9 digit number.
  * 
  * 
  */

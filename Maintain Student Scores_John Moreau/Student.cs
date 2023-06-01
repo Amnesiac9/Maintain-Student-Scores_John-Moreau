@@ -31,7 +31,7 @@ namespace Maintain_Student_Scores_John_Moreau
            (string studentName, int[] newScoresArray) = SplitNameAndScores(nameAndScoresString);
             Name = studentName;
             StudentScores = new Scores(newScoresArray);
-            StudentId = random.Next(000000001, 999999999).ToString();
+            StudentId = random.Next(000000001, 999999999).ToString("D9"); // D9 to pad with 0s SOURCE: https://stackoverflow.com/questions/3459610/pad-with-leading-zeros
             RecordStartDate = DateTime.Now;
         }
 
