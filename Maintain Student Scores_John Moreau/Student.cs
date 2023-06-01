@@ -18,15 +18,20 @@ namespace Maintain_Student_Scores_John_Moreau
     public class Student
     {
 
+        public static Random random = new Random();
+
         public string Name { get; set; }
         public Scores StudentScores { get; set; }
+        public string StudentId { get; set; }
         public DateTime RecordStartDate { get; private set; } // private so we can't change it later
+
 
         public Student(string nameAndScoresString)
         {
            (string studentName, int[] newScoresArray) = SplitNameAndScores(nameAndScoresString);
             Name = studentName;
             StudentScores = new Scores(newScoresArray);
+            StudentId = random.Next(000000001, 999999999).ToString();
             RecordStartDate = DateTime.Now;
         }
 
@@ -34,6 +39,7 @@ namespace Maintain_Student_Scores_John_Moreau
         {
             Name = name;
             StudentScores = scores;
+            StudentId = random.Next(000000001, 999999999).ToString();
             RecordStartDate = DateTime.Now;
         }
         

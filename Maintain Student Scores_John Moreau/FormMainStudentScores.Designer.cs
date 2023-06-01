@@ -48,6 +48,8 @@
             this.buttonFindTopStudent = new System.Windows.Forms.Button();
             this.labelSelectedStudentDate = new System.Windows.Forms.Label();
             this.labelRecordCreationDateTxt = new System.Windows.Forms.Label();
+            this.labelSelectedStudentId = new System.Windows.Forms.Label();
+            this.labelSelectedStudentIdText = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonAddStudent
@@ -256,6 +258,27 @@
             this.labelRecordCreationDateTxt.Size = new System.Drawing.Size(0, 16);
             this.labelRecordCreationDateTxt.TabIndex = 24;
             // 
+            // labelSelectedStudentId
+            // 
+            this.labelSelectedStudentId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelSelectedStudentId.AutoSize = true;
+            this.labelSelectedStudentId.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.labelSelectedStudentId.Location = new System.Drawing.Point(31, 203);
+            this.labelSelectedStudentId.Name = "labelSelectedStudentId";
+            this.labelSelectedStudentId.Size = new System.Drawing.Size(23, 16);
+            this.labelSelectedStudentId.TabIndex = 25;
+            this.labelSelectedStudentId.Text = "ID:";
+            // 
+            // labelSelectedStudentIdText
+            // 
+            this.labelSelectedStudentIdText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelSelectedStudentIdText.AutoSize = true;
+            this.labelSelectedStudentIdText.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.labelSelectedStudentIdText.Location = new System.Drawing.Point(54, 203);
+            this.labelSelectedStudentIdText.Name = "labelSelectedStudentIdText";
+            this.labelSelectedStudentIdText.Size = new System.Drawing.Size(0, 16);
+            this.labelSelectedStudentIdText.TabIndex = 26;
+            // 
             // FormMainStudentScores
             // 
             this.AcceptButton = this.buttonAddStudent;
@@ -265,6 +288,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonExit;
             this.ClientSize = new System.Drawing.Size(505, 359);
+            this.Controls.Add(this.labelSelectedStudentIdText);
+            this.Controls.Add(this.labelSelectedStudentId);
             this.Controls.Add(this.labelRecordCreationDateTxt);
             this.Controls.Add(this.labelSelectedStudentDate);
             this.Controls.Add(this.buttonFindTopStudent);
@@ -318,6 +343,8 @@
         private System.Windows.Forms.Button buttonFindTopStudent;
         private System.Windows.Forms.Label labelSelectedStudentDate;
         private System.Windows.Forms.Label labelRecordCreationDateTxt;
+        private System.Windows.Forms.Label labelSelectedStudentId;
+        private System.Windows.Forms.Label labelSelectedStudentIdText;
     }
 }
 

@@ -203,6 +203,7 @@ namespace Maintain_Student_Scores_John_Moreau
             labelScoreTotalTxt.Text = selectedStudent.StudentScores.Total.ToString();
             labelAverageTxt.Text = selectedStudent.StudentScores.Average.ToString();
             labelRecordCreationDateTxt.Text = selectedStudent.RecordStartDate.ToString();
+            labelSelectedStudentIdText.Text = selectedStudent.StudentId;
 
         }
 
