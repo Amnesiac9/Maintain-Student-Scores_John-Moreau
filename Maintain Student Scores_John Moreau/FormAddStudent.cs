@@ -74,10 +74,8 @@ namespace Maintain_Student_Scores_John_Moreau
                 MessageBox.Show("Please enter a valid Student Name, '|' not allowed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //Make sure to set the response to NONE so that the form doesn't close
                 this.DialogResult = DialogResult.None;
-
                 // Re-Focus the text box
                 textBoxName.Focus();
-
                 return;
             }
 

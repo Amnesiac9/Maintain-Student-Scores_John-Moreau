@@ -128,7 +128,7 @@ namespace Maintain_Student_Scores_John_Moreau
 
                 selectedStudent = (Student)formUpdateStudent.Tag;
 
-                string updatedStudent = selectedStudent.ConcatNameAndScoresToString();
+                string updatedStudent = selectedStudent.ToString();
                 
                 listBoxStudents.Items.RemoveAt(studentIndex); // Remove at the originally selected index
                 listBoxStudents.Items.Insert(studentIndex, updatedStudent); // Update at index
@@ -243,7 +243,7 @@ namespace Maintain_Student_Scores_John_Moreau
 
             foreach (Student student in StudentList)
             {
-                listBoxStudents.Items.Add(student.ConcatNameAndScoresToString());
+                listBoxStudents.Items.Add(student.ToString());
             }
 
         }

@@ -45,7 +45,7 @@ namespace Maintain_Student_Scores_John_Moreau
         
         // pre: none
         // post: returns a string of the student's name and scores concatenated together with | as a seperator
-        public string ConcatNameAndScoresToString()
+        public override string ToString() 
         {
             string NameAndScoresString = Name;
             foreach (int score in StudentScores.ScoresArray) {

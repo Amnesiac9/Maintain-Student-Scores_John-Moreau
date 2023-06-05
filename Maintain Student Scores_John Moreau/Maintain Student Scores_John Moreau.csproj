@@ -93,6 +93,7 @@
     <Compile Include="Scores.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="TopStudentRecord.cs" />
+    <Compile Include="Validator.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -145,6 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\diskette.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

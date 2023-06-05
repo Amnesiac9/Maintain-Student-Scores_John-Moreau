@@ -45,11 +45,12 @@
             this.labelTopStudentNameTxt = new System.Windows.Forms.Label();
             this.labelTopStudentAverage = new System.Windows.Forms.Label();
             this.labelTopStudentAverageTxt = new System.Windows.Forms.Label();
-            this.buttonFindTopStudent = new System.Windows.Forms.Button();
             this.labelSelectedStudentDate = new System.Windows.Forms.Label();
             this.labelRecordCreationDateTxt = new System.Windows.Forms.Label();
             this.labelSelectedStudentId = new System.Windows.Forms.Label();
             this.labelSelectedStudentIdText = new System.Windows.Forms.Label();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonFindTopStudent = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonAddStudent
@@ -224,19 +225,6 @@
             this.labelTopStudentAverageTxt.TabIndex = 21;
             this.labelTopStudentAverageTxt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // buttonFindTopStudent
-            // 
-            this.buttonFindTopStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFindTopStudent.BackgroundImage = global::Maintain_Student_Scores_John_Moreau.Properties.Resources.search;
-            this.buttonFindTopStudent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonFindTopStudent.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonFindTopStudent.Location = new System.Drawing.Point(175, 227);
-            this.buttonFindTopStudent.Name = "buttonFindTopStudent";
-            this.buttonFindTopStudent.Size = new System.Drawing.Size(28, 29);
-            this.buttonFindTopStudent.TabIndex = 22;
-            this.buttonFindTopStudent.UseVisualStyleBackColor = true;
-            this.buttonFindTopStudent.Click += new System.EventHandler(this.buttonFindTopStudent_Click);
-            // 
             // labelSelectedStudentDate
             // 
             this.labelSelectedStudentDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -279,6 +267,36 @@
             this.labelSelectedStudentIdText.Size = new System.Drawing.Size(0, 16);
             this.labelSelectedStudentIdText.TabIndex = 26;
             // 
+            // buttonSave
+            // 
+            this.buttonSave.AccessibleDescription = "Button to save data to the file system.";
+            this.buttonSave.AccessibleName = "Save Button";
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSave.BackgroundImage = global::Maintain_Student_Scores_John_Moreau.Properties.Resources.diskette;
+            this.buttonSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonSave.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSave.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.buttonSave.Location = new System.Drawing.Point(405, 282);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(88, 30);
+            this.buttonSave.TabIndex = 27;
+            this.buttonSave.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.buttonSave.UseVisualStyleBackColor = true;
+            // 
+            // buttonFindTopStudent
+            // 
+            this.buttonFindTopStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonFindTopStudent.BackgroundImage = global::Maintain_Student_Scores_John_Moreau.Properties.Resources.search;
+            this.buttonFindTopStudent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonFindTopStudent.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonFindTopStudent.Location = new System.Drawing.Point(175, 227);
+            this.buttonFindTopStudent.Name = "buttonFindTopStudent";
+            this.buttonFindTopStudent.Size = new System.Drawing.Size(28, 29);
+            this.buttonFindTopStudent.TabIndex = 22;
+            this.buttonFindTopStudent.UseVisualStyleBackColor = true;
+            this.buttonFindTopStudent.Click += new System.EventHandler(this.buttonFindTopStudent_Click);
+            // 
             // FormMainStudentScores
             // 
             this.AcceptButton = this.buttonAddStudent;
@@ -288,6 +306,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonExit;
             this.ClientSize = new System.Drawing.Size(505, 359);
+            this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.labelSelectedStudentIdText);
             this.Controls.Add(this.labelSelectedStudentId);
             this.Controls.Add(this.labelRecordCreationDateTxt);
@@ -345,6 +364,7 @@
         private System.Windows.Forms.Label labelRecordCreationDateTxt;
         private System.Windows.Forms.Label labelSelectedStudentId;
         private System.Windows.Forms.Label labelSelectedStudentIdText;
+        private System.Windows.Forms.Button buttonSave;
     }
 }
 
