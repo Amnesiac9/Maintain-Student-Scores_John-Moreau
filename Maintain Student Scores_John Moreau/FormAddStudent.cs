@@ -11,7 +11,7 @@ using System.Windows.Forms;
 /* 
  * John Moreau
  * CSS133
- * 5/12/2023
+ * 6/4/2023
  * 
  * 
  */
@@ -21,6 +21,7 @@ namespace Maintain_Student_Scores_John_Moreau
 
     public partial class FormAddStudent : Form
     {
+
         public FormAddStudent()
         {
             InitializeComponent();
@@ -28,9 +29,9 @@ namespace Maintain_Student_Scores_John_Moreau
 
         private void buttonAddScore_Click(object sender, EventArgs e)
         {
-            int score;
-            // Parse score and add it to an array
-            if(!int.TryParse(textBoxScore.Text, out score) || score < 0 || score > 100)
+            
+            
+            if(!Validator.IsInRange(textBoxScore.Text, 0, 100))
             {
                 //error
                 MessageBox.Show("Please enter a valid score from 0-100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -40,6 +41,9 @@ namespace Maintain_Student_Scores_John_Moreau
                 textBoxScore.Focus();
                 return;
             }
+
+            // Parse score and add it to an array
+            int score = int.Parse(textBoxScore.Text);
 
             // Concat to scores
             string scoresString = labelScoresTxt.Text + " " + score.ToString();
@@ -68,7 +72,7 @@ namespace Maintain_Student_Scores_John_Moreau
         private void buttonOK_Click(object sender, EventArgs e)
         {
             // Check if user entered a valid name. Empty scores is ok.
-            if (string.IsNullOrWhiteSpace(textBoxName.Text) || textBoxName.Text.Contains("|"))
+            if (!Validator.IsValidName(textBoxName.Text))
             {
                 // Error if no name or white space is entered.
                 MessageBox.Show("Please enter a valid Student Name, '|' not allowed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -79,8 +83,10 @@ namespace Maintain_Student_Scores_John_Moreau
                 return;
             }
 
+            //TODO: Use objects instead of strings
+
             // Concat new student with the name + scores with spaces replaced with |
-            string newStudent = textBoxName.Text + labelScoresTxt.Text.Replace(" ", "|");
+            string newStudent = textBoxName.Text.Trim() + labelScoresTxt.Text.Replace(" ", "|");
 
             // Set the tag to this new student string to export it back to the main form.
             this.Tag = newStudent;

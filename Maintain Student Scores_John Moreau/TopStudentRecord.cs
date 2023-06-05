@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 /* 
  * John Moreau
@@ -56,5 +57,26 @@ namespace Maintain_Student_Scores_John_Moreau
 
         }
 
+        // Function to find the top student and update the top student labels.
+        // pre: list of students edited
+        // post: the top student is found and the labels are updated
+        public static void GetTopStudent(Label labelTopStudentNameTxt, Label labelTopStudentAverageTxt)
+        {
+            // Set the top student
+            TopStudentRecord.SetTopStudent(FormMainStudentScores.StudentList);
+
+            // Make sure we have students and that the top student has scores
+            if (FormMainStudentScores.StudentList.Count < 1 || TopStudent.StudentScores.ScoresArray.Length < 1)
+            {
+                labelTopStudentNameTxt.Text = "";
+                labelTopStudentAverageTxt.Text = "";
+                TopStudentIndex = -1;
+                return;
+            }
+
+            labelTopStudentNameTxt.Text = TopStudent.Name;
+            labelTopStudentAverageTxt.Text = AverageScore.ToString();
+
+        }
     }
 }

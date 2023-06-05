@@ -71,10 +71,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxStudents.FormattingEnabled = true;
             this.listBoxStudents.ItemHeight = 16;
-            this.listBoxStudents.Items.AddRange(new object[] {
-            "Robin Greene|87|89|85|90",
-            "Dennis Richardson|88|99|96|89",
-            "Jerry Sampson|100|100|100"});
             this.listBoxStudents.Location = new System.Drawing.Point(31, 52);
             this.listBoxStudents.Name = "listBoxStudents";
             this.listBoxStudents.Size = new System.Drawing.Size(356, 132);
@@ -283,6 +279,7 @@
             this.buttonSave.TabIndex = 27;
             this.buttonSave.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // buttonFindTopStudent
             // 

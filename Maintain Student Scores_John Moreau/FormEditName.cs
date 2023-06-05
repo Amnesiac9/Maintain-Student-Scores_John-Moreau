@@ -43,7 +43,7 @@ namespace Maintain_Student_Scores_John_Moreau
 
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
-            string text = textBoxName.Text;
+            string text = textBoxName.Text.Trim();
 
             // Get name text and make sure it's valid
             if (string.IsNullOrWhiteSpace(text) || textBoxName.Text.Contains("|"))

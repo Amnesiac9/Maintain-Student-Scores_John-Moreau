@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 /* 
  * John Moreau
  * CSS133
- * 5/24/2023
+ * 6/4/2023
  * 
  * 
  */
@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace Maintain_Student_Scores_John_Moreau
 {
     [Serializable]
-    public class Student
+    public class Student : ICloneable
     {
 
         public static Random random = new Random();
@@ -73,6 +73,15 @@ namespace Maintain_Student_Scores_John_Moreau
             }
 
             return (studentArray[0], newScoresArray);
+        }
+
+        public object Clone()
+        {
+            Student newStudent = new Student(Name, StudentScores);
+            newStudent.StudentId = StudentId;
+            newStudent.RecordStartDate = RecordStartDate;
+
+            return newStudent;
         }
 
     }

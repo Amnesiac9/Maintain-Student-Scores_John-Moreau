@@ -5,6 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/* 
+ * John Moreau
+ * CSS133
+ * 6/4/2023
+ * 
+ * 
+ */
+
 namespace Maintain_Student_Scores_John_Moreau
 {
     internal class Validator
@@ -62,6 +70,9 @@ namespace Maintain_Student_Scores_John_Moreau
             }
             return true;
         }
+
+        
+
 
     }
 }

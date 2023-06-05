@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 /* 
  * John Moreau
  * CSS133
- * 5/24/2023
+ * 6/4/2023
  * 
  * 
  */
@@ -15,14 +15,14 @@ using System.Threading.Tasks;
 namespace Maintain_Student_Scores_John_Moreau
 {
     [Serializable]
-    public class Scores
+    public class Scores : ICloneable
     {
         public int[] ScoresArray { get; set; }
-        public int Count { get; }
-        public int Total { get; }
-        public int Average { get; }
-        public int Min { get; }
-        public int Max { get; }
+        public int Count { get; set; }
+        public int Total { get; set; }
+        public int Average { get; set; }
+        public int Min { get; set; }
+        public int Max { get; set; }
 
         public Scores(int[] scores) {
             ScoresArray = scores;
@@ -41,6 +41,27 @@ namespace Maintain_Student_Scores_John_Moreau
                 Max = scores.Max();
             }
             
+        }
+
+        public object Clone()
+        {
+
+            Scores clonedScores = new Scores(new int[0]);
+
+            // Deep copy the scores array if it's not empty
+            if (ScoresArray != null)
+            {
+                clonedScores.ScoresArray = new int[ScoresArray.Length];
+                Array.Copy(ScoresArray, clonedScores.ScoresArray, ScoresArray.Length);
+                clonedScores.Count = Count;
+                clonedScores.Total = Total;
+                clonedScores.Average = Average;
+                clonedScores.Min = Min;
+                clonedScores.Max = Max;
+            }
+
+            return clonedScores;
+
         }
 
     }
