@@ -4,8 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/* 
+ * John Moreau
+ * CSS133
+ * 6/5/2023
+ * 
+ * 
+ */
+
 namespace Maintain_Student_Scores_John_Moreau
 {
+    /// <summary>
+    /// A list of student objects. Used for sorting and searching the student data.
+    /// </summary>
     [Serializable]
     public class StudentList : IEnumerable<Student>
     {
@@ -18,18 +29,12 @@ namespace Maintain_Student_Scores_John_Moreau
         public void Add(Student student)
         {
             studentList.Add(student);
-            SortStudentList();
+            Sort();
         }
 
-        public void Remove(Student student)
-        {
-            studentList.Remove(student);
-        }
+        public void Remove(Student student) => studentList.Remove(student);
 
-        public void RemoveAt(int index)
-        {
-            studentList.RemoveAt(index);
-        }
+        public void RemoveAt(int index) => studentList.RemoveAt(index);
 
         public int IndexOf(Student student) => studentList.IndexOf(student);
 
@@ -39,7 +44,7 @@ namespace Maintain_Student_Scores_John_Moreau
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => studentList.GetEnumerator();
 
-        private void SortStudentList() => studentList.Sort();
+        
 
     }
 }

@@ -8,21 +8,27 @@ using System.Windows.Forms;
 /* 
  * John Moreau
  * CSS133
- * 5/25/2023
+ * 6/5/2023
  * 
  * 
  */
 
 namespace Maintain_Student_Scores_John_Moreau
 {
+    /// <summary>
+    /// A class for maintaining a top student record. This allows easy retreval and updating of the data from the rest of the app.
+    /// </summary>
     public static class TopStudentRecord
     {
         public static Student TopStudent { get; set; }
         public static int AverageScore { get; set; }
         public static int TopStudentIndex { get; set; }
 
-        // pre: List of students
-        // post: Top student is found and average is updated
+        /// <summary>
+        /// Sets the top student, top average score, and the index of that student.
+        /// </summary>
+        /// Pre: A list of students from StudentDB.
+        /// Post: Top student is found, average and index is updated
         public static void SetTopStudent()
         {
             int index = 0;
@@ -57,9 +63,13 @@ namespace Maintain_Student_Scores_John_Moreau
 
         }
 
-        // Function to find the top student and update the top student labels.
-        // pre: list of students edited
-        // post: the top student is found and the labels are updated
+        /// <summary>
+        /// Function to find the top student and update the top student labels.
+        /// </summary>
+        /// <param name="labelTopStudentNameTxt"></param>
+        /// <param name="labelTopStudentAverageTxt"></param>
+        /// Pre: list of students edited
+        /// Post: the top student is found and the labels are updated
         public static void GetTopStudent(Label labelTopStudentNameTxt, Label labelTopStudentAverageTxt)
         {
             // Set the top student

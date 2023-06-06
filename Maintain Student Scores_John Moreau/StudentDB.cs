@@ -8,8 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/* 
+ * John Moreau
+ * CSS133
+ * 6/5/2023
+ * 
+ * 
+ */
+
 namespace Maintain_Student_Scores_John_Moreau
 {
+    /// <summary>
+    /// A class for storing, loading, and saving student scores as student objects and lists.
+    /// </summary>
     internal class StudentDB
     {
 
@@ -20,8 +31,16 @@ namespace Maintain_Student_Scores_John_Moreau
         // Global file to save scores
         public static string fileSavePathBin = "StudentScores.bin";
 
-       
 
+
+        /// <summary>
+        /// Function to load the initial student list from a txt file.
+        /// Called when the form is loaded if the bin file does not exist.
+        /// </summary>
+        /// <param name="listBoxStudents"></param>
+        /// <param name="ChangesMade"></param>
+        /// Pre: A listbox with student names and scores, and a bool to track changes.
+        /// Post: List box is populated with student names and scores, and changesmade is set to true
         public static void LoadStudentsTxtFile(ListBox.ObjectCollection listBoxStudents, ref bool ChangesMade)
         {
             string fileSavePathTxt = "StudentScores.txt";
@@ -50,9 +69,13 @@ namespace Maintain_Student_Scores_John_Moreau
             
         }
 
-        // Function to generate our list from the initial default ListBox
-        // pre: a listbox with student names and scores
-        // post: a list of students with names and scores as objects
+        /// <summary>
+        /// Function to generate our list from the initial default ListBox.
+        /// Called when transferring data from the ListBox to Student Objects.
+        /// </summary>
+        /// <param name="listBoxStudents"></param>
+        /// Pre: a listbox with student names and scores
+        /// Post: a list of students with names and scores as objects
 
         public static void SplitNamesAndScoresToList(ListBox.ObjectCollection listBoxStudents)
         {
@@ -86,9 +109,12 @@ namespace Maintain_Student_Scores_John_Moreau
             }
         }
 
-        // Function to Save the student list to a binary file.
-        // pre: A List<Student> to save.
-        // post: The student scores are serlialized from the list and saved to a bin file.
+        /// <summary>
+        /// Function to Save the student list to a binary file. Takes and sets a ref bool to False to track changes made. Shows an error window if there are issues saving, and does not update the changes made bool.
+        /// </summary>
+        /// <param name="ChangesMade"></param>
+        /// Pre: A ref to a ChangesMade bool to set to false if successful.
+        /// Post: The student scores are serlialized from the list and saved to a bin file.
         public static void SaveStudentScores(ref bool ChangesMade)
         {
             // Serialize the StudentList to a binary file.
@@ -110,10 +136,14 @@ namespace Maintain_Student_Scores_John_Moreau
 
         }
 
-
-        // Function to load the student scores from a bin file (or create the file if it doesn't exist).
-        // pre: none
-        // post: student scores are loaded from a binary file into the list box
+        /// <summary>
+        ///  Function to load the student scores from a bin file (or create the file if it doesn't exist).
+        ///  Will load initial students from a text file if the bin file doesn't exist.
+        /// </summary>
+        /// <param name="listBoxStudents"></param>
+        /// <param name="ChangesMade"></param>
+        /// Pre: none
+        /// Post: student scores are loaded from a binary file into the list box
         public static void LoadStudentScores(ListBox.ObjectCollection listBoxStudents, ref bool ChangesMade) // Load from Binary
         {
 
@@ -157,6 +187,8 @@ namespace Maintain_Student_Scores_John_Moreau
         /// <summary>
         /// Exports the current students list as a formatted text file in the root directory.
         /// </summary>
+        /// Pre: User clicks export
+        /// Post: A formatted text file is created in the root directory.
         public static void ExportStudentsTxtFile()
         {
             string fileSavePathTxt = "StudentScoresExport.txt";
@@ -222,6 +254,11 @@ namespace Maintain_Student_Scores_John_Moreau
             MessageBox.Show("Export successful", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        /// <summary>
+        /// Exports the current students list as a formatted csv file in the root directory.
+        /// </summary>
+        /// Pre: User clicks export
+        /// Post: A formatted Csv file is created in the root directory.
         public static void ExportStudentsCsv()
         {
             string fileSavePathTxt = "StudentScoresExport.csv";

@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace Maintain_Student_Scores_John_Moreau
 {
+    /// <summary>
+    /// A student class to create student objects that have names, scores, a record creation date, and a student id. Allows many methods for easy data retrieval.
+    /// </summary>
     [Serializable]
     public class Student : ICloneable, IComparable<Student>
     {
@@ -46,9 +49,13 @@ namespace Maintain_Student_Scores_John_Moreau
             StudentId = random.Next(000000001, 999999999).ToString();
             RecordStartDate = DateTime.Now;
         }
-        
-        // pre: none
-        // post: returns a string of the student's name and scores concatenated together with | as a seperator
+
+        /// <summary>
+        /// Student.ToString() Overrides the standard ToString() method to return a string of the student's name and scores concatenated together with | as a seperator
+        /// </summary>
+        /// <returns> returns a string of the student's name and scores concatenated together with | as a seperator</returns>
+        /// Pre: none
+        /// Post: returns a string of the student's name and scores concatenated together with | as a seperator
         public override string ToString() 
         {
             string NameAndScoresString = Name;
@@ -59,8 +66,13 @@ namespace Maintain_Student_Scores_John_Moreau
             return NameAndScoresString;
         }
 
-        // pre: a string with the names and scores with | as a seperator
-        // post: a tuple with the name and an int array of the scores
+        /// <summary>
+        ///  A function to split the names and scores and parse the scores into an int array.
+        /// </summary>
+        /// <param name="nameAndScoresString"></param>
+        /// <returns>(string, int[]) A tuple with the name and an int array of the scores</returns>
+        /// Pre: a string with the names and scores with | as a seperator
+        /// Post: a tuple with the name and an int array of the scores
         private (string, int[]) SplitNameAndScores(string nameAndScoresString)
         {
             string[] studentArray = nameAndScoresString.Split('|');

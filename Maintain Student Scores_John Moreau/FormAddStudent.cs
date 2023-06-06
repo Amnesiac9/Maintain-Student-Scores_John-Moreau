@@ -11,7 +11,7 @@ using System.Windows.Forms;
 /* 
  * John Moreau
  * CSS133
- * 6/4/2023
+ * 6/5/2023
  * 
  * 
  */
@@ -19,6 +19,10 @@ using System.Windows.Forms;
 namespace Maintain_Student_Scores_John_Moreau
 {
 
+    /// <summary>
+    /// A form for adding new student objects to the list.
+    /// Students information is entered and validated, then returned as a string to create a new student object.
+    /// </summary>
     public partial class FormAddStudent : Form
     {
 
@@ -29,7 +33,6 @@ namespace Maintain_Student_Scores_John_Moreau
 
         private void buttonAddScore_Click(object sender, EventArgs e)
         {
-            
             
             if(!Validator.IsInRange(textBoxScore.Text, 0, 100))
             {
@@ -82,8 +85,6 @@ namespace Maintain_Student_Scores_John_Moreau
                 textBoxName.Focus();
                 return;
             }
-
-            //TODO: Use objects instead of strings
 
             // Concat new student with the name + scores with spaces replaced with |
             string newStudent = textBoxName.Text.Trim() + labelScoresTxt.Text.Replace(" ", "|");

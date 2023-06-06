@@ -11,13 +11,16 @@ using System.Windows.Forms;
 /* 
  * John Moreau
  * CSS133
- * 5/12/2023
+ * 6/5/2023
  * 
  * 
  */
 
 namespace Maintain_Student_Scores_John_Moreau
 {
+    /// <summary>
+    /// For for editing the student name. Validates the text input and sets the student name if the user presses ok.
+    /// </summary>
     public partial class FormEditName : Form
     {
         public FormEditName()

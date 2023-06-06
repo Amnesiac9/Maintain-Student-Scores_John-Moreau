@@ -8,8 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/* 
+ * John Moreau
+ * CSS133
+ * 6/5/2023
+ * 
+ */
+
 namespace Maintain_Student_Scores_John_Moreau
 {
+    /// <summary>
+    /// Simple form for adding a score. Validates range and type.
+    /// </summary>
     public partial class FormAddScore : Form
     {
         public FormAddScore()

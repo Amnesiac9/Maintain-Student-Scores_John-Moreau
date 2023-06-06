@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace Maintain_Student_Scores_John_Moreau
 {
+    /// <summary>
+    /// A Scores class for storing an int[] array of scores and calculating the count, total, average, min, and max of the scores.
+    /// </summary>
     [Serializable]
     public class Scores : ICloneable
     {
@@ -43,6 +46,10 @@ namespace Maintain_Student_Scores_John_Moreau
 
         }
 
+        /// <summary>
+        /// Scores.ToString() overrides the standard ToString() method to return a string representation of the scores array with ", " as a delimiter.
+        /// </summary>
+        /// <returns>A string representation of the scores array with ", " as a delimiter.</returns>
         public override string ToString()
         {
             string arrayString = "";

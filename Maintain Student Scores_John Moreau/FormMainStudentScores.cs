@@ -16,7 +16,7 @@ using System.Reflection;
 /* 
  * John Moreau
  * CSS133
- * 6/4/2023
+ * 6/5/2023
  * 
  * Windows form app for maintaining a record of student scores.
  * 
@@ -28,7 +28,9 @@ using System.Reflection;
  * https://stackoverflow.com/questions/32108996/deserialize-object-from-binary-file
  * Adding leading zeros to student id: https://stackoverflow.com/questions/3459610/pad-with-leading-zeros
  * 
- * Updates:
+ * Change Log:
+ * 
+ * 5/31/23
  * Switched to using serializable classes for students and their scores.
  * Added a Scores class to hold the scores and calculate the average, min, max, etc.
  * Added a Student class to hold a student's name, scores, and date of record creation.
@@ -41,10 +43,12 @@ using System.Reflection;
  * Added the validator class to validate user input.
  * Added a save button so saving is not automatic.
  * Added a try/catch to the save button to catch any errors saving to a binary file.
- * Added StudentDB class to handle saving and loading student data.
+ * Added StudentDB class to handle holding, saving and loading student data.
+ * Now loads the intital students from a text file if the .bin file is not found.
  * Moved the GetTopStudent method to TopStudentRecord class.
  * Created a StudentList class to hold a list of students that auto sorts when a new student is added.
  * Added a FirstName and LastName property to the Student class to allow sorting by last name.
+ * Now asks to confirm exiting if changes were made to the student records.
  * 
  * 
  */
@@ -52,31 +56,32 @@ using System.Reflection;
 
 namespace Maintain_Student_Scores_John_Moreau
 {
+    /// <summary>
+    /// Windows form app for maintaining a record of student scores.
+    /// Allows adding, updating, and deleting student records.
+    /// Allows exporting to Txt and Csv format.
+    /// </summary>
     public partial class FormMainStudentScores : Form
     {
 
+        // Bool to track if changes have been made to the students list
+        private static bool ChangesMade = false;
 
         public FormMainStudentScores()
         {
             InitializeComponent();
         }
 
-        
-        // Bool to track if changes have been made to the students list
-        private static bool ChangesMade = false;
-
-
         private void FormMain_Load(object sender, EventArgs e)
         {
-            //CreatorIntro();
+            CreatorIntro();
             StudentDB.LoadStudentScores(listBoxStudents.Items, ref ChangesMade);
             TopStudentRecord.GetTopStudent(labelTopStudentNameTxt, labelTopStudentAverageTxt);
         }
         private void CreatorIntro()
         {
             // Show about box
-            var aboutBox = new AboutBox();
-            aboutBox.ShowDialog();
+            new AboutBox().ShowDialog();
         }
 
         // EXIT BUTTON //
@@ -193,7 +198,7 @@ namespace Maintain_Student_Scores_John_Moreau
             ChangesMade = true;
         }
 
-        // Find top student button //
+        // FIND TOP STUDENT BUTTON //
         private void buttonFindTopStudent_Click(object sender, EventArgs e)
         {
             // Make sure the top student has been found and an index has been saved
@@ -205,9 +210,7 @@ namespace Maintain_Student_Scores_John_Moreau
             listBoxStudents.SelectedIndex = TopStudentRecord.TopStudentIndex;
         }
 
-
-        // pre: the selected index of the list box is changed
-        // post: labels for the selected student's stats are updated
+        // Students List Box Index Changed Event //
         private void listBoxStudents_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Check for nothing selected
@@ -232,11 +235,13 @@ namespace Maintain_Student_Scores_John_Moreau
 
         }
 
+        // SAVE BUTTON //
         private void buttonSave_Click(object sender, EventArgs e)
         {
             StudentDB.SaveStudentScores(ref ChangesMade);
         }
 
+        // EXPORT BUTTON //
         private void buttonExport_Click(object sender, EventArgs e)
         {
             if (listBoxStudents.Items.Count <= 0)

@@ -13,13 +13,18 @@ using System.Windows.Forms;
 /* 
  * John Moreau
  * CSS133
- * 5/12/2023
+ * 6/5/2023
  * 
  * 
  */
 
 namespace Maintain_Student_Scores_John_Moreau
 {
+    /// <summary>
+    /// For for updating a student's scores and name.
+    /// Takes a student object from the main form and updates it.
+    /// Sends back the updated student object to the main form via Tag.
+    /// </summary>
     public partial class FormUpdateStudent : Form
     {
         public FormUpdateStudent()
@@ -35,6 +40,10 @@ namespace Maintain_Student_Scores_John_Moreau
 
 
         // Bring in data from main form
+        /// <summary>
+        /// Takes in a student object to store it locally.
+        /// </summary>
+        /// <param name="student"></param>
         public void GetStudentData(Student student)
         {
 
@@ -182,8 +191,6 @@ namespace Maintain_Student_Scores_John_Moreau
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            
-
             if (changesMade == true)
             {
                 // Create a dialog box to confirm
@@ -199,7 +206,6 @@ namespace Maintain_Student_Scores_John_Moreau
                     return;
                 }
             }
-
         }
 
         private void buttonEditName_Click(object sender, EventArgs e)

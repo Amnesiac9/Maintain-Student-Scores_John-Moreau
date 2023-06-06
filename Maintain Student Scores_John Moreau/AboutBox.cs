@@ -7,8 +7,18 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/* 
+ * John Moreau
+ * CSS133
+ * 6/5/2023
+ * 
+ */
+
 namespace Maintain_Student_Scores_John_Moreau
 {
+    /// <summary>
+    /// An about box form displaying information about the program.
+    /// </summary>
     partial class AboutBox : Form
     {
         public AboutBox()
