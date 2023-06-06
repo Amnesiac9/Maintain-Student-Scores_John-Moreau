@@ -40,7 +40,24 @@ namespace Maintain_Student_Scores_John_Moreau
                 Min = scores.Min();
                 Max = scores.Max();
             }
-            
+
+        }
+
+        public override string ToString()
+        {
+            string arrayString = "";
+
+            for (int i = 0; i < ScoresArray.Length; ++i)
+            {
+                int s = ScoresArray[i];
+
+                if (i != ScoresArray.Length - 1)
+                    arrayString += s + ", ";
+                else
+                    arrayString += s;
+            }
+
+            return arrayString;
         }
 
         public object Clone()

@@ -49,12 +49,17 @@
             this.labelRecordCreationDateTxt = new System.Windows.Forms.Label();
             this.labelSelectedStudentId = new System.Windows.Forms.Label();
             this.labelSelectedStudentIdText = new System.Windows.Forms.Label();
+            this.labelExport = new System.Windows.Forms.Label();
+            this.ComBoxExportFileType = new System.Windows.Forms.ComboBox();
+            this.buttonExport = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonFindTopStudent = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonAddStudent
             // 
+            this.buttonAddStudent.AccessibleDescription = "Add a new student record";
+            this.buttonAddStudent.AccessibleName = "Add New";
             this.buttonAddStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAddStudent.Location = new System.Drawing.Point(403, 56);
             this.buttonAddStudent.Name = "buttonAddStudent";
@@ -66,6 +71,8 @@
             // 
             // listBoxStudents
             // 
+            this.listBoxStudents.AccessibleDescription = "A box containing a list of students and their scores.";
+            this.listBoxStudents.AccessibleName = "Student List Box";
             this.listBoxStudents.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -81,7 +88,7 @@
             // 
             this.labelStudents.AutoSize = true;
             this.labelStudents.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelStudents.Location = new System.Drawing.Point(31, 24);
+            this.labelStudents.Location = new System.Drawing.Point(28, 28);
             this.labelStudents.Name = "labelStudents";
             this.labelStudents.Size = new System.Drawing.Size(59, 16);
             this.labelStudents.TabIndex = 5;
@@ -89,6 +96,8 @@
             // 
             // buttonUpdate
             // 
+            this.buttonUpdate.AccessibleDescription = "Update a student record";
+            this.buttonUpdate.AccessibleName = "Update Student";
             this.buttonUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUpdate.Location = new System.Drawing.Point(403, 91);
             this.buttonUpdate.Name = "buttonUpdate";
@@ -100,6 +109,8 @@
             // 
             // buttonDelete
             // 
+            this.buttonDelete.AccessibleDescription = "Delete a student record.";
+            this.buttonDelete.AccessibleName = "Delete Student";
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDelete.Location = new System.Drawing.Point(403, 126);
             this.buttonDelete.Name = "buttonDelete";
@@ -111,6 +122,8 @@
             // 
             // buttonExit
             // 
+            this.buttonExit.AccessibleDescription = "Button to exit the program.";
+            this.buttonExit.AccessibleName = "Exit";
             this.buttonExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonExit.Location = new System.Drawing.Point(405, 318);
@@ -125,7 +138,7 @@
             // 
             this.labelScoreTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelScoreTotal.AutoSize = true;
-            this.labelScoreTotal.Location = new System.Drawing.Point(234, 240);
+            this.labelScoreTotal.Location = new System.Drawing.Point(239, 248);
             this.labelScoreTotal.Name = "labelScoreTotal";
             this.labelScoreTotal.Size = new System.Drawing.Size(74, 16);
             this.labelScoreTotal.TabIndex = 12;
@@ -135,7 +148,7 @@
             // 
             this.labelScoreCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelScoreCount.AutoSize = true;
-            this.labelScoreCount.Location = new System.Drawing.Point(227, 268);
+            this.labelScoreCount.Location = new System.Drawing.Point(232, 276);
             this.labelScoreCount.Name = "labelScoreCount";
             this.labelScoreCount.Size = new System.Drawing.Size(81, 16);
             this.labelScoreCount.TabIndex = 13;
@@ -145,7 +158,7 @@
             // 
             this.labelAverage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelAverage.AutoSize = true;
-            this.labelAverage.Location = new System.Drawing.Point(246, 296);
+            this.labelAverage.Location = new System.Drawing.Point(251, 304);
             this.labelAverage.Name = "labelAverage";
             this.labelAverage.Size = new System.Drawing.Size(62, 16);
             this.labelAverage.TabIndex = 14;
@@ -153,9 +166,11 @@
             // 
             // labelScoreTotalTxt
             // 
+            this.labelScoreTotalTxt.AccessibleDescription = "Currently selected student\'s score total";
+            this.labelScoreTotalTxt.AccessibleName = "Score Total";
             this.labelScoreTotalTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelScoreTotalTxt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelScoreTotalTxt.Location = new System.Drawing.Point(314, 236);
+            this.labelScoreTotalTxt.Location = new System.Drawing.Point(319, 244);
             this.labelScoreTotalTxt.Name = "labelScoreTotalTxt";
             this.labelScoreTotalTxt.Size = new System.Drawing.Size(73, 25);
             this.labelScoreTotalTxt.TabIndex = 15;
@@ -163,9 +178,11 @@
             // 
             // labelScoreCountTxt
             // 
+            this.labelScoreCountTxt.AccessibleDescription = "A count of the currently selected student\'s scores.";
+            this.labelScoreCountTxt.AccessibleName = "Score Count";
             this.labelScoreCountTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelScoreCountTxt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelScoreCountTxt.Location = new System.Drawing.Point(314, 264);
+            this.labelScoreCountTxt.Location = new System.Drawing.Point(319, 272);
             this.labelScoreCountTxt.Name = "labelScoreCountTxt";
             this.labelScoreCountTxt.Size = new System.Drawing.Size(73, 25);
             this.labelScoreCountTxt.TabIndex = 16;
@@ -173,9 +190,11 @@
             // 
             // labelAverageTxt
             // 
+            this.labelAverageTxt.AccessibleDescription = "The average of the currently selected student\'s scores.";
+            this.labelAverageTxt.AccessibleName = "Average";
             this.labelAverageTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelAverageTxt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelAverageTxt.Location = new System.Drawing.Point(314, 292);
+            this.labelAverageTxt.Location = new System.Drawing.Point(319, 300);
             this.labelAverageTxt.Name = "labelAverageTxt";
             this.labelAverageTxt.Size = new System.Drawing.Size(73, 25);
             this.labelAverageTxt.TabIndex = 17;
@@ -185,7 +204,7 @@
             // 
             this.labelTopStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelTopStudent.AutoSize = true;
-            this.labelTopStudent.Location = new System.Drawing.Point(31, 236);
+            this.labelTopStudent.Location = new System.Drawing.Point(36, 244);
             this.labelTopStudent.Name = "labelTopStudent";
             this.labelTopStudent.Size = new System.Drawing.Size(80, 16);
             this.labelTopStudent.TabIndex = 18;
@@ -193,9 +212,11 @@
             // 
             // labelTopStudentNameTxt
             // 
+            this.labelTopStudentNameTxt.AccessibleDescription = "The name of the top student. Sorted by Average Score.";
+            this.labelTopStudentNameTxt.AccessibleName = "Top Student";
             this.labelTopStudentNameTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelTopStudentNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelTopStudentNameTxt.Location = new System.Drawing.Point(34, 260);
+            this.labelTopStudentNameTxt.Location = new System.Drawing.Point(39, 268);
             this.labelTopStudentNameTxt.Name = "labelTopStudentNameTxt";
             this.labelTopStudentNameTxt.Size = new System.Drawing.Size(169, 25);
             this.labelTopStudentNameTxt.TabIndex = 19;
@@ -205,7 +226,7 @@
             // 
             this.labelTopStudentAverage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelTopStudentAverage.AutoSize = true;
-            this.labelTopStudentAverage.Location = new System.Drawing.Point(28, 297);
+            this.labelTopStudentAverage.Location = new System.Drawing.Point(33, 305);
             this.labelTopStudentAverage.Name = "labelTopStudentAverage";
             this.labelTopStudentAverage.Size = new System.Drawing.Size(101, 16);
             this.labelTopStudentAverage.TabIndex = 20;
@@ -213,9 +234,11 @@
             // 
             // labelTopStudentAverageTxt
             // 
+            this.labelTopStudentAverageTxt.AccessibleDescription = "The average score of the current top student.";
+            this.labelTopStudentAverageTxt.AccessibleName = "Top Student Average";
             this.labelTopStudentAverageTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelTopStudentAverageTxt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.labelTopStudentAverageTxt.Location = new System.Drawing.Point(130, 293);
+            this.labelTopStudentAverageTxt.Location = new System.Drawing.Point(135, 301);
             this.labelTopStudentAverageTxt.Name = "labelTopStudentAverageTxt";
             this.labelTopStudentAverageTxt.Size = new System.Drawing.Size(73, 25);
             this.labelTopStudentAverageTxt.TabIndex = 21;
@@ -223,6 +246,7 @@
             // 
             // labelSelectedStudentDate
             // 
+            this.labelSelectedStudentDate.AccessibleName = "Record Creation Date";
             this.labelSelectedStudentDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelSelectedStudentDate.AutoSize = true;
             this.labelSelectedStudentDate.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -244,6 +268,7 @@
             // 
             // labelSelectedStudentId
             // 
+            this.labelSelectedStudentId.AccessibleName = "Student ID";
             this.labelSelectedStudentId.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelSelectedStudentId.AutoSize = true;
             this.labelSelectedStudentId.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -263,11 +288,56 @@
             this.labelSelectedStudentIdText.Size = new System.Drawing.Size(0, 16);
             this.labelSelectedStudentIdText.TabIndex = 26;
             // 
+            // labelExport
+            // 
+            this.labelExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelExport.AutoSize = true;
+            this.labelExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelExport.Location = new System.Drawing.Point(200, 28);
+            this.labelExport.Name = "labelExport";
+            this.labelExport.Size = new System.Drawing.Size(48, 16);
+            this.labelExport.TabIndex = 29;
+            this.labelExport.Text = "Export:";
+            // 
+            // ComBoxExportFileType
+            // 
+            this.ComBoxExportFileType.AccessibleDescription = "Select a file type to export the student data.";
+            this.ComBoxExportFileType.AccessibleName = "Export File Type selector";
+            this.ComBoxExportFileType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ComBoxExportFileType.FormattingEnabled = true;
+            this.ComBoxExportFileType.Items.AddRange(new object[] {
+            "txt",
+            "csv"});
+            this.ComBoxExportFileType.Location = new System.Drawing.Point(254, 24);
+            this.ComBoxExportFileType.Name = "ComBoxExportFileType";
+            this.ComBoxExportFileType.Size = new System.Drawing.Size(98, 24);
+            this.ComBoxExportFileType.TabIndex = 30;
+            this.ComBoxExportFileType.Text = "txt";
+            // 
+            // buttonExport
+            // 
+            this.buttonExport.AccessibleDescription = "Button to export data to the file system.";
+            this.buttonExport.AccessibleName = "Export Button";
+            this.buttonExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonExport.BackColor = System.Drawing.Color.Transparent;
+            this.buttonExport.BackgroundImage = global::Maintain_Student_Scores_John_Moreau.Properties.Resources.arrow;
+            this.buttonExport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonExport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonExport.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.buttonExport.Location = new System.Drawing.Point(357, 21);
+            this.buttonExport.Name = "buttonExport";
+            this.buttonExport.Size = new System.Drawing.Size(30, 29);
+            this.buttonExport.TabIndex = 28;
+            this.buttonExport.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.buttonExport.UseVisualStyleBackColor = false;
+            this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
+            // 
             // buttonSave
             // 
             this.buttonSave.AccessibleDescription = "Button to save data to the file system.";
             this.buttonSave.AccessibleName = "Save Button";
-            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSave.BackgroundImage = global::Maintain_Student_Scores_John_Moreau.Properties.Resources.diskette;
             this.buttonSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonSave.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -283,11 +353,13 @@
             // 
             // buttonFindTopStudent
             // 
+            this.buttonFindTopStudent.AccessibleDescription = "Find the current index of the top student in the students list box.";
+            this.buttonFindTopStudent.AccessibleName = "Find Top Student";
             this.buttonFindTopStudent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonFindTopStudent.BackgroundImage = global::Maintain_Student_Scores_John_Moreau.Properties.Resources.search;
             this.buttonFindTopStudent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonFindTopStudent.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonFindTopStudent.Location = new System.Drawing.Point(175, 227);
+            this.buttonFindTopStudent.Location = new System.Drawing.Point(180, 235);
             this.buttonFindTopStudent.Name = "buttonFindTopStudent";
             this.buttonFindTopStudent.Size = new System.Drawing.Size(28, 29);
             this.buttonFindTopStudent.TabIndex = 22;
@@ -303,6 +375,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonExit;
             this.ClientSize = new System.Drawing.Size(505, 359);
+            this.Controls.Add(this.ComBoxExportFileType);
+            this.Controls.Add(this.labelExport);
+            this.Controls.Add(this.buttonExport);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.labelSelectedStudentIdText);
             this.Controls.Add(this.labelSelectedStudentId);
@@ -362,6 +437,9 @@
         private System.Windows.Forms.Label labelSelectedStudentId;
         private System.Windows.Forms.Label labelSelectedStudentIdText;
         private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Button buttonExport;
+        private System.Windows.Forms.Label labelExport;
+        private System.Windows.Forms.ComboBox ComBoxExportFileType;
     }
 }
 

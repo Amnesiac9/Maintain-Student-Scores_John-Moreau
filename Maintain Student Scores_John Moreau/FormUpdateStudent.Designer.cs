@@ -1,6 +1,6 @@
 ﻿namespace Maintain_Student_Scores_John_Moreau
 {
-    partial class FormUpdateStudentScores
+    partial class FormUpdateStudent
     {
         /// <summary>
         /// Required designer variable.

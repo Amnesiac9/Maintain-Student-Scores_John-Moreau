@@ -13,8 +13,14 @@ namespace Maintain_Student_Scores_John_Moreau
     internal class StudentDB
     {
 
+        // Global list of students
+        //public static List<Student> StudentList = new List<Student>();
+        public static StudentList studentList = new StudentList();
+
         // Global file to save scores
         public static string fileSavePathBin = "StudentScores.bin";
+
+       
 
         public static void LoadStudentsTxtFile(ListBox.ObjectCollection listBoxStudents, ref bool ChangesMade)
         {
@@ -26,14 +32,22 @@ namespace Maintain_Student_Scores_John_Moreau
                 return;
             }
 
-            string[] students = File.ReadAllLines(fileSavePathTxt);
-
-            foreach (string student in students)
+            try
             {
-                listBoxStudents.Add(student);
-            }
+                string[] students = File.ReadAllLines(fileSavePathTxt);
 
-            ChangesMade = true;
+                foreach (string student in students)
+                {
+                    listBoxStudents.Add(student);
+                }
+
+                ChangesMade = true;
+            }
+            catch
+            {
+                MessageBox.Show("Error reading StudentScores.txt File.", "Error");
+            }
+            
         }
 
         // Function to generate our list from the initial default ListBox
@@ -50,7 +64,7 @@ namespace Maintain_Student_Scores_John_Moreau
                 if (currentStudent.Length <= 1)
                 {
                     Student newStudentNoScores = new Student(currentStudent[0]);
-                    FormMainStudentScores.StudentList.Add(newStudentNoScores);
+                    studentList.Add(newStudentNoScores);
                     // We have no scores, so skip to the next student
                     continue;
                 }
@@ -68,7 +82,7 @@ namespace Maintain_Student_Scores_John_Moreau
 
                 // Create new student with scores and add to the list
                 Student newStudent = new Student(currentStudent[0], new Scores(newScoresArray));
-                FormMainStudentScores.StudentList.Add(newStudent);
+                studentList.Add(newStudent);
             }
         }
 
@@ -84,7 +98,7 @@ namespace Maintain_Student_Scores_John_Moreau
                 BinaryFormatter formatter = new BinaryFormatter(); // IDK why it wouldn't let me do a "using" here, doesn't need to be disposed of?
                 try
                 {
-                    formatter.Serialize(stream, FormMainStudentScores.StudentList);
+                    formatter.Serialize(stream, studentList);
                     ChangesMade = false;
                     MessageBox.Show("Data saved succesfully", "Data Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -106,33 +120,140 @@ namespace Maintain_Student_Scores_John_Moreau
             // Make sure it exists
             if (!File.Exists(fileSavePathBin))
             {
-
                 // Load a text file that contains the student scores into the listboxStudents.Items
-                StudentDB.LoadStudentsTxtFile(listBoxStudents, ref ChangesMade);
+                LoadStudentsTxtFile(listBoxStudents, ref ChangesMade);
                 // Load the intial strings from the list box to our List of students
-                StudentDB.SplitNamesAndScoresToList(listBoxStudents); // TODO: Read this from text file instead
+                SplitNamesAndScoresToList(listBoxStudents); // TODO: Read this from text file instead
                 //SaveStudentScores();
                 return;
             }
-
-            // Open file stream
-            using (FileStream stream = new FileStream(fileSavePathBin, FileMode.Open))
+            try
             {
-                // Create new binary formatter to convert to bin
-                // https://stackoverflow.com/questions/32108996/deserialize-object-from-binary-file
-                BinaryFormatter formatter = new BinaryFormatter();
-                // deserialize and cast to a student list which includes their scores.
-                FormMainStudentScores.StudentList = (List<Student>)formatter.Deserialize(stream);
+                // Open file stream
+                using (FileStream stream = new FileStream(fileSavePathBin, FileMode.Open))
+                {
+                    // Create new binary formatter to convert to bin
+                    // https://stackoverflow.com/questions/32108996/deserialize-object-from-binary-file
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    // deserialize and cast to a student list which includes their scores.
+                    studentList = (StudentList)formatter.Deserialize(stream);
+                }
+
+                // Clear list box and add each student to the list box
+                //listBoxStudents.Clear();
+
+                foreach (Student student in studentList)
+                {
+                    listBoxStudents.Add(student.ToString());
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Error opening StudentScores.bin", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            // Clear list box and add each student to the list box
-            listBoxStudents.Clear();
+        }
 
-            foreach (Student student in FormMainStudentScores.StudentList)
+        /// <summary>
+        /// Exports the current students list as a formatted text file in the root directory.
+        /// </summary>
+        public static void ExportStudentsTxtFile()
+        {
+            string fileSavePathTxt = "StudentScoresExport.txt";
+            int namePad = 20;
+            int scoresPad = 50;
+            int totalPad = 11;
+            int avgPad = 4;
+
+            // Generate a unique file name
+            int counter = 1;
+            while (File.Exists(fileSavePathTxt))
             {
-                listBoxStudents.Add(student.ToString());
+                fileSavePathTxt = "StudentScoresExport" + counter + ".txt";
+                ++counter;
             }
 
+            // All this formatting feels wrong lol.
+            using (FileStream fileStream = new FileStream(fileSavePathTxt, FileMode.Create))
+            {
+                using (StreamWriter streamWriter = new StreamWriter(fileStream))
+                {
+                    // Write Headers
+                    // Left pad needs to be (total / 2) + (original string length / 2)
+                    // Or total - length / 2 + length
+
+                    //Date
+                    streamWriter.WriteLine("Report Date: " + DateTime.Today.ToShortDateString());
+
+                    // Student Name | Student Scores | Total | Average
+                    string line = string.Format("{0} | {1} | {2} | {3}",
+                            "Student Name".PadRight(namePad),
+                            "Student Scores".PadLeft(scoresPad / 2 + 7).PadRight(scoresPad),
+                            "Total".PadLeft(totalPad / 2 + 3).PadRight(totalPad),
+                            "Average".PadLeft(avgPad));
+                    streamWriter.WriteLine(line);
+
+                    // Write seperator
+                    for (int i = 0; i < line.Length; ++i)
+                    {
+                        streamWriter.Write("-");
+                    }
+                    streamWriter.Write("\n");
+
+                    // Write each student
+                    foreach (Student student in studentList)
+                    {
+                        int scoresLength = student.StudentScores.ToString().Length;
+                        int scoresPadLeft = (scoresPad - scoresLength) / 2 + scoresLength;
+                        int totalLength = student.StudentScores.Total.ToString().Length;
+                        int totalPadLeft = (totalPad - totalLength) / 2 + totalLength;
+
+                        line = string.Format("{0} | {1} | {2} | {3}",
+                            student.Name.PadRight(namePad),
+                            student.StudentScores.ToString().PadLeft(scoresPadLeft).PadRight(scoresPad),
+                            student.StudentScores.Total.ToString().PadLeft(totalPadLeft).PadRight(totalPad),
+                            student.StudentScores.Average.ToString().PadLeft(avgPad));
+
+                        streamWriter.WriteLine(line);
+                    }
+                }
+            }
+
+            MessageBox.Show("Export successful", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public static void ExportStudentsCsv()
+        {
+            string fileSavePathTxt = "StudentScoresExport.csv";
+
+            int counter = 1;
+            while (File.Exists(fileSavePathTxt))
+            {
+                fileSavePathTxt = "StudentScoresExport" + counter + ".csv";
+                counter++;
+            }
+
+            using (FileStream fileStream = new FileStream(fileSavePathTxt, FileMode.Create))
+            {
+                using (StreamWriter streamWriter = new StreamWriter(fileStream))
+                {
+                    streamWriter.WriteLine("Report Date: ," + DateTime.Today.ToShortDateString());
+                    streamWriter.WriteLine("Student Name, Student Scores, Total, Average");
+
+                    foreach (Student student in studentList)
+                    {
+                        string line = string.Format("{0},{1},{2},{3}",
+                            student.Name,
+                            student.StudentScores.ToString().Replace(",", " | "),
+                            student.StudentScores.Total.ToString(),
+                            student.StudentScores.Average.ToString());
+                        streamWriter.WriteLine(line);
+                    }
+
+
+                }
+            }
+            MessageBox.Show("Export successful", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

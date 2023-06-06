@@ -23,22 +23,22 @@ namespace Maintain_Student_Scores_John_Moreau
 
         // pre: List of students
         // post: Top student is found and average is updated
-        public static void SetTopStudent(List<Student> StudentList)
+        public static void SetTopStudent()
         {
             int index = 0;
 
-            if (StudentList.Count < 1)
+            if (StudentDB.studentList.Count < 1)
             {
                 return;
             }
 
 
-            TopStudent = StudentList[index];
+            TopStudent = StudentDB.studentList[index];
             AverageScore = TopStudent.StudentScores.Average;
             TopStudentIndex = index;
 
 
-            foreach (Student student in StudentList)
+            foreach (Student student in StudentDB.studentList)
             {
                 Scores currentStudent = student.StudentScores;
                 Scores bestStudent = TopStudent.StudentScores;
@@ -63,10 +63,10 @@ namespace Maintain_Student_Scores_John_Moreau
         public static void GetTopStudent(Label labelTopStudentNameTxt, Label labelTopStudentAverageTxt)
         {
             // Set the top student
-            TopStudentRecord.SetTopStudent(FormMainStudentScores.StudentList);
+            TopStudentRecord.SetTopStudent();
 
             // Make sure we have students and that the top student has scores
-            if (FormMainStudentScores.StudentList.Count < 1 || TopStudent.StudentScores.ScoresArray.Length < 1)
+            if (StudentDB.studentList.Count < 1 || TopStudent.StudentScores.ScoresArray.Length < 1)
             {
                 labelTopStudentNameTxt.Text = "";
                 labelTopStudentAverageTxt.Text = "";

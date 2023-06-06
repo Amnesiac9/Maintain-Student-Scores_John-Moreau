@@ -20,15 +20,15 @@ using System.Windows.Forms;
 
 namespace Maintain_Student_Scores_John_Moreau
 {
-    public partial class FormUpdateStudentScores : Form
+    public partial class FormUpdateStudent : Form
     {
-        public FormUpdateStudentScores()
+        public FormUpdateStudent()
         {
             InitializeComponent();
         }
 
         // Bool to check if changes were made
-        bool changesMade = false;
+        private bool changesMade = false;
 
         // To hold our student being worked on
         private static Student CurrentStudent;
@@ -69,7 +69,7 @@ namespace Maintain_Student_Scores_John_Moreau
             // Set the name in case it changed
             CurrentStudent.Name = labelNameTxt.Text;
 
-            // Set the tag to the student to export it back to the main form. Does sending it back send a copy or a pointer?
+            // Set the tag to the student to export it back to the main form.
             Tag = CurrentStudent;
 
             // Set the result to OK to trigger this form closing and sending data back to main form.
@@ -166,10 +166,10 @@ namespace Maintain_Student_Scores_John_Moreau
 
 
             // Create a dialog box to confirm
-            DialogResult eraseAllScores = MessageBox.Show("Are you sure you want to erase all scores?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); ;
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to erase all scores?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); ;
             
             // Return if the answer is not OK
-            if (eraseAllScores != DialogResult.OK)
+            if (dialogResult != DialogResult.OK)
             {
                 return;
             }
