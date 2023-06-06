@@ -41,7 +41,7 @@
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 28);
             this.buttonCancel.TabIndex = 7;
-            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.Text = "&Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
@@ -82,6 +82,7 @@
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.textBoxName);
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(279, 153);
             this.MinimizeBox = false;

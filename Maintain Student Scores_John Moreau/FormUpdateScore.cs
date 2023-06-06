@@ -11,7 +11,7 @@ using System.Windows.Forms;
 /* 
  * John Moreau
  * CSS133
- * 5/12/2023
+ * 6/5/2023
  * 
  * 
  */
@@ -23,6 +23,16 @@ namespace Maintain_Student_Scores_John_Moreau
         public FormUpdateScore()
         {
             InitializeComponent();
+            this.KeyDown += FormUpdateScore_KeyDown;
+        }
+
+        // Handle Alt+X to close the form
+        private void FormUpdateScore_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.X && e.Alt)
+            {
+                buttonCancel.PerformClick();
+            }
         }
 
         public void GetScoreData(string score)

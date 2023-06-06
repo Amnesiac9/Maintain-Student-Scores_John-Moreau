@@ -52,6 +52,7 @@
             // 
             // buttonAdd
             // 
+            this.buttonAdd.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonAdd.Location = new System.Drawing.Point(27, 86);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 28);
@@ -67,7 +68,7 @@
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 28);
             this.buttonCancel.TabIndex = 3;
-            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.Text = "&Cancel\r\n";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // FormAddScore
@@ -83,6 +84,7 @@
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.labeScore);
             this.Controls.Add(this.textBoxScore);
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(232, 184);
             this.MinimizeBox = false;

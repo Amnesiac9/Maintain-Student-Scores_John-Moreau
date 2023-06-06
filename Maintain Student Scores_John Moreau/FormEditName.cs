@@ -26,6 +26,15 @@ namespace Maintain_Student_Scores_John_Moreau
         public FormEditName()
         {
             InitializeComponent();
+            this.KeyDown += FormEditName_KeyDown;
+        }
+
+        private void FormEditName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.X && e.Modifiers == Keys.Alt)
+            {
+                buttonCancel.PerformClick();
+            }
         }
 
         public void GetStudentName(string student)

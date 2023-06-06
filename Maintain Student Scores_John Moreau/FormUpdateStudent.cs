@@ -30,6 +30,15 @@ namespace Maintain_Student_Scores_John_Moreau
         public FormUpdateStudent()
         {
             InitializeComponent();
+            this.KeyDown += FormUpdateStudent_KeyDown;
+        }
+
+        private void FormUpdateStudent_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.X && e.Modifiers == Keys.Alt)
+            {
+                buttonCancel.PerformClick();
+            }
         }
 
         // Bool to check if changes were made

@@ -29,6 +29,16 @@ namespace Maintain_Student_Scores_John_Moreau
         public FormAddStudent()
         {
             InitializeComponent();
+            this.KeyDown += FormAddStudent_KeyDown;
+        }
+
+        // Handle Alt+X to close the form
+        private void FormAddStudent_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.X && e.Alt)
+            {
+                buttonCancel.PerformClick();
+            }
         }
 
         private void buttonAddScore_Click(object sender, EventArgs e)
@@ -72,6 +82,11 @@ namespace Maintain_Student_Scores_John_Moreau
             this.Close();
         }
 
+        /// <summary>
+        /// Validate the user input and return the new student as a string to the main form via Tag.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonOK_Click(object sender, EventArgs e)
         {
             // Check if user entered a valid name. Empty scores is ok.

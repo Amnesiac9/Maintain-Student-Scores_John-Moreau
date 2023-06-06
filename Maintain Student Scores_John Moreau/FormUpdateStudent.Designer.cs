@@ -161,7 +161,7 @@
             this.buttonEditName.UseVisualStyleBackColor = true;
             this.buttonEditName.Click += new System.EventHandler(this.buttonEditName_Click);
             // 
-            // FormUpdateStudentScores
+            // FormUpdateStudent
             // 
             this.AcceptButton = this.buttonOK;
             this.AccessibleDescription = "Form for updating a student record.";
@@ -181,9 +181,10 @@
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.listBoxScores);
             this.Controls.Add(this.buttonAdd);
+            this.KeyPreview = true;
             this.MaximumSize = new System.Drawing.Size(1000, 700);
             this.MinimumSize = new System.Drawing.Size(374, 341);
-            this.Name = "FormUpdateStudentScores";
+            this.Name = "FormUpdateStudent";
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

@@ -25,6 +25,16 @@ namespace Maintain_Student_Scores_John_Moreau
         public FormAddScore()
         {
             InitializeComponent();
+            this.KeyDown += FormAddScore_KeyDown;
+        }
+
+        // Handle Alt+X to close form
+        private void FormAddScore_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.X && e.Alt)
+            {
+                buttonCancel.PerformClick();
+            }
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)

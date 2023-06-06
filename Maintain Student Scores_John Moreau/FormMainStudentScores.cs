@@ -49,7 +49,8 @@ using System.Reflection;
  * Created a StudentList class to hold a list of students that auto sorts when a new student is added.
  * Added a FirstName and LastName property to the Student class to allow sorting by last name.
  * Now asks to confirm exiting if changes were made to the student records.
- * 
+ * Added ability to export to a TXT or CSV file.
+ * Added the ability to save the default export file type to the app settings.
  * 
  */
 
@@ -72,16 +73,21 @@ namespace Maintain_Student_Scores_John_Moreau
             InitializeComponent();
         }
 
+        // LOAD FORM //
+        /// <summary>
+        /// 1) Show about box <br></br>
+        /// 2) Load the student scores from either a txt file or bin file <br></br>
+        /// 3) Load the top student record <br></br>
+        /// 4) Load ExportFileType settings <br></br>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormMain_Load(object sender, EventArgs e)
         {
-            CreatorIntro();
+            new AboutBox().ShowDialog();
             StudentDB.LoadStudentScores(listBoxStudents.Items, ref ChangesMade);
             TopStudentRecord.GetTopStudent(labelTopStudentNameTxt, labelTopStudentAverageTxt);
-        }
-        private void CreatorIntro()
-        {
-            // Show about box
-            new AboutBox().ShowDialog();
+            ComBoxExportFileType.SelectedItem = Properties.Settings.Default.ExportFileType;
         }
 
         // EXIT BUTTON //
@@ -191,7 +197,7 @@ namespace Maintain_Student_Scores_John_Moreau
             // Remove item from our list
             StudentDB.studentList.RemoveAt(selectedIndex);
 
-            // Set our selected index to the next item in the list
+            // Set our selected index to the previous item in the list
             listBoxStudents.SelectedIndex = selectedIndex - 1;
 
             TopStudentRecord.GetTopStudent(labelTopStudentNameTxt, labelTopStudentAverageTxt);
@@ -250,13 +256,17 @@ namespace Maintain_Student_Scores_John_Moreau
                 return;
             }
 
-            if (ComBoxExportFileType.Text == "txt")
+            // Save the default export file type to settings
+            Properties.Settings.Default.ExportFileType = ComBoxExportFileType.SelectedItem.ToString();
+            Properties.Settings.Default.Save();
+
+            if (ComBoxExportFileType.Text == ".txt")
             {
                 StudentDB.ExportStudentsTxtFile();
                 return;
             }
             
-            if (ComBoxExportFileType.Text == "csv")
+            if (ComBoxExportFileType.Text == ".csv")
             {
                 StudentDB.ExportStudentsCsv();                
                 return;

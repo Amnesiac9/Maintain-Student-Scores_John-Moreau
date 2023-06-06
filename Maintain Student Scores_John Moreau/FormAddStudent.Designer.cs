@@ -161,6 +161,7 @@
             this.Controls.Add(this.buttonAddScore);
             this.Controls.Add(this.textBoxScore);
             this.Controls.Add(this.textBoxName);
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(900, 270);
             this.MinimizeBox = false;
