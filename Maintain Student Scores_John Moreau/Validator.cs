@@ -21,7 +21,7 @@ namespace Maintain_Student_Scores_John_Moreau
         /// Checks if a string is present and is not white space.
         /// </summary>
         /// <param name="text"></param>
-        /// <returns>bool</returns>
+        /// <returns>bool true if valid</returns>
         public static bool IsPresent(string text)
         {
             return !string.IsNullOrWhiteSpace(text);
@@ -31,7 +31,7 @@ namespace Maintain_Student_Scores_John_Moreau
         /// Checks if a string can be parsed into an int.
         /// </summary>
         /// <param name="text"></param>
-        /// <returns>bool</returns>
+        /// <returns>bool true if valid</returns>
         public static bool IsInt(string text)
         {
             return int.TryParse(text, out _);
@@ -43,7 +43,7 @@ namespace Maintain_Student_Scores_John_Moreau
         /// <param name="text"></param>
         /// <param name="min"></param>
         /// <param name="max"></param>
-        /// <returns>bool</returns>
+        /// <returns>bool true if valid</returns>
         public static bool IsInRange(string text, decimal min, decimal max)
         {
             if(decimal.TryParse(text.Trim(), out decimal number))
@@ -61,13 +61,32 @@ namespace Maintain_Student_Scores_John_Moreau
         /// Checks if the string entered is a valid student name, which must not include "|" or be empty space.
         /// </summary>
         /// <param name="text"></param>
-        /// <returns>bool</returns>
+        /// <returns>bool true if valid</returns>
         public static bool IsValidName(string text)
         {
             if (string.IsNullOrWhiteSpace(text) || text.Contains("|"))
             {
                 return false;
             }
+            return true;
+        }
+
+        /// <summary>
+        /// Validates a given string is between the min and max length.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns>bool true if valid</returns>
+        public static bool IsValidLength(string text, int min, int max)
+        {
+            text = text.Trim();
+
+            if (text.Length < min || text.Length > max)
+            {
+                return false;
+            }
+
             return true;
         }
 

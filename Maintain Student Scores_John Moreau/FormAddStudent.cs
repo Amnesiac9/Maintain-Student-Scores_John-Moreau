@@ -97,9 +97,20 @@ namespace Maintain_Student_Scores_John_Moreau
                 //Make sure to set the response to NONE so that the form doesn't close
                 this.DialogResult = DialogResult.None;
                 // Re-Focus the text box
+                textBoxName.SelectAll();
                 textBoxName.Focus();
                 return;
             }
+
+            if (!Validator.IsValidLength(textBoxName.Text, 1, 30))
+            {
+                MessageBox.Show("Please enter a valid Student Name, maximum length is 30.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.DialogResult = DialogResult.None;
+                textBoxName.SelectAll();
+                textBoxName.Focus();
+                return;
+            }
+
 
             // Concat new student with the name + scores with spaces replaced with |
             string newStudent = textBoxName.Text.Trim() + labelScoresTxt.Text.Replace(" ", "|");
@@ -111,6 +122,16 @@ namespace Maintain_Student_Scores_John_Moreau
             this.DialogResult = DialogResult.OK;
         }
 
+        // Set the accept button to the add score button when the score text box is in focus.
+        private void textBoxScore_Enter(object sender, EventArgs e)
+        {
+            this.AcceptButton = buttonAddScore;
+        }
 
+        // Set the accept button to the OK button when the focus leaves the score text box.
+        private void textBoxScore_Leave(object sender, EventArgs e)
+        {
+            this.AcceptButton = buttonOK;
+        }
     }
 }

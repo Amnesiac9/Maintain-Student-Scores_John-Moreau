@@ -52,6 +52,8 @@
             // 
             // buttonAdd
             // 
+            this.buttonAdd.AccessibleDescription = "Add button to add a score";
+            this.buttonAdd.AccessibleName = "Add button";
             this.buttonAdd.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonAdd.Location = new System.Drawing.Point(27, 86);
             this.buttonAdd.Name = "buttonAdd";
@@ -63,6 +65,8 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.AccessibleDescription = "Cancel adding a score";
+            this.buttonCancel.AccessibleName = "Cancel button";
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(117, 86);
             this.buttonCancel.Name = "buttonCancel";

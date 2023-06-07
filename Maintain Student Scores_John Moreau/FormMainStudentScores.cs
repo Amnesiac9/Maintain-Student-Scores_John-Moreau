@@ -27,6 +27,7 @@ using System.Reflection;
  * https://stackoverflow.com/questions/19432468/how-do-i-read-write-binary-files-in-c
  * https://stackoverflow.com/questions/32108996/deserialize-object-from-binary-file
  * Adding leading zeros to student id: https://stackoverflow.com/questions/3459610/pad-with-leading-zeros
+ * Keydown event: https://stackoverflow.com/questions/2474397/hotkey-to-button-in-c-sharp-windows-application
  * 
  * Change Log:
  * 
@@ -48,9 +49,14 @@ using System.Reflection;
  * Moved the GetTopStudent method to TopStudentRecord class.
  * Created a StudentList class to hold a list of students that auto sorts when a new student is added.
  * Added a FirstName and LastName property to the Student class to allow sorting by last name.
+ * Added code to handle middle names still sorting by the last name.
  * Now asks to confirm exiting if changes were made to the student records.
  * Added ability to export to a TXT or CSV file.
  * Added the ability to save the default export file type to the app settings.
+ * Added Alt+X shortcut to close most forms and dialogs per instructions.
+ * Added accesibility descriptions to all controls.
+ * Added focus to the add score field when focus targets the score text box in the Add Student form.
+ * Returned focus to the OK button when the focus leaves the score Text Box in the Add Student form.
  * 
  */
 
@@ -93,16 +99,22 @@ namespace Maintain_Student_Scores_John_Moreau
         // EXIT BUTTON //
         private void buttonExit_Click(object sender, EventArgs e)
         {
-            if(ChangesMade == false)
+            this.Close();
+        }
+
+        // Handle the closing event incase the user presses the X button to close the form instead of exit
+        private void FormMainStudentScores_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (ChangesMade == false)
             {
-                this.Close();
                 return;
             }
             // Show message box to confirm exit
             DialogResult result = MessageBox.Show("Are you sure you want to exit without saving?", "Unsaved changes", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-            if (result == DialogResult.Yes)
+            if (result == DialogResult.No)
             {
-                this.Close();
+                // Cancel the close event
+                e.Cancel = true;
             }
         }
 
@@ -274,6 +286,7 @@ namespace Maintain_Student_Scores_John_Moreau
             
 
         }
+
 
     }
 }

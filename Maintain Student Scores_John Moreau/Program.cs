@@ -18,8 +18,11 @@ using System.Windows.Forms;
  * https://stackoverflow.com/questions/19432468/how-do-i-read-write-binary-files-in-c
  * https://stackoverflow.com/questions/32108996/deserialize-object-from-binary-file
  * Adding leading zeros to student id: https://stackoverflow.com/questions/3459610/pad-with-leading-zeros
+ * Keydown event: https://stackoverflow.com/questions/2474397/hotkey-to-button-in-c-sharp-windows-application
  * 
- * Updates:
+ * Change Log:
+ * 
+ * 5/31/23
  * Switched to using serializable classes for students and their scores.
  * Added a Scores class to hold the scores and calculate the average, min, max, etc.
  * Added a Student class to hold a student's name, scores, and date of record creation.
@@ -32,11 +35,16 @@ using System.Windows.Forms;
  * Added the validator class to validate user input.
  * Added a save button so saving is not automatic.
  * Added a try/catch to the save button to catch any errors saving to a binary file.
- * Added StudentDB class to handle saving and loading student data.
+ * Added StudentDB class to handle holding, saving and loading student data.
+ * Now loads the intital students from a text file if the .bin file is not found.
  * Moved the GetTopStudent method to TopStudentRecord class.
  * Created a StudentList class to hold a list of students that auto sorts when a new student is added.
  * Added a FirstName and LastName property to the Student class to allow sorting by last name.
- * 
+ * Now asks to confirm exiting if changes were made to the student records.
+ * Added ability to export to a TXT or CSV file.
+ * Added the ability to save the default export file type to the app settings.
+ * Added Alt+X shortcut to close most forms and dialogs per instructions.
+ * Added accesibility descriptions to all controls.
  * 
  */
 

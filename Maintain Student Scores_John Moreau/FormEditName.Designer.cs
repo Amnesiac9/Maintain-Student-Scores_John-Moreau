@@ -36,6 +36,8 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.AccessibleDescription = "Cancel editing the name of the student record.";
+            this.buttonCancel.AccessibleName = "Cancel Button";
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(138, 66);
             this.buttonCancel.Name = "buttonCancel";
@@ -47,6 +49,8 @@
             // 
             // buttonUpdate
             // 
+            this.buttonUpdate.AccessibleDescription = "Button to commit the update to the student name.";
+            this.buttonUpdate.AccessibleName = "Update Button";
             this.buttonUpdate.Location = new System.Drawing.Point(48, 66);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(75, 28);
@@ -66,6 +70,8 @@
             // 
             // textBoxName
             // 
+            this.textBoxName.AccessibleDescription = "Text box containing the student name to edit";
+            this.textBoxName.AccessibleName = "Name Text Box";
             this.textBoxName.Location = new System.Drawing.Point(75, 21);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(161, 22);

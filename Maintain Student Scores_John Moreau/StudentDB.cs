@@ -192,7 +192,7 @@ namespace Maintain_Student_Scores_John_Moreau
         public static void ExportStudentsTxtFile()
         {
             string fileSavePathTxt = "StudentScoresExport.txt";
-            int namePad = 20;
+            int namePad = 25;
             int scoresPad = 50;
             int totalPad = 11;
             int avgPad = 4;
@@ -210,9 +210,10 @@ namespace Maintain_Student_Scores_John_Moreau
             {
                 using (StreamWriter streamWriter = new StreamWriter(fileStream))
                 {
-                    // Write Headers
+                    
                     // Left pad needs to be (total / 2) + (original string length / 2)
                     // Or total - length / 2 + length
+                    // Wish there was a PadBoth function, maybe I should have made one.
 
                     //Date
                     streamWriter.WriteLine("Report Date: " + DateTime.Today.ToShortDateString());

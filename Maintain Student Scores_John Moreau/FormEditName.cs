@@ -41,7 +41,7 @@ namespace Maintain_Student_Scores_John_Moreau
         {
 
             // Clear any previous
-            textBoxName.Clear();
+            //textBoxName.Clear();
 
             // Add the name
             textBoxName.Text = student; // Name
@@ -71,6 +71,16 @@ namespace Maintain_Student_Scores_John_Moreau
                 this.DialogResult = DialogResult.None;
                 return;
             }
+
+            if (!Validator.IsValidLength(textBoxName.Text, 1, 30))
+            {
+                MessageBox.Show("Please enter a valid Student Name, maximum length is 30.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.DialogResult = DialogResult.None;
+                textBoxName.SelectAll();
+                textBoxName.Focus();
+                return;
+            }
+
 
             // Set the tag to this new student string to export it back to the main form.
             this.Tag = text;

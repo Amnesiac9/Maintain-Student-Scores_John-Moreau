@@ -27,15 +27,18 @@ namespace Maintain_Student_Scores_John_Moreau
         public string StudentId { get; set; }
         public DateTime RecordStartDate { get; private set; } // private so we can't change it later
         public string FirstName => Name.Split(' ')[0];
+
         // Returns the last name if there is one, otherwise returns an empty string.
-        // Handles middle names by reversing the array and joining it back together into a single string to make the last name always return at the beginning of the LastName string for alpha sort.
-        public string LastName => Name.Split(' ').Length > 1 ? string.Join(" ", Name.Split(' ').Skip(1).Reverse()) : "";
+        // This pushes students with no last name to the top of the list.
+        public string LastName => Name.Split(' ').Length > 1 ? Name.Split(' ').Last() : "";
+        // This is also an option, but would sort by first name if there is no last name.
+        //public string LastName => Name.Split(' ').Last();
+
 
         public Student(string nameAndScoresString)
         {
            (string name, int[] newScoresArray) = SplitNameAndScores(nameAndScoresString);
             Name = name;
-            string[] nameArray = name.Split(' ');
             StudentScores = new Scores(newScoresArray);
             StudentId = random.Next(000000001, 999999999).ToString("D9"); // D9 to pad with 0s SOURCE: https://stackoverflow.com/questions/3459610/pad-with-leading-zeros
             RecordStartDate = DateTime.Now;
@@ -44,7 +47,6 @@ namespace Maintain_Student_Scores_John_Moreau
         public Student(string name, Scores scores)
         {
             Name = name;
-            string[] nameArray = name.Split(' ');
             StudentScores = scores;
             StudentId = random.Next(000000001, 999999999).ToString();
             RecordStartDate = DateTime.Now;
