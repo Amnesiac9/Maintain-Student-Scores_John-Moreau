@@ -22,17 +22,5 @@ namespace Maintain_Student_Scores_John_Moreau.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(".txt")]
-        public string ExportFileType {
-            get {
-                return ((string)(this["ExportFileType"]));
-            }
-            set {
-                this["ExportFileType"] = value;
-            }
-        }
     }
 }

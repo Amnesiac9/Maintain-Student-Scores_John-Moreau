@@ -50,7 +50,8 @@
             this.labelSelectedStudentId = new System.Windows.Forms.Label();
             this.labelSelectedStudentIdText = new System.Windows.Forms.Label();
             this.labelExport = new System.Windows.Forms.Label();
-            this.ComBoxExportFileType = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.buttonImport = new System.Windows.Forms.Button();
             this.buttonExport = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonFindTopStudent = new System.Windows.Forms.Button();
@@ -293,26 +294,41 @@
             this.labelExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelExport.AutoSize = true;
             this.labelExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelExport.Location = new System.Drawing.Point(224, 28);
+            this.labelExport.Location = new System.Drawing.Point(408, 256);
             this.labelExport.Name = "labelExport";
             this.labelExport.Size = new System.Drawing.Size(48, 16);
             this.labelExport.TabIndex = 29;
             this.labelExport.Text = "Export:";
             // 
-            // ComBoxExportFileType
+            // label1
             // 
-            this.ComBoxExportFileType.AccessibleDescription = "Select a file type to export the student data.";
-            this.ComBoxExportFileType.AccessibleName = "Export File Type selector";
-            this.ComBoxExportFileType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ComBoxExportFileType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComBoxExportFileType.FormattingEnabled = true;
-            this.ComBoxExportFileType.Items.AddRange(new object[] {
-            ".txt",
-            ".csv"});
-            this.ComBoxExportFileType.Location = new System.Drawing.Point(278, 24);
-            this.ComBoxExportFileType.Name = "ComBoxExportFileType";
-            this.ComBoxExportFileType.Size = new System.Drawing.Size(74, 24);
-            this.ComBoxExportFileType.TabIndex = 30;
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(408, 221);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 16);
+            this.label1.TabIndex = 31;
+            this.label1.Text = "Import:";
+            // 
+            // buttonImport
+            // 
+            this.buttonImport.AccessibleDescription = "Button to export data to the file system.";
+            this.buttonImport.AccessibleName = "Export Button";
+            this.buttonImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonImport.BackColor = System.Drawing.Color.Transparent;
+            this.buttonImport.BackgroundImage = global::Maintain_Student_Scores_John_Moreau.Properties.Resources.import_cropped2;
+            this.buttonImport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonImport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonImport.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.buttonImport.Location = new System.Drawing.Point(462, 214);
+            this.buttonImport.Name = "buttonImport";
+            this.buttonImport.Size = new System.Drawing.Size(30, 29);
+            this.buttonImport.TabIndex = 30;
+            this.buttonImport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.buttonImport.UseVisualStyleBackColor = false;
+            this.buttonImport.Click += new System.EventHandler(this.buttonImport_Click);
             // 
             // buttonExport
             // 
@@ -321,11 +337,11 @@
             this.buttonExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonExport.BackColor = System.Drawing.Color.Transparent;
             this.buttonExport.BackgroundImage = global::Maintain_Student_Scores_John_Moreau.Properties.Resources.arrow;
-            this.buttonExport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonExport.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonExport.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonExport.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.buttonExport.Location = new System.Drawing.Point(357, 21);
+            this.buttonExport.Location = new System.Drawing.Point(462, 249);
             this.buttonExport.Name = "buttonExport";
             this.buttonExport.Size = new System.Drawing.Size(30, 29);
             this.buttonExport.TabIndex = 28;
@@ -375,7 +391,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonExit;
             this.ClientSize = new System.Drawing.Size(505, 383);
-            this.Controls.Add(this.ComBoxExportFileType);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.buttonImport);
             this.Controls.Add(this.labelExport);
             this.Controls.Add(this.buttonExport);
             this.Controls.Add(this.buttonSave);
@@ -440,7 +457,8 @@
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonExport;
         private System.Windows.Forms.Label labelExport;
-        private System.Windows.Forms.ComboBox ComBoxExportFileType;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonImport;
     }
 }
 

@@ -1,9 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Maintain_Student_Scores_John_Moreau.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
   <Profiles />
-  <Settings>
-    <Setting Name="ExportFileType" Type="System.String" Scope="User">
-      <Value Profile="(Default)">.txt</Value>
-    </Setting>
-  </Settings>
+  <Settings />
 </SettingsFile>

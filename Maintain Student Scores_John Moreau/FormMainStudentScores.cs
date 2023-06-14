@@ -16,7 +16,7 @@ using System.Reflection;
 /* 
  * John Moreau
  * CSS133
- * 6/5/2023
+ * 6/7/2023
  * 
  * Windows form app for maintaining a record of student scores.
  * 
@@ -28,6 +28,10 @@ using System.Reflection;
  * https://stackoverflow.com/questions/32108996/deserialize-object-from-binary-file
  * Adding leading zeros to student id: https://stackoverflow.com/questions/3459610/pad-with-leading-zeros
  * Keydown event: https://stackoverflow.com/questions/2474397/hotkey-to-button-in-c-sharp-windows-application
+ * Load and Save with windows file dialog: https://learn.microsoft.com/en-us/dotnet/desktop/winforms/controls/how-to-save-files-using-the-savefiledialog-component?view=netframeworkdesktop-4.8
+ * Get working directory: https://stackoverflow.com/questions/21726088/how-to-get-current-working-directory-path-c
+ * Building strings: https://learn.microsoft.com/en-us/dotnet/api/system.string.format?view=net-7.0
+ * 
  * 
  * Change Log:
  * 
@@ -40,7 +44,7 @@ using System.Reflection;
  * Added new label showing when a student record was first created.
  * Added student ID to the student class with a ranom 9 digit number.
  * 
- * 6/4/23, 6/5/23
+ * 6/4/23, 6/5/23, 6/6/23
  * Added the validator class to validate user input.
  * Added a save button so saving is not automatic.
  * Added a try/catch to the save button to catch any errors saving to a binary file.
@@ -49,14 +53,16 @@ using System.Reflection;
  * Moved the GetTopStudent method to TopStudentRecord class.
  * Created a StudentList class to hold a list of students that auto sorts when a new student is added.
  * Added a FirstName and LastName property to the Student class to allow sorting by last name.
- * Added code to handle middle names still sorting by the last name.
+ * Added code to handle middle names or names with spaces to allow sorting by the last name.
  * Now asks to confirm exiting if changes were made to the student records.
  * Added ability to export to a TXT or CSV file.
- * Added the ability to save the default export file type to the app settings.
  * Added Alt+X shortcut to close most forms and dialogs per instructions.
  * Added accesibility descriptions to all controls.
  * Added focus to the add score field when focus targets the score text box in the Add Student form.
  * Returned focus to the OK button when the focus leaves the score Text Box in the Add Student form.
+ * Added an import dialog on startup to allow importing a list of students from a txt file if the .bin file is not found.
+ * Added an import button to manually import a student txt file.
+ * Added a form closing event handler to still confirm closing if the user presses the X button to close the form instead of the exit button.
  * 
  */
 
@@ -64,9 +70,12 @@ using System.Reflection;
 namespace Maintain_Student_Scores_John_Moreau
 {
     /// <summary>
-    /// Windows form app for maintaining a record of student scores.
-    /// Allows adding, updating, and deleting student records.
-    /// Allows exporting to Txt and Csv format.
+    /// Windows form app for maintaining a record of student scores. <br></br>
+    /// Features: <br></br> 
+    /// 1) Adding, updating, and deleting student records. <br></br>
+    /// 2) Exporting to Txt and Csv format. <br></br>
+    /// 3) Importing a list of students from a txt file. <br></br>
+    /// 4) Saving and automatic loading from a bin file.
     /// </summary>
     public partial class FormMainStudentScores : Form
     {
@@ -79,12 +88,11 @@ namespace Maintain_Student_Scores_John_Moreau
             InitializeComponent();
         }
 
-        // LOAD FORM //
+        // FORM LOAD //
         /// <summary>
         /// 1) Show about box <br></br>
-        /// 2) Load the student scores from either a txt file or bin file <br></br>
+        /// 2) Load the student scores from either an initial txt file or bin file if present <br></br>
         /// 3) Load the top student record <br></br>
-        /// 4) Load ExportFileType settings <br></br>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -93,16 +101,24 @@ namespace Maintain_Student_Scores_John_Moreau
             new AboutBox().ShowDialog();
             StudentDB.LoadStudentScores(listBoxStudents.Items, ref ChangesMade);
             TopStudentRecord.GetTopStudent(labelTopStudentNameTxt, labelTopStudentAverageTxt);
-            ComBoxExportFileType.SelectedItem = Properties.Settings.Default.ExportFileType;
         }
 
         // EXIT BUTTON //
+        /// <summary>
+        /// Exit button, will trigger the Form Closing event handler which will check if any changes were made and alert the user to save before exiting.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        // Handle the closing event incase the user presses the X button to close the form instead of exit
+        /// <summary>
+        /// Handle the closing event incase the user presses the X button to close the form instead of exit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormMainStudentScores_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (ChangesMade == false)
@@ -119,6 +135,11 @@ namespace Maintain_Student_Scores_John_Moreau
         }
 
         // ADD STUDENT BUTTON //
+        /// <summary>
+        /// Allows adding a student to the list.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonAddStudent_Click(object sender, EventArgs e)
         {
             // Create new add Student Form
@@ -143,6 +164,11 @@ namespace Maintain_Student_Scores_John_Moreau
         }
 
         // UPDATE STUDENT BUTTON //
+        /// <summary>
+        /// Allows updating a student in the list.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
 
@@ -186,6 +212,11 @@ namespace Maintain_Student_Scores_John_Moreau
         }
 
         // DELETE BUTTON //
+        /// <summary>
+        /// Allows deleting a student from the list.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             // Make sure we selected a student
@@ -217,6 +248,11 @@ namespace Maintain_Student_Scores_John_Moreau
         }
 
         // FIND TOP STUDENT BUTTON //
+        /// <summary>
+        /// Sets the list box selected index to the index of the current top student.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonFindTopStudent_Click(object sender, EventArgs e)
         {
             // Make sure the top student has been found and an index has been saved
@@ -229,6 +265,11 @@ namespace Maintain_Student_Scores_John_Moreau
         }
 
         // Students List Box Index Changed Event //
+        /// <summary>
+        /// Sets or resets the labels based on the currently selected index of the list box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listBoxStudents_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Check for nothing selected
@@ -254,12 +295,27 @@ namespace Maintain_Student_Scores_John_Moreau
         }
 
         // SAVE BUTTON //
+        /// <summary>
+        /// Saves the student list to a binary file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            StudentDB.SaveStudentScores(ref ChangesMade);
+            if (listBoxStudents.Items.Count < 1)
+            {
+                MessageBox.Show("Nothing to save!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            StudentDB.SaveStudentScoresBin(ref ChangesMade);
         }
 
         // EXPORT BUTTON //
+        /// <summary>
+        /// Exports the student list as a txt or csv file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonExport_Click(object sender, EventArgs e)
         {
             if (listBoxStudents.Items.Count <= 0)
@@ -267,26 +323,34 @@ namespace Maintain_Student_Scores_John_Moreau
                 MessageBox.Show("Nothing to export!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            // Save the default export file type to settings
-            Properties.Settings.Default.ExportFileType = ComBoxExportFileType.SelectedItem.ToString();
-            Properties.Settings.Default.Save();
-
-            if (ComBoxExportFileType.Text == ".txt")
-            {
-                StudentDB.ExportStudentsTxtFile();
-                return;
-            }
-            
-            if (ComBoxExportFileType.Text == ".csv")
-            {
-                StudentDB.ExportStudentsCsv();                
-                return;
-            }
-            
-
+            StudentDB.ExportStudentFile();
         }
 
-
+        // IMPORT BUTTON //
+        /// <summary>
+        /// Imports a txt file to add to the student list.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonImport_Click(object sender, EventArgs e)
+        {
+            if (ChangesMade == true)
+            {
+                DialogResult dialogResult = MessageBox.Show("You have unsaved changes, are you sure you want to import?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (dialogResult != DialogResult.Yes)
+                {
+                    return;
+                }
+            }
+            if (listBoxStudents.Items.Count > 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("Importing will overwrite all current data, continue?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (dialogResult != DialogResult.OK)
+                {
+                    return;
+                }
+            }
+            StudentDB.ImportStudentTxtFile(listBoxStudents.Items, ref ChangesMade);
+        }
     }
 }

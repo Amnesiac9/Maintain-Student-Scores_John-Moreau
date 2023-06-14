@@ -40,6 +40,8 @@ namespace Maintain_Student_Scores_John_Moreau
 
         public void Sort() => studentList.Sort();
 
+        public void Clear() => studentList.Clear();
+
         public IEnumerator<Student> GetEnumerator() => studentList.GetEnumerator();
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => studentList.GetEnumerator();

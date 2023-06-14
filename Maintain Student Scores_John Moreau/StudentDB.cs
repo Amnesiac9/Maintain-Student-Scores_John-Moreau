@@ -7,6 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 /* 
  * John Moreau
@@ -25,87 +26,136 @@ namespace Maintain_Student_Scores_John_Moreau
     {
 
         // Global list of students
-        //public static List<Student> StudentList = new List<Student>();
         public static StudentList studentList = new StudentList();
 
         // Global file to save scores
         public static string fileSavePathBin = "StudentScores.bin";
 
 
-
         /// <summary>
-        /// Function to load the initial student list from a txt file.
-        /// Called when the form is loaded if the bin file does not exist.
+        ///  Function to load the student scores from a bin file (or create the file if it doesn't exist).
+        ///  Will load initial students from a text file if the bin file doesn't exist.
         /// </summary>
         /// <param name="listBoxStudents"></param>
         /// <param name="ChangesMade"></param>
-        /// Pre: A listbox with student names and scores, and a bool to track changes.
-        /// Post: List box is populated with student names and scores, and changesmade is set to true
-        public static void LoadStudentsTxtFile(ListBox.ObjectCollection listBoxStudents, ref bool ChangesMade)
+        /// Pre: none
+        /// Post: student scores are loaded from a binary file into the list box
+        public static void LoadStudentScores(ListBox.ObjectCollection listBoxStudents, ref bool ChangesMade) // Load from Binary
         {
-            string fileSavePathTxt = "StudentScores.txt";
 
-            if (!File.Exists(fileSavePathTxt))
+            // Make sure it exists
+            if (!File.Exists(fileSavePathBin))
             {
-                MessageBox.Show("Error reading StudentScores.txt File.", "Error");
+                // Ask if the user wants to import from a text file
+                DialogResult dialogResult = MessageBox.Show("The student list is empty. Would you like to load from a StudentScores.txt?", "Initial Load", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult != DialogResult.Yes)
+                {
+                    return;
+                }
+
+                ImportStudentTxtFile(listBoxStudents, ref ChangesMade);
                 return;
             }
 
+            // If we have a bin file, load it
             try
             {
-                string[] students = File.ReadAllLines(fileSavePathTxt);
+                // Open file stream
+                using (FileStream stream = new FileStream(fileSavePathBin, FileMode.Open))
+                {
+                    // Create new binary formatter to convert to bin
+                    // https://stackoverflow.com/questions/32108996/deserialize-object-from-binary-file
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    // deserialize and cast to a student list which includes their scores.
+                    studentList = (StudentList)formatter.Deserialize(stream);
+                }
+
+                // Clear list box and add each student to the list box
+                //listBoxStudents.Clear();
+                foreach (Student student in studentList)
+                {
+                    listBoxStudents.Add(student.ToString());
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Error opening StudentScores.bin", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        /// <summary>
+        /// Loads a text file of student scores into the list box and populates the internal student list.
+        /// </summary>
+        /// <param name="listBoxStudents"></param>
+        /// <param name="ChangesMade"></param>
+        /// Pre: User clicks import button on main form
+        /// Post: Student scores are loaded from a text file into the list box and internal student list
+        public static void ImportStudentTxtFile(ListBox.ObjectCollection listBoxStudents, ref bool ChangesMade)
+        {
+
+            string fileLoadPathTxt = "StudentScores.txt";
+
+            // Open a file selection dialog
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = System.IO.Directory.GetCurrentDirectory();
+            openFileDialog.Filter = "txt files (*.txt)|*.txt";
+
+            // If user doesn't select a file, return
+            if (!(openFileDialog.ShowDialog() == DialogResult.OK))
+            {
+                return;
+            }
+
+            // Read the file, and load it into a list.
+            try
+            {
+                string[] students = File.ReadAllLines(fileLoadPathTxt);
+
+                StudentList newStudentList = new StudentList();
 
                 foreach (string student in students)
                 {
-                    listBoxStudents.Add(student);
+                    string[] currentStudent = student.Split('|');
+                    if (currentStudent.Length <= 1)
+                    {
+                        Student newStudentNoScores = new Student(currentStudent[0]);
+                        newStudentList.Add(newStudentNoScores);
+                        // We have no scores, so skip to the next student
+                        continue;
+                    }
+
+                    // Create an int array to hold the parsed scores, -1 because we already took out the name
+                    int[] newScoresArray = new int[currentStudent.Length - 1];
+
+                    for (int i = 1; i < currentStudent.Length; ++i)
+                    {
+                        if (int.TryParse(currentStudent[i], out int score))
+                        {
+                            newScoresArray[i - 1] = score;
+                        }
+                    }
+
+                    // Create new student with scores and add to the list
+                    Student newStudent = new Student(currentStudent[0], new Scores(newScoresArray));
+                    newStudentList.Add(newStudent);
                 }
 
+                // Load the new list into the list box
+                listBoxStudents.Clear();
+                foreach (Student student in newStudentList)
+                {
+                    listBoxStudents.Add(student.ToString());
+                }
+
+                // Set our old student list to the new student list.
+                studentList = newStudentList;
+                studentList.Sort();
                 ChangesMade = true;
             }
             catch
             {
-                MessageBox.Show("Error reading StudentScores.txt File.", "Error");
-            }
-            
-        }
-
-        /// <summary>
-        /// Function to generate our list from the initial default ListBox.
-        /// Called when transferring data from the ListBox to Student Objects.
-        /// </summary>
-        /// <param name="listBoxStudents"></param>
-        /// Pre: a listbox with student names and scores
-        /// Post: a list of students with names and scores as objects
-
-        public static void SplitNamesAndScoresToList(ListBox.ObjectCollection listBoxStudents)
-        {
-
-
-            foreach (string student in listBoxStudents)
-            {
-                string[] currentStudent = student.Split('|');
-                if (currentStudent.Length <= 1)
-                {
-                    Student newStudentNoScores = new Student(currentStudent[0]);
-                    studentList.Add(newStudentNoScores);
-                    // We have no scores, so skip to the next student
-                    continue;
-                }
-
-                // Create an int array to hold the parsed scores, -1 because we already took out the name
-                int[] newScoresArray = new int[currentStudent.Length - 1];
-
-                for (int i = 1; i < currentStudent.Length; ++i)
-                {
-                    if (int.TryParse(currentStudent[i], out int score))
-                    {
-                        newScoresArray[i - 1] = score;
-                    }
-                }
-
-                // Create new student with scores and add to the list
-                Student newStudent = new Student(currentStudent[0], new Scores(newScoresArray));
-                studentList.Add(newStudent);
+                MessageBox.Show("Error reading txt File.", "Error");
             }
         }
 
@@ -115,7 +165,7 @@ namespace Maintain_Student_Scores_John_Moreau
         /// <param name="ChangesMade"></param>
         /// Pre: A ref to a ChangesMade bool to set to false if successful.
         /// Post: The student scores are serlialized from the list and saved to a bin file.
-        public static void SaveStudentScores(ref bool ChangesMade)
+        public static void SaveStudentScoresBin(ref bool ChangesMade)
         {
             // Serialize the StudentList to a binary file.
             // https://www.codeproject.com/questions/500398/saveplusfileplusinplusbinaryplususingplusc-23
@@ -136,52 +186,36 @@ namespace Maintain_Student_Scores_John_Moreau
 
         }
 
+
         /// <summary>
-        ///  Function to load the student scores from a bin file (or create the file if it doesn't exist).
-        ///  Will load initial students from a text file if the bin file doesn't exist.
+        /// Function to export the student list to a text or csv file. Opens a dialogue to select a save path. Called when the user clicks the export button.
         /// </summary>
-        /// <param name="listBoxStudents"></param>
-        /// <param name="ChangesMade"></param>
-        /// Pre: none
-        /// Post: student scores are loaded from a binary file into the list box
-        public static void LoadStudentScores(ListBox.ObjectCollection listBoxStudents, ref bool ChangesMade) // Load from Binary
+        /// Pre: Student records to save.
+        /// Post: A txt or csv file is created with those records.
+        public static void ExportStudentFile()
         {
-
-            // Make sure it exists
-            if (!File.Exists(fileSavePathBin))
+            // Ask the user where to save the file
+            // Source: https://learn.microsoft.com/en-us/dotnet/desktop/winforms/controls/how-to-save-files-using-the-savefiledialog-component?view=netframeworkdesktop-4.8
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.FileName = "StudentScoresExport";
+            saveFileDialog.Title = "Save File";
+            saveFileDialog.Filter = "Text File | *.txt|CSV File | *.csv";
+            saveFileDialog.InitialDirectory = System.IO.Directory.GetCurrentDirectory();
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                // Load a text file that contains the student scores into the listboxStudents.Items
-                LoadStudentsTxtFile(listBoxStudents, ref ChangesMade);
-                // Load the intial strings from the list box to our List of students
-                SplitNamesAndScoresToList(listBoxStudents); // TODO: Read this from text file instead
-                //SaveStudentScores();
-                return;
-            }
-            try
-            {
-                // Open file stream
-                using (FileStream stream = new FileStream(fileSavePathBin, FileMode.Open))
+                // 1 based index. *Eye Roll*
+                if (saveFileDialog.FilterIndex == 1) //ComBoxExportFileType.Text == ".txt")
                 {
-                    // Create new binary formatter to convert to bin
-                    // https://stackoverflow.com/questions/32108996/deserialize-object-from-binary-file
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    // deserialize and cast to a student list which includes their scores.
-                    studentList = (StudentList)formatter.Deserialize(stream);
+                    ExportStudentsTxtFile(saveFileDialog.FileName);
+                    return;
                 }
 
-                // Clear list box and add each student to the list box
-                //listBoxStudents.Clear();
-
-                foreach (Student student in studentList)
+                if (saveFileDialog.FilterIndex == 2)//ComBoxExportFileType.Text == ".csv")
                 {
-                    listBoxStudents.Add(student.ToString());
+                    ExportStudentsCsv(saveFileDialog.FileName);
+                    return;
                 }
             }
-            catch
-            {
-                MessageBox.Show("Error opening StudentScores.bin", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
         }
 
         /// <summary>
@@ -189,9 +223,9 @@ namespace Maintain_Student_Scores_John_Moreau
         /// </summary>
         /// Pre: User clicks export
         /// Post: A formatted text file is created in the root directory.
-        public static void ExportStudentsTxtFile()
+        public static void ExportStudentsTxtFile(string fileSavePathTxt)
         {
-            string fileSavePathTxt = "StudentScoresExport.txt";
+            //string fileSavePathTxt = "StudentScoresExport.txt";
             int namePad = 25;
             int scoresPad = 50;
             int totalPad = 11;
@@ -260,9 +294,9 @@ namespace Maintain_Student_Scores_John_Moreau
         /// </summary>
         /// Pre: User clicks export
         /// Post: A formatted Csv file is created in the root directory.
-        public static void ExportStudentsCsv()
+        public static void ExportStudentsCsv(string fileSavePathTxt)
         {
-            string fileSavePathTxt = "StudentScoresExport.csv";
+            //string fileSavePathTxt = "StudentScoresExport.csv";
 
             int counter = 1;
             while (File.Exists(fileSavePathTxt))
