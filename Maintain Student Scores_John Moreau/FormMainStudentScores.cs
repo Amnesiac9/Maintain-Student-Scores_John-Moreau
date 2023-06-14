@@ -16,7 +16,7 @@ using System.Reflection;
 /* 
  * John Moreau
  * CSS133
- * 5/24/2023
+ * 6/7/2023
  * 
  * Windows form app for maintaining a record of student scores.
  * 
@@ -26,53 +26,120 @@ using System.Reflection;
  * Writing to a binary file: https://www.codeproject.com/questions/500398/saveplusfileplusinplusbinaryplususingplusc-23
  * https://stackoverflow.com/questions/19432468/how-do-i-read-write-binary-files-in-c
  * https://stackoverflow.com/questions/32108996/deserialize-object-from-binary-file
+ * Adding leading zeros to student id: https://stackoverflow.com/questions/3459610/pad-with-leading-zeros
+ * Keydown event: https://stackoverflow.com/questions/2474397/hotkey-to-button-in-c-sharp-windows-application
+ * Load and Save with windows file dialog: https://learn.microsoft.com/en-us/dotnet/desktop/winforms/controls/how-to-save-files-using-the-savefiledialog-component?view=netframeworkdesktop-4.8
+ * Get working directory: https://stackoverflow.com/questions/21726088/how-to-get-current-working-directory-path-c
+ * Building strings: https://learn.microsoft.com/en-us/dotnet/api/system.string.format?view=net-7.0
+ * 
+ * 
+ * Change Log:
+ * 
+ * 5/31/23
+ * Switched to using serializable classes for students and their scores.
+ * Added a Scores class to hold the scores and calculate the average, min, max, etc.
+ * Added a Student class to hold a student's name, scores, and date of record creation.
+ * Added a TOP student class to hold the top student.
+ * Added a Top Student button to find the index of the current top student.
+ * Added new label showing when a student record was first created.
+ * Added student ID to the student class with a ranom 9 digit number.
+ * 
+ * 6/4/23, 6/5/23, 6/6/23
+ * Added the validator class to validate user input.
+ * Added a save button so saving is not automatic.
+ * Added a try/catch to the save button to catch any errors saving to a binary file.
+ * Added StudentDB class to handle holding, saving and loading student data.
+ * Now loads the intital students from a text file if the .bin file is not found.
+ * Moved the GetTopStudent method to TopStudentRecord class.
+ * Created a StudentList class to hold a list of students that auto sorts when a new student is added.
+ * Added a FirstName and LastName property to the Student class to allow sorting by last name.
+ * Added code to handle middle names or names with spaces to allow sorting by the last name.
+ * Now asks to confirm exiting if changes were made to the student records.
+ * Added ability to export to a TXT or CSV file.
+ * Added Alt+X shortcut to close most forms and dialogs per instructions.
+ * Added accesibility descriptions to all controls.
+ * Added focus to the add score field when focus targets the score text box in the Add Student form.
+ * Returned focus to the OK button when the focus leaves the score Text Box in the Add Student form.
+ * Added an import dialog on startup to allow importing a list of students from a txt file if the .bin file is not found.
+ * Added an import button to manually import a student txt file.
+ * Added a form closing event handler to still confirm closing if the user presses the X button to close the form instead of the exit button.
  * 
  */
 
 
-
 namespace Maintain_Student_Scores_John_Moreau
 {
+    /// <summary>
+    /// Windows form app for maintaining a record of student scores. <br></br>
+    /// Features: <br></br> 
+    /// 1) Adding, updating, and deleting student records. <br></br>
+    /// 2) Exporting to Txt and Csv format. <br></br>
+    /// 3) Importing a list of students from a txt file. <br></br>
+    /// 4) Saving and automatic loading from a bin file.
+    /// </summary>
     public partial class FormMainStudentScores : Form
     {
+
+        // Bool to track if changes have been made to the students list
+        private static bool ChangesMade = false;
 
         public FormMainStudentScores()
         {
             InitializeComponent();
         }
 
-        // Global file to save scores
-        public static string fileSavePath = "StudentScores.bin";
-        // Global index of the top student
-        int topStudentIndex;
-
-        private void CreatorIntro()
-        {
-            // Show about template
-            var aboutBox = new AboutBox();
-            aboutBox.ShowDialog();
-
-
-            //MessageBox.Show("Creator: John Moreau\n\n" +
-            //    "About: This program was created for Robin Greene's C# Class at WWCC.\n\n" +
-            //    "Description: Save and manage a record of student names and scores.\n\n" +
-            //    "Version: 1.0\n", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
+        // FORM LOAD //
+        /// <summary>
+        /// 1) Show about box <br></br>
+        /// 2) Load the student scores from either an initial txt file or bin file if present <br></br>
+        /// 3) Load the top student record <br></br>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FormMain_Load(object sender, EventArgs e)
         {
-            CreatorIntro();
-            LoadStudentScores();
-            GetTopStudent();
+            new AboutBox().ShowDialog();
+            StudentDB.LoadStudentScores(listBoxStudents.Items, ref ChangesMade);
+            TopStudentRecord.GetTopStudent(labelTopStudentNameTxt, labelTopStudentAverageTxt);
         }
 
         // EXIT BUTTON //
+        /// <summary>
+        /// Exit button, will trigger the Form Closing event handler which will check if any changes were made and alert the user to save before exiting.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonExit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Handle the closing event incase the user presses the X button to close the form instead of exit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FormMainStudentScores_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (ChangesMade == false)
+            {
+                return;
+            }
+            // Show message box to confirm exit
+            DialogResult result = MessageBox.Show("Are you sure you want to exit without saving?", "Unsaved changes", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if (result == DialogResult.No)
+            {
+                // Cancel the close event
+                e.Cancel = true;
+            }
+        }
+
         // ADD STUDENT BUTTON //
+        /// <summary>
+        /// Allows adding a student to the list.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonAddStudent_Click(object sender, EventArgs e)
         {
             // Create new add Student Form
@@ -86,15 +153,22 @@ namespace Maintain_Student_Scores_John_Moreau
             {
                 // Add the student string passed back in the tag from the add student form.
                 // Source: Chapter 10 of the Murach's C# book.
-                listBoxStudents.Items.Add(formAddStudent.Tag.ToString());
-                SaveStudentScores();
-                GetTopStudent();
-            }
+                Student newStudent = new Student(formAddStudent.Tag.ToString());
+                StudentDB.studentList.Add(newStudent);
+                int newStudentIndex = StudentDB.studentList.IndexOf(newStudent);
+                listBoxStudents.Items.Insert(newStudentIndex, formAddStudent.Tag.ToString());
 
-            
+                TopStudentRecord.GetTopStudent(labelTopStudentNameTxt, labelTopStudentAverageTxt);
+                ChangesMade = true;
+            }
         }
 
         // UPDATE STUDENT BUTTON //
+        /// <summary>
+        /// Allows updating a student in the list.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
 
@@ -105,41 +179,51 @@ namespace Maintain_Student_Scores_John_Moreau
 
             // Get the index of selected student
             int studentIndex = listBoxStudents.SelectedIndex;
+            // Get selected Student
+            Student selectedStudent = StudentDB.studentList[studentIndex];
 
             // Create new update Student Form
-            var formUpdateStudent = new FormUpdateStudentScores(); 
-
-            // Pass the selected data to the new form
-            formUpdateStudent.GetStudentData(listBoxStudents.SelectedItem.ToString());
-
+            var formUpdateStudent = new FormUpdateStudent(); 
+            // Pass the selected student to the new form 
+            // No reason to use a clone here, sending the selected student this way already makes a copy in memory.
+            formUpdateStudent.GetStudentData(selectedStudent);
             // Await dialog Result
-            DialogResult dialogResult = formUpdateStudent.ShowDialog();
+            DialogResult dialogResult = formUpdateStudent.ShowDialog(); 
 
             if (dialogResult == DialogResult.OK && formUpdateStudent.Tag != null)
             {
-                // Add the student string passed in the tag from the add student form.
-                // Source: Chapter 10 of the Murach's C# book.
-                string updatedStudent = formUpdateStudent.Tag.ToString();
+                // Cast returned tag as a Student object, set the original selected student to = the returned object.
+                selectedStudent = (Student)formUpdateStudent.Tag;
+                StudentDB.studentList.Sort();
+                int newStudentIndex = StudentDB.studentList.IndexOf(selectedStudent);
+
+                // Remove at the originally selected index
+                listBoxStudents.Items.RemoveAt(studentIndex);
+                // Insert into the listbox at the new student index now that the list is sorted.
+                listBoxStudents.Items.Insert(newStudentIndex, selectedStudent.ToString()); 
                 
-                listBoxStudents.Items.RemoveAt(studentIndex); // Remove at the originally selected index
-                listBoxStudents.Items.Insert(studentIndex, updatedStudent); // Update at index
-                SaveStudentScores(); // Save scores to bin
+
+                TopStudentRecord.GetTopStudent(labelTopStudentNameTxt, labelTopStudentAverageTxt);
+                ChangesMade = true;
             }
 
             listBoxStudents.SelectedIndex = studentIndex;
-            GetTopStudent();
-
+            
         }
 
         // DELETE BUTTON //
+        /// <summary>
+        /// Allows deleting a student from the list.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-
+            // Make sure we selected a student
             if (listBoxStudents.SelectedItem == null)
             {
                 return;
             }
-
 
             // Show a warning message before deleting students
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete this student?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
@@ -150,204 +234,123 @@ namespace Maintain_Student_Scores_John_Moreau
                 return;
             }
 
+            int selectedIndex = listBoxStudents.SelectedIndex;
             // Remove the selected item
-            listBoxStudents.Items.RemoveAt(listBoxStudents.SelectedIndex);
-            // Save scores to bin
-            SaveStudentScores();
-            GetTopStudent();
+            listBoxStudents.Items.RemoveAt(selectedIndex);
+            // Remove item from our list
+            StudentDB.studentList.RemoveAt(selectedIndex);
+
+            // Set our selected index to the previous item in the list
+            listBoxStudents.SelectedIndex = selectedIndex - 1;
+
+            TopStudentRecord.GetTopStudent(labelTopStudentNameTxt, labelTopStudentAverageTxt);
+            ChangesMade = true;
         }
 
-        // Find top student button //
+        // FIND TOP STUDENT BUTTON //
+        /// <summary>
+        /// Sets the list box selected index to the index of the current top student.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonFindTopStudent_Click(object sender, EventArgs e)
         {
             // Make sure the top student has been found and an index has been saved
-            if (labelTopStudentNameTxt.Text == "" || topStudentIndex < 0)
+            if (labelTopStudentNameTxt.Text == "")
             {
                 return;
             }
             // Set the selected index to the top student index
-            listBoxStudents.SelectedIndex = topStudentIndex;
+            listBoxStudents.SelectedIndex = TopStudentRecord.TopStudentIndex;
         }
 
-
-
-
-        // Helper Functions //
-        public void LoadStudentScores() // Load from Binary
-        {
-           
-            // Make sure it exists
-            if (!File.Exists(fileSavePath))
-            {
-                // If not, create it.
-                SaveStudentScores();
-                //MessageBox.Show("Error loading student scores", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // Load the contents of the file into an array of strings
-            string[] studentScores; // Using a simple array of strings this time.
-
-            // Open file stream
-            using (FileStream stream = new FileStream(fileSavePath, FileMode.Open))
-            {
-                // Create new binary formatter to convert to bin
-                // https://stackoverflow.com/questions/32108996/deserialize-object-from-binary-file
-                BinaryFormatter formatter = new BinaryFormatter();
-                // deserialize and cast to the student scores string[]
-                // Need to put (string[]) here because formatter will return an object but we want a string[]
-                studentScores = (string[])formatter.Deserialize(stream);
-            }
-
-            // Clear list box and add each student to the list box
-            this.listBoxStudents.Items.Clear();
-
-            foreach (string student in studentScores)
-            {
-                listBoxStudents.Items.Add(student);
-            }
-
-        }
-
-        public void SaveStudentScores()
-        {   
-            // Create a new string array with the same size as our list box
-            string[] studentScores = new string[listBoxStudents.Items.Count];
-
-            // Loop through each item in our list box and add to array.
-            for (int i = 0; i < listBoxStudents.Items.Count; i++)
-            {
-                studentScores[i] = listBoxStudents.Items[i].ToString();
-            }
-
-            // Serialize to a binary file.
-            // https://www.codeproject.com/questions/500398/saveplusfileplusinplusbinaryplususingplusc-23
-            using (FileStream stream = new FileStream(fileSavePath, FileMode.Create))
-            {
-                BinaryFormatter formatter = new BinaryFormatter(); // IDK why it wouldn't let me do a "using" here, doesn't need to be disposed of?
-                formatter.Serialize(stream, studentScores);    
-            }
-
-        }
-
+        // Students List Box Index Changed Event //
+        /// <summary>
+        /// Sets or resets the labels based on the currently selected index of the list box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listBoxStudents_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Check for nothing selected
             if (listBoxStudents.SelectedItem == null)
             {
-                // Reset labels
+                // Clear labels
                 labelScoreTotalTxt.Text = "";
                 labelScoreCountTxt.Text = "";
                 labelAverageTxt.Text = "";
                 return;
             }
 
-            // Pull Student String and split into an array
-            string[] currentStudent = listBoxStudents.SelectedItem.ToString().Split('|'); // No idea why you have to use '' here
+            // Get the currently selected student
+            Student selectedStudent = StudentDB.studentList[listBoxStudents.SelectedIndex];
 
-            // Check if we have any scores to calculate
-            if (currentStudent.Length <= 1)
-            {
-                labelScoreTotalTxt.Text = "0";
-                labelScoreCountTxt.Text = "0";
-                labelAverageTxt.Text = "0";
-                return;
-            }
+            // Set the labels
+            labelScoreCountTxt.Text = selectedStudent.StudentScores.Count.ToString();
+            labelScoreTotalTxt.Text = selectedStudent.StudentScores.Total.ToString();
+            labelAverageTxt.Text = selectedStudent.StudentScores.Average.ToString();
+            labelRecordCreationDateTxt.Text = selectedStudent.RecordStartDate.ToString();
+            labelSelectedStudentIdText.Text = selectedStudent.StudentId;
 
-            // Get our numbers
-            // Score count is just the student length minus one since we exclude the name part of the array
-            int scoreCount = currentStudent.Length - 1;
-
-            // Add up the total from the name onwards
-            int scoreTotal = 0;
-            for (int i = 1; i < currentStudent.Length; ++i)
-            {
-                // Make sure it's a number
-                if (int.TryParse(currentStudent[i], out int score))
-                {
-                    scoreTotal += score;
-                }
-            }
-
-            // Calculate average
-            int scoreAverage = scoreTotal / scoreCount;
-
-            // Update Labels
-            labelScoreTotalTxt.Text = scoreTotal.ToString();
-            labelScoreCountTxt.Text = scoreCount.ToString();
-            labelAverageTxt.Text = scoreAverage.ToString();
         }
 
-        // This could get improved to only call if the current best is deleted or beaten by a new or updated student
-        private void GetTopStudent() 
+        // SAVE BUTTON //
+        /// <summary>
+        /// Saves the student list to a binary file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonSave_Click(object sender, EventArgs e)
         {
-
-            // Make sure we have students listed.
-            if (listBoxStudents.Items == null)
+            if (listBoxStudents.Items.Count < 1)
             {
+                MessageBox.Show("Nothing to save!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            // Variables
-            string bestStudent = "";
-            int bestStudentAverage = 0;
-            int bestStudentTotal = 0;
-            int index = 0;
-
-            // Loop through list box items
-            foreach(string student in listBoxStudents.Items)
-            {
-                // Pull Student String and split into an array
-                string[] currentStudent = student.Split('|');
-
-                // Check if we have any scores to calculate
-                if (currentStudent.Length <= 1)
-                {
-                    // Increment our index to keep track
-                    index++;
-                    // Skip to next loop iteration if the current student didn't have any scores
-                    continue;
-                }
-
-                // Get our numbers
-                // Score count is just the student length minus one since we exclude the name part of the array
-                int scoreCount = currentStudent.Length - 1;
-
-                // Add up the total from the name onwards
-                int scoreTotal = 0;
-                for (int i = 1; i < currentStudent.Length; ++i)
-                {
-                    if (int.TryParse(currentStudent[i], out int score))
-                    {
-                        scoreTotal += score;
-                    }
-                }
-
-
-                int scoreAverage = scoreTotal / scoreCount;
-
-                // Check if this is our best
-                if (scoreAverage > bestStudentAverage || 
-                    // Also check if they are equal, then the best score wins
-                   (scoreAverage == bestStudentAverage && scoreTotal > bestStudentTotal))
-                {
-                    bestStudentTotal = scoreTotal;
-                    bestStudentAverage = scoreAverage;
-                    bestStudent = currentStudent[0];
-                    topStudentIndex = index;
-                }
-
-
-                // Increment our index to keep track
-                index++;
-            }
-
-            // Set labels
-            labelTopStudentNameTxt.Text = bestStudent;
-            labelTopStudentAverageTxt.Text = bestStudentAverage.ToString();
-
+            StudentDB.SaveStudentScoresBin(ref ChangesMade);
         }
 
+        // EXPORT BUTTON //
+        /// <summary>
+        /// Exports the student list as a txt or csv file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonExport_Click(object sender, EventArgs e)
+        {
+            if (listBoxStudents.Items.Count <= 0)
+            {
+                MessageBox.Show("Nothing to export!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            StudentDB.ExportStudentFile();
+        }
 
+        // IMPORT BUTTON //
+        /// <summary>
+        /// Imports a txt file to add to the student list.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonImport_Click(object sender, EventArgs e)
+        {
+            if (ChangesMade == true)
+            {
+                DialogResult dialogResult = MessageBox.Show("You have unsaved changes, are you sure you want to import?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (dialogResult != DialogResult.Yes)
+                {
+                    return;
+                }
+            }
+            if (listBoxStudents.Items.Count > 0)
+            {
+                DialogResult dialogResult = MessageBox.Show("Importing will overwrite all current data, continue?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (dialogResult != DialogResult.OK)
+                {
+                    return;
+                }
+            }
+            StudentDB.ImportStudentTxtFile(listBoxStudents.Items, ref ChangesMade);
+        }
     }
 }

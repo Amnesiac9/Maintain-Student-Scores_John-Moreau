@@ -13,56 +13,82 @@ using System.Windows.Forms;
 /* 
  * John Moreau
  * CSS133
- * 5/12/2023
+ * 6/5/2023
  * 
  * 
  */
 
 namespace Maintain_Student_Scores_John_Moreau
 {
-    public partial class FormUpdateStudentScores : Form
+    /// <summary>
+    /// For for updating a student's scores and name.
+    /// Takes a student object from the main form and updates it.
+    /// Sends back the updated student object to the main form via Tag.
+    /// </summary>
+    public partial class FormUpdateStudent : Form
     {
-        public FormUpdateStudentScores()
+        public FormUpdateStudent()
         {
             InitializeComponent();
+            this.KeyDown += FormUpdateStudent_KeyDown;
         }
 
-        // Bool to check if changes were made, could put this in a method
-        bool changesMade = false;
+        private void FormUpdateStudent_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.X && e.Modifiers == Keys.Alt)
+            {
+                buttonCancel.PerformClick();
+            }
+        }
+
+        // Bool to check if changes were made
+        private bool changesMade = false;
+
+        // To hold our student being worked on
+        private static Student CurrentStudent;
 
 
         // Bring in data from main form
-        public void GetStudentData(string student)
+        /// <summary>
+        /// Takes in a student object to store it locally.
+        /// </summary>
+        /// <param name="student"></param>
+        public void GetStudentData(Student student)
         {
-            //student.Split("|");
-            string[] currentStudent = student.Split('|'); // need to use '' here???
 
             // Add the name
-            labelNameTxt.Text = currentStudent[0]; // Name
+            labelNameTxt.Text = student.Name; // Name
 
             // Add the scores starting at index 1 to skip name
-            for (int i = 1; i < currentStudent.Length; i++) 
+            for (int i = 0; i < student.StudentScores.Count; i++) 
             {
-                listBoxScores.Items.Add(currentStudent[i]);
+                listBoxScores.Items.Add(student.StudentScores.ScoresArray[i].ToString());
             }
-            
+
+            CurrentStudent = student;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            // Loop through scores list box and concat
 
-            string newStudentScores = "";
-            for (int i = 0; i < listBoxScores.Items.Count; i++)
+            // Loop through scores and add to array
+            int[] newScores = new int[listBoxScores.Items.Count];
+            for (int i = 0; i < listBoxScores.Items.Count; ++i)
             {
-                newStudentScores += "|" + listBoxScores.Items[i];
+                if(int.TryParse(listBoxScores.Items[i].ToString(), out int score))
+                {
+                    newScores[i] = score;
+                }
             }
 
-            // Concat new student with the name + scores
-            newStudentScores = labelNameTxt.Text + newStudentScores;
+            // Set the current working student's scores to the new array
+            CurrentStudent.StudentScores = new Scores(newScores);
 
-            // Set the tag to this new student string to export it back to the main form.
-            Tag = newStudentScores;
+            // Set the name in case it changed
+            CurrentStudent.Name = labelNameTxt.Text;
+
+            // Set the tag to the student to export it back to the main form.
+            Tag = CurrentStudent;
 
             // Set the result to OK to trigger this form closing and sending data back to main form.
             DialogResult = DialogResult.OK;
@@ -99,6 +125,7 @@ namespace Maintain_Student_Scores_John_Moreau
 
             // Create new update score dialogue 
             var formUpdateScore = new FormUpdateScore();
+            formUpdateScore.GetScoreData(listBoxScores.SelectedItem.ToString());
             DialogResult dialogResult = formUpdateScore.ShowDialog();
 
 
@@ -149,11 +176,18 @@ namespace Maintain_Student_Scores_John_Moreau
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
+            // Check if scores has anything in it
+            if (listBoxScores.Items.Count == 0)
+            {
+                return;
+            }
+
+
             // Create a dialog box to confirm
-            DialogResult eraseAllScores = MessageBox.Show("Are you sure you want to erase all scores?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); ;
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to erase all scores?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning); ;
             
             // Return if the answer is not OK
-            if (eraseAllScores != DialogResult.OK)
+            if (dialogResult != DialogResult.OK)
             {
                 return;
             }
@@ -166,8 +200,6 @@ namespace Maintain_Student_Scores_John_Moreau
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            
-
             if (changesMade == true)
             {
                 // Create a dialog box to confirm
@@ -183,13 +215,6 @@ namespace Maintain_Student_Scores_John_Moreau
                     return;
                 }
             }
-
-
-            // If they clicked OK then this.Close() isn't needed because they clicked cancel
-            // Which, if it is set as the Cancel Button in the form properties, will always
-            // send a DialogResult.Cancel which sends the response to the underlying form.
-            // this.Close();
-
         }
 
         private void buttonEditName_Click(object sender, EventArgs e)

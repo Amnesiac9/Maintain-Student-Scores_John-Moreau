@@ -42,6 +42,8 @@
             // 
             // textBoxName
             // 
+            this.textBoxName.AccessibleDescription = "Field to enter a student name";
+            this.textBoxName.AccessibleName = "Student Name";
             this.textBoxName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.textBoxName.Location = new System.Drawing.Point(59, 28);
             this.textBoxName.Name = "textBoxName";
@@ -50,14 +52,20 @@
             // 
             // textBoxScore
             // 
+            this.textBoxScore.AccessibleDescription = "Field to enter a score to add to the list of scores for a student";
+            this.textBoxScore.AccessibleName = "Student Score";
             this.textBoxScore.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.textBoxScore.Location = new System.Drawing.Point(59, 66);
             this.textBoxScore.Name = "textBoxScore";
             this.textBoxScore.Size = new System.Drawing.Size(90, 22);
             this.textBoxScore.TabIndex = 1;
+            this.textBoxScore.Enter += new System.EventHandler(this.textBoxScore_Enter);
+            this.textBoxScore.Leave += new System.EventHandler(this.textBoxScore_Leave);
             // 
             // buttonAddScore
             // 
+            this.buttonAddScore.AccessibleDescription = "Add a score to the new student record";
+            this.buttonAddScore.AccessibleName = "Add Score";
             this.buttonAddScore.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.buttonAddScore.Location = new System.Drawing.Point(170, 65);
             this.buttonAddScore.Name = "buttonAddScore";
@@ -69,6 +77,8 @@
             // 
             // buttonClear
             // 
+            this.buttonClear.AccessibleDescription = "A button to clear all the current scores from a new student record";
+            this.buttonClear.AccessibleName = "Clear Scores Button";
             this.buttonClear.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonClear.Location = new System.Drawing.Point(170, 145);
             this.buttonClear.Name = "buttonClear";
@@ -80,6 +90,8 @@
             // 
             // buttonOK
             // 
+            this.buttonOK.AccessibleDescription = "Submit the new student to the main form";
+            this.buttonOK.AccessibleName = "OK Button";
             this.buttonOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.Location = new System.Drawing.Point(48, 184);
@@ -92,6 +104,8 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.AccessibleDescription = "Cancel adding a new student";
+            this.buttonCancel.AccessibleName = "Cancel Button";
             this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(170, 184);
@@ -134,6 +148,8 @@
             // 
             // labelScoresTxt
             // 
+            this.labelScoresTxt.AccessibleDescription = "A list showing the scores of the new student";
+            this.labelScoresTxt.AccessibleName = "Scores List";
             this.labelScoresTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.labelScoresTxt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.labelScoresTxt.Location = new System.Drawing.Point(59, 106);
@@ -144,7 +160,7 @@
             // 
             // FormAddStudent
             // 
-            this.AcceptButton = this.buttonAddScore;
+            this.AcceptButton = this.buttonOK;
             this.AccessibleDescription = "Form for adding a new student.";
             this.AccessibleName = "New Student Form";
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -161,6 +177,7 @@
             this.Controls.Add(this.buttonAddScore);
             this.Controls.Add(this.textBoxScore);
             this.Controls.Add(this.textBoxName);
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(900, 270);
             this.MinimizeBox = false;

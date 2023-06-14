@@ -8,13 +8,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/* 
+ * John Moreau
+ * CSS133
+ * 6/5/2023
+ * 
+ */
+
 namespace Maintain_Student_Scores_John_Moreau
 {
+    /// <summary>
+    /// Simple form for adding a score. Validates range and type.
+    /// </summary>
     public partial class FormAddScore : Form
     {
         public FormAddScore()
         {
             InitializeComponent();
+            this.KeyDown += FormAddScore_KeyDown;
+        }
+
+        // Handle Alt+X to close form
+        private void FormAddScore_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.X && e.Alt)
+            {
+                buttonCancel.PerformClick();
+            }
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)

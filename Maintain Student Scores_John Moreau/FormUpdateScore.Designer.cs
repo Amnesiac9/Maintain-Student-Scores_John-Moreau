@@ -36,6 +36,8 @@
             // 
             // textBoxScore
             // 
+            this.textBoxScore.AccessibleDescription = "Score Text Box for updating a student score record.";
+            this.textBoxScore.AccessibleName = "Score Text Box";
             this.textBoxScore.Location = new System.Drawing.Point(74, 42);
             this.textBoxScore.Name = "textBoxScore";
             this.textBoxScore.Size = new System.Drawing.Size(100, 22);
@@ -52,6 +54,8 @@
             // 
             // buttonUpdate
             // 
+            this.buttonUpdate.AccessibleDescription = "Update the score";
+            this.buttonUpdate.AccessibleName = "Update Button";
             this.buttonUpdate.Location = new System.Drawing.Point(27, 86);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(75, 28);
@@ -62,12 +66,14 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.AccessibleDescription = "Cancel updating the student score";
+            this.buttonCancel.AccessibleName = "Cancel Button";
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(117, 86);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 28);
             this.buttonCancel.TabIndex = 3;
-            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.Text = "&Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
@@ -84,6 +90,7 @@
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.labeScore);
             this.Controls.Add(this.textBoxScore);
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(232, 184);
             this.MinimizeBox = false;

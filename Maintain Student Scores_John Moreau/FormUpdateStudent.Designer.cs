@@ -1,6 +1,6 @@
 ﻿namespace Maintain_Student_Scores_John_Moreau
 {
-    partial class FormUpdateStudentScores
+    partial class FormUpdateStudent
     {
         /// <summary>
         /// Required designer variable.
@@ -43,6 +43,8 @@
             // 
             // buttonAdd
             // 
+            this.buttonAdd.AccessibleDescription = "Add a score to the student\'s scores.";
+            this.buttonAdd.AccessibleName = "Add Button";
             this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAdd.Location = new System.Drawing.Point(211, 72);
             this.buttonAdd.Name = "buttonAdd";
@@ -54,6 +56,8 @@
             // 
             // listBoxScores
             // 
+            this.listBoxScores.AccessibleDescription = "A list of the current student\'s scores.";
+            this.listBoxScores.AccessibleName = "Student Scores List Box";
             this.listBoxScores.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -66,6 +70,8 @@
             // 
             // buttonUpdate
             // 
+            this.buttonUpdate.AccessibleDescription = "Button to update the currently selected score.";
+            this.buttonUpdate.AccessibleName = "Update Button";
             this.buttonUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUpdate.Location = new System.Drawing.Point(211, 112);
             this.buttonUpdate.Name = "buttonUpdate";
@@ -77,6 +83,8 @@
             // 
             // buttonRemove
             // 
+            this.buttonRemove.AccessibleDescription = "Button to remove the currently selected score.";
+            this.buttonRemove.AccessibleName = "Remove Button.";
             this.buttonRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRemove.Location = new System.Drawing.Point(211, 152);
             this.buttonRemove.Name = "buttonRemove";
@@ -88,6 +96,8 @@
             // 
             // buttonClear
             // 
+            this.buttonClear.AccessibleDescription = "Button to quickly clear all scores from the current student.";
+            this.buttonClear.AccessibleName = "Clear Scores Button.";
             this.buttonClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClear.Location = new System.Drawing.Point(211, 192);
             this.buttonClear.Name = "buttonClear";
@@ -99,6 +109,8 @@
             // 
             // buttonOK
             // 
+            this.buttonOK.AccessibleDescription = "Submit the edits to the current student record.";
+            this.buttonOK.AccessibleName = "OK Button";
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.Location = new System.Drawing.Point(91, 255);
             this.buttonOK.Name = "buttonOK";
@@ -110,6 +122,8 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.AccessibleDescription = "Cancel any changes to the current student record.";
+            this.buttonCancel.AccessibleName = "Cancel Button";
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(211, 255);
@@ -122,6 +136,8 @@
             // 
             // labelNameTxt
             // 
+            this.labelNameTxt.AccessibleDescription = "Shows the current student name";
+            this.labelNameTxt.AccessibleName = "Name Text Box";
             this.labelNameTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelNameTxt.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -150,6 +166,8 @@
             // 
             // buttonEditName
             // 
+            this.buttonEditName.AccessibleDescription = "A button to edit the student\'s name";
+            this.buttonEditName.AccessibleName = "Edit student name button";
             this.buttonEditName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonEditName.BackgroundImage = global::Maintain_Student_Scores_John_Moreau.Properties.Resources.write;
             this.buttonEditName.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
@@ -161,7 +179,7 @@
             this.buttonEditName.UseVisualStyleBackColor = true;
             this.buttonEditName.Click += new System.EventHandler(this.buttonEditName_Click);
             // 
-            // FormUpdateStudentScores
+            // FormUpdateStudent
             // 
             this.AcceptButton = this.buttonOK;
             this.AccessibleDescription = "Form for updating a student record.";
@@ -181,9 +199,10 @@
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.listBoxScores);
             this.Controls.Add(this.buttonAdd);
+            this.KeyPreview = true;
             this.MaximumSize = new System.Drawing.Size(1000, 700);
             this.MinimumSize = new System.Drawing.Size(374, 341);
-            this.Name = "FormUpdateStudentScores";
+            this.Name = "FormUpdateStudent";
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
